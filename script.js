@@ -14,6 +14,8 @@ const getTotalTime = (e) => {
     const time = `${minutes}:${seconds.padStart(2, "0")}`;
 
     $(".total-time span").text(time);
+
+    console.log('Testing Edit')
 };
 
 $(".btn").click((e) => getTotalTime(e));
