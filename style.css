@@ -14,19 +14,17 @@ body {
     font-weight: 400;
 
     color: #192124;
-    height: 216rem;
-    background: linear-gradient(
-            180deg,
-            rgba(96, 211, 148, 0.15) 0%,
-            rgba(96, 211, 148, 0.15) 10.37%,
-            rgba(93, 151, 209, 0.09) 13.07%
-        ),
-        #ffffff;
+}
+
+.bg {
+    background-image: url(assets/bg.png);
+    background-repeat: no-repeat;
 }
 
 .container {
-    max-width: 144rem;
-    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .btn {
@@ -46,15 +44,21 @@ body {
 
 /************************/
 /* HEADER */
+/************************/
+
+.nav-row {
+    width: 100%;
+    border-bottom: 1px solid rgba(19, 42, 30, 0.07);
+}
+
 .nav {
-    height: 5.2rem;
+    max-width: 144rem;
+    margin: 0 auto;
+    padding: 2.4rem 0;
     color: #132a1e;
     display: flex;
-    flex-direction: row;
     justify-content: space-around;
     align-items: center;
-
-    border-bottom: 1px solid rgba(19, 42, 30, 0.07);
 }
 
 .nav-content {
@@ -69,9 +73,13 @@ body {
 }
 
 .header {
-    height: 25rem;
+    width: 100%;
+    max-width: 144rem;
+    height: 32rem;
+    padding: 2.4rem 0;
+    margin: 0 auto;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -103,16 +111,22 @@ body {
     padding-right: 0.8rem;
 }
 
+/************************/
+/* TIMER */
+/************************/
 .main {
-    height: 40rem;
+    max-width: 144rem;
+    height: 100%;
+    margin: 0 auto 10vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
+    align-items: center;
     column-gap: 2rem;
+
+    /* position: absolute; */
 }
 
-/************************/
-/* TIMER */
 .timer {
     max-width: 50rem;
     font-weight: 500;
@@ -130,7 +144,7 @@ body {
 }
 
 .timer-time {
-    font-size: 12.8rem;
+    font-size: 15vh;
     align-self: center;
 }
 
@@ -138,6 +152,42 @@ body {
     font-size: 2rem;
     align-self: center;
 }
+/************************/
+/* FOOTER */
+/************************/
+.footer {
+    width: 100%;
+    border-top: 1px solid rgba(19, 42, 30, 0.07);
+}
+
+.footer-content {
+    padding: 2.4rem 0 6.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.footer-logos {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.4rem;
+}
+
+.footer-logo {
+    width: 2.5rem;
+}
+
+.footer-feedback {
+    margin-top: 4rem;
+}
+
+/* .test {
+    width: 200px;
+    height: 200px;
+    background-color: #475569;
+} */
 
 /* 
 - SPACING SYSTEM (px)
@@ -150,6 +200,7 @@ body {
 #fff
 #475569
 #132a1e
+#DCF4EC
 
 - LETTER SPACING
 -0.03rem
