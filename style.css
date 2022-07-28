@@ -15,7 +15,7 @@ body {
     line-height: 1;
     font-weight: 400;
 
-    color: #192124;
+    color: #132a1e;
     background-color: #f8fafc;
 }
 
@@ -42,7 +42,7 @@ body {
 
 .nav {
     padding: 1.8rem;
-    color: #132a1e;
+    color: #1e293b;
 
     display: flex;
     justify-content: space-around;
@@ -53,7 +53,7 @@ body {
 
 .nav-content {
     font-size: 1.6rem;
-    letter-spacing: 0.15rem;
+    letter-spacing: 0.25rem;
     font-weight: 500;
 }
 
@@ -88,7 +88,7 @@ body {
 .logo {
     font-weight: 500;
     font-size: 4.8rem;
-    color: #132a1e;
+    color: #1e293b;
     letter-spacing: 0.55rem;
     display: flex;
     flex-direction: column;
@@ -111,7 +111,7 @@ body {
 /************************/
 .contents {
     max-width: 144rem;
-    margin: 1.2rem auto 3.2rem;
+    margin: 1.2rem auto 5rem;
     display: grid;
     grid-template-columns: 1fr 1.5fr 1fr;
     justify-items: center;
@@ -130,27 +130,48 @@ body {
 
 .timer-clock {
     width: 450px;
+    height: 450px;
 }
 
-/* .countdown-time {
-    font-size: 16rem;
-    align-self: center;
+.timer-clock__label,
+.timer-clock__remain {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.countdown-remain {
+.timer-clock__label {
+    font-size: 14.5rem;
+}
+
+.timer-clock__remain {
     font-size: 2rem;
-    align-self: center;
-} */
+    transform: translate(-50%, -100px);
+}
 
 .timer-clock__svg {
     transform: scaleX(-1);
 }
 
 .timer-clock__circle {
-    stroke-dashoffset: 0px;
-    stroke-width: 3px;
-    stroke: #000;
     fill: none;
+}
+
+.timer-clock__path-elapsed {
+    stroke-width: 3px;
+    stroke: #dcf4ec;
+}
+
+.timer-clock__path-remaining {
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-dasharray: 200 200;
+
+    transform: rotate(90deg);
+    transform-origin: center;
+
+    stroke: #89d2a3;
 }
 
 .timer-icon {
@@ -170,7 +191,7 @@ body {
 }
 
 .ph-dots-three-outline {
-    right: 15px;
+    right: 12px;
 }
 
 .timer-btn {
@@ -179,22 +200,28 @@ body {
     font-size: 1.5rem;
     text-align: center;
     border-radius: 3px;
-    color: #fff;
-    background-color: #475569;
+    color: #f8fafc;
+    background-color: #738290;
 }
 
 .btn--pause,
 .btn--reset {
-    width: 7.4rem;
-    height: 7.4rem;
+    width: 8rem;
+    height: 8rem;
     border-radius: 50%;
 
+    font-size: 1.6rem;
+    letter-spacing: 0.25rem;
+    text-align: center;
+
     position: absolute;
-    bottom: -1.5rem;
+    bottom: -25px;
+    right: 0;
 }
 
-.btn--reset {
-    right: 0;
+.btn--pause {
+    background-color: #9d2c24;
+    left: 0;
 }
 
 /************************/
@@ -204,6 +231,8 @@ body {
     width: 100%;
     flex: 2;
     position: relative;
+
+    color: #1e293b;
 }
 
 .footer-bg {
@@ -220,36 +249,34 @@ body {
 }
 
 .footer-content {
-    width: 40rem;
+    width: 45rem;
     margin: 0 auto;
-    padding: 2.4rem 0 0;
+    padding: 2.4rem 0 4.8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 1.6rem;
     font-weight: 500;
+    letter-spacing: 0.35rem;
     border-top: 1px solid rgba(19, 42, 30, 0.07);
 }
 
 .footer-logos {
-    display: flex;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 1.6rem;
     margin-top: 2.4rem;
 }
 
 .footer-logo {
-    width: 2.5rem;
+    width: 2.6rem;
+    height: 2.6rem;
 }
 
 .footer-feedback {
     margin-top: 4rem;
 }
-
-/* .test {
-    width: 200px;
-    height: 200px;
-    background-color: #475569;
-} */
 
 /* 
 - SPACING SYSTEM (px)
@@ -260,14 +287,17 @@ body {
 
 - COLORS
 #fff
-#475569
-#132a1e
-#DCF4EC
 #EAF8F6
+#DCF4EC
+#89d2a3
+#9d2c24
+#738290
+#132a1e
+#1E293B
 
 - LETTER SPACING
 -0.03rem
-0.15rem
+0.25rem
 0.35rem
 0.55rem
 
