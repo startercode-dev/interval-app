@@ -142,11 +142,13 @@ body {
 }
 
 .timer-clock__label {
-    font-size: 14.5rem;
+    font-size: 14rem;
+    letter-spacing: 0.45rem;
 }
 
 .timer-clock__remain {
     font-size: 2rem;
+    letter-spacing: 0.25rem;
     transform: translate(-50%, -100px);
 }
 
@@ -201,7 +203,7 @@ body {
     text-align: center;
     border-radius: 3px;
     color: #f8fafc;
-    background-color: #738290;
+    background-color: #6c7b89;
 }
 
 .btn--pause,
@@ -211,7 +213,7 @@ body {
     border-radius: 50%;
 
     font-size: 1.6rem;
-    letter-spacing: 0.25rem;
+    letter-spacing: 0.15rem;
     text-align: center;
 
     position: absolute;
@@ -291,7 +293,7 @@ body {
 #DCF4EC
 #89d2a3
 #9d2c24
-#738290
+#6c7b89
 #132a1e
 #1E293B
 
@@ -299,6 +301,7 @@ body {
 -0.03rem
 0.25rem
 0.35rem
+0.45rem
 0.55rem
 
 */ ;
