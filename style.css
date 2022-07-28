@@ -9,18 +9,22 @@ html {
 }
 
 body {
+    width: 100vw;
+    height: 100vh;
     font-family: "Bai Jamjuree", sans-serif;
     line-height: 1;
     font-weight: 400;
 
     color: #192124;
-    /* background-color: rgba(218, 147, 5, 0.07); */
+    background-color: #f8fafc;
 }
 
 .container {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+
+    justify-content: space-between;
 }
 
 .hidden {
@@ -28,21 +32,23 @@ body {
 }
 
 /************************/
-/* HEADER */
+/* NAV */
 /************************/
 .nav-row {
     width: 100%;
     border-bottom: 1px solid rgba(19, 42, 30, 0.07);
+    margin-bottom: 3.2rem;
 }
 
 .nav {
-    max-width: 144rem;
-    margin: 0 auto;
-    padding: 2.4rem 0;
+    padding: 1.8rem;
     color: #132a1e;
+
     display: flex;
     justify-content: space-around;
     align-items: center;
+    max-width: 144rem;
+    margin: 0 auto;
 }
 
 .nav-content {
@@ -56,14 +62,19 @@ body {
     letter-spacing: 0.35rem;
 }
 
+/************************/
+/* HEADER */
+/************************/
 .header {
     width: 100%;
-    max-width: 144rem;
-    margin: 0 auto;
-    padding: 4rem 0;
+
     display: flex;
     justify-content: space-around;
     align-items: center;
+    max-width: 144rem;
+    margin: 0 auto;
+
+    flex: 1;
 }
 
 .line {
@@ -96,31 +107,29 @@ body {
 }
 
 /************************/
-/* TIMER */
+/* CONTENTS */
 /************************/
-.main {
+.contents {
     max-width: 144rem;
-    height: 100%;
-    margin: 0 auto;
-    padding: 3.2rem 0;
+    margin: 1.2rem auto 3.2rem;
     display: grid;
     grid-template-columns: 1fr 1.5fr 1fr;
     justify-items: center;
     align-items: center;
-    /* column-gap: 2rem; */
+
+    flex: 5;
 }
 
+/************************/
+/* TIMER */
+/************************/
 .timer {
-    width: 100%;
     font-weight: 500;
-
     position: relative;
 }
 
 .timer-clock {
-    display: flex;
-
-    width: 400px;
+    width: 450px;
 }
 
 /* .countdown-time {
@@ -146,23 +155,22 @@ body {
 
 .timer-icon {
     cursor: pointer;
-}
-
-.ph-gear,
-.ph-dots-three-bold {
-    font-size: 3.2rem;
 
     position: absolute;
+    top: 0;
 }
 
-.ph-gear {
-    top: 0;
-    left: 0;
+.ph-gear-six,
+.ph-dots-three-outline {
+    font-size: 3.2rem;
 }
 
-.ph-dots-three-bold {
-    top: 0;
-    right: 0;
+.ph-gear-six {
+    left: 2px;
+}
+
+.ph-dots-three-outline {
+    right: 15px;
 }
 
 .timer-btn {
@@ -182,14 +190,10 @@ body {
     border-radius: 50%;
 
     position: absolute;
-}
-
-.btn--pause {
-    bottom: 0;
+    bottom: -1.5rem;
 }
 
 .btn--reset {
-    bottom: 0;
     right: 0;
 }
 
@@ -198,7 +202,7 @@ body {
 /************************/
 .footer {
     width: 100%;
-
+    flex: 2;
     position: relative;
 }
 
@@ -218,7 +222,7 @@ body {
 .footer-content {
     width: 40rem;
     margin: 0 auto;
-    padding: 2.4rem 0;
+    padding: 2.4rem 0 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -239,7 +243,6 @@ body {
 
 .footer-feedback {
     margin-top: 4rem;
-    margin-bottom: 4rem;
 }
 
 /* .test {
