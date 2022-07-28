@@ -166,7 +166,7 @@ body {
 .timer-clock__path-remaining {
     stroke-width: 3px;
     stroke-linecap: round;
-    stroke-dasharray: 200 200;
+    stroke-dasharray: 190 190;
 
     transform: rotate(90deg);
     transform-origin: center;
