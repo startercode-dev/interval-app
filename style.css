@@ -9,8 +9,6 @@ html {
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
     font-family: "Bai Jamjuree", sans-serif;
     line-height: 1;
     font-weight: 400;
@@ -19,12 +17,37 @@ body {
     background-color: #f8fafc;
 }
 
+.bg-img {
+    width: 100%;
+    height: 30vh;
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    z-index: -1;
+}
+
 .container {
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
+
     display: flex;
     flex-direction: column;
 
-    justify-content: space-between;
+    position: relative;
+}
+
+.flex {
+    display: flex;
+}
+
+.grid {
+    display: grid;
+}
+
+.border {
+    border-bottom: 1px solid rgba(19, 42, 30, 0.07);
 }
 
 .hidden {
@@ -32,26 +55,36 @@ body {
 }
 
 /************************/
+/* FLEX */
+/************************/
+.container--nav {
+    flex: 0;
+}
+
+.container--banner {
+    flex: 0.5;
+}
+.container--main {
+    flex: 5;
+}
+.container--footer {
+    flex: 2;
+}
+
+/************************/
 /* NAV */
 /************************/
-.nav-row {
-    width: 100%;
-    border-bottom: 1px solid rgba(19, 42, 30, 0.07);
-    margin-bottom: 3.2rem;
-}
-
 .nav {
-    padding: 1.8rem;
+    margin: 0 5rem;
     color: #1e293b;
+    height: 6rem;
 
-    display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-    max-width: 144rem;
-    margin: 0 auto;
 }
 
-.nav-content {
+.nav-about,
+.nav-signup {
     font-size: 1.6rem;
     letter-spacing: 0.25rem;
     font-weight: 500;
@@ -63,22 +96,17 @@ body {
 }
 
 /************************/
-/* HEADER */
+/* BANNER */
 /************************/
-.header {
-    width: 100%;
+.banner {
+    margin: 3.2rem 5rem;
 
-    display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-    max-width: 144rem;
-    margin: 0 auto;
-
-    flex: 1;
 }
 
 .line {
-    width: 240px;
+    width: 24rem;
     height: 1px;
 
     background-color: #132a1e;
@@ -90,8 +118,10 @@ body {
     font-size: 4.8rem;
     color: #1e293b;
     letter-spacing: 0.55rem;
+
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 0.5rem;
 }
 
@@ -99,25 +129,30 @@ body {
     font-size: 3.6rem;
 }
 
-.logo-text {
+.logo-endorsement {
+    align-self: flex-end;
     font-size: 1.6rem;
     letter-spacing: -0.03rem;
-    align-self: flex-end;
     padding-right: 0.8rem;
 }
 
 /************************/
-/* CONTENTS */
+/* MAIN */
 /************************/
-.contents {
-    max-width: 144rem;
-    margin: 1.2rem auto 5rem;
-    display: grid;
-    grid-template-columns: 1fr 1.5fr 1fr;
-    justify-items: center;
+.main {
+    margin: 0 5rem;
+    height: 100%;
+
+    justify-content: space-between;
     align-items: center;
 
-    flex: 5;
+    flex: 4;
+}
+
+/************************/
+/* SETTINGS */
+/************************/
+.settings {
 }
 
 /************************/
@@ -227,48 +262,29 @@ body {
 }
 
 /************************/
+/* INFOS */
+/************************/
+.infos {
+}
+
+/************************/
 /* FOOTER */
 /************************/
 .footer {
-    width: 100%;
-    flex: 2;
-    position: relative;
-
+    margin: 1.6rem 5rem 0;
     color: #1e293b;
-}
-
-.footer-bg {
-    width: 100%;
-    height: 135%;
-    background-image: url(assets/bg-img.png);
-    background-size: cover;
-
-    position: absolute;
-    right: 0;
-    bottom: 0;
-
-    z-index: -1;
-}
-
-.footer-content {
-    width: 45rem;
-    margin: 0 auto;
-    padding: 2.4rem 0 4.8rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     font-size: 1.6rem;
     font-weight: 500;
-    letter-spacing: 0.35rem;
-    border-top: 1px solid rgba(19, 42, 30, 0.07);
+    letter-spacing: 0.25rem;
+
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
 }
 
 .footer-logos {
-    display: grid;
     grid-template-columns: repeat(5, 1fr);
-
     gap: 1.6rem;
-    margin-top: 2.4rem;
 }
 
 .footer-logo {
@@ -277,7 +293,16 @@ body {
 }
 
 .footer-feedback {
-    margin-top: 4rem;
+    margin-top: 0.8rem;
+    padding-bottom: 3.2rem;
+}
+
+.line--footer {
+    width: 20rem;
+    height: 1px;
+
+    background-color: rgba(30, 41, 59, 0.1);
+    border-radius: 100px;
 }
 
 /* 
