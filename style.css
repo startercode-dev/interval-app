@@ -17,25 +17,12 @@ body {
     background-color: #f8fafc;
 }
 
-.bg-img {
-    width: 100%;
-    height: 30vh;
-
-    position: absolute;
-    right: 0;
-    bottom: 0;
-
-    z-index: -1;
-}
-
 .container {
     width: 100vw;
     height: 100vh;
 
     display: flex;
     flex-direction: column;
-
-    position: relative;
 }
 
 .flex {
@@ -60,22 +47,33 @@ body {
 .container--nav {
     flex: 0;
 }
-
 .container--banner {
-    flex: 0.5;
+    flex: 1;
 }
 .container--main {
-    flex: 5;
+    flex: 3;
 }
 .container--footer {
     flex: 2;
+    position: relative;
+}
+
+.bg-img {
+    width: 100%;
+    height: 30vh;
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    z-index: -1;
 }
 
 /************************/
 /* NAV */
 /************************/
 .nav {
-    margin: 0 5rem;
+    margin: 0 10rem;
     color: #1e293b;
     height: 6rem;
 
@@ -99,7 +97,9 @@ body {
 /* BANNER */
 /************************/
 .banner {
-    margin: 3.2rem 5rem;
+    height: 100%;
+    margin: 0 10rem;
+    padding-top: 3.2rem;
 
     justify-content: space-evenly;
     align-items: center;
@@ -140,19 +140,12 @@ body {
 /* MAIN */
 /************************/
 .main {
-    margin: 0 5rem;
     height: 100%;
+    padding: 3rem 0;
 
-    justify-content: space-between;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
     align-items: center;
-
-    flex: 4;
-}
-
-/************************/
-/* SETTINGS */
-/************************/
-.settings {
 }
 
 /************************/
@@ -160,12 +153,13 @@ body {
 /************************/
 .timer {
     font-weight: 500;
+    grid-column: 2/3;
     position: relative;
 }
 
 .timer-clock {
-    width: 450px;
-    height: 450px;
+    width: 45rem;
+    height: 45rem;
 }
 
 .timer-clock__label,
@@ -262,9 +256,23 @@ body {
 }
 
 /************************/
+/* SETTINGS */
+/************************/
+.settings {
+    justify-self: end;
+}
+
+/************************/
 /* INFOS */
 /************************/
 .infos {
+    font-size: 1.8rem;
+    letter-spacing: 0.15rem;
+
+    gap: 1rem;
+    justify-self: start;
+    align-self: start;
+    transform: translateY(0.7rem);
 }
 
 /************************/
@@ -275,11 +283,15 @@ body {
     color: #1e293b;
     font-size: 1.6rem;
     font-weight: 500;
-    letter-spacing: 0.25rem;
 
     flex-direction: column;
     align-items: center;
     gap: 1.6rem;
+}
+
+.footer-follow {
+    letter-spacing: 0.15rem;
+    margin-top: 0.8rem;
 }
 
 .footer-logos {
@@ -293,12 +305,13 @@ body {
 }
 
 .footer-feedback {
+    letter-spacing: 0.25rem;
     margin-top: 0.8rem;
     padding-bottom: 3.2rem;
 }
 
 .line--footer {
-    width: 20rem;
+    width: 30rem;
     height: 1px;
 
     background-color: rgba(30, 41, 59, 0.1);
@@ -324,6 +337,7 @@ body {
 
 - LETTER SPACING
 -0.03rem
+0.15rem
 0.25rem
 0.35rem
 0.45rem

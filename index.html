@@ -18,11 +18,6 @@
     </head>
     <body>
         <div class="container">
-            <img
-                src="assets/bg-img.png"
-                alt="background image"
-                class="bg-img"
-            />
             <div class="container--nav border">
                 <nav class="nav flex">
                     <p class="nav-about">about</p>
@@ -43,11 +38,12 @@
             </div>
 
             <div class="container--main">
-                <main class="main flex">
-                    <section class="settings hidden">
+                <main class="main grid">
+                    <section class="settings">
                         <p>settings</p>
                     </section>
-                    <!-- <section class="timer">
+
+                    <section class="timer">
                         <div class="timer-clock">
                             <svg
                                 class="timer-clock__svg"
@@ -77,12 +73,12 @@
                             <span
                                 id="timer-clock-label"
                                 class="timer-clock__label"
-                                >0:40</span
+                                >0:20</span
                             >
                             <span
                                 id="timer-clock-remain"
                                 class="timer-clock__remain"
-                                >time remain: 2:25</span
+                                >time remain: 2:05</span
                             >
                             <div>
                                 <i class="timer-icon ph-gear-six"></i>
@@ -95,13 +91,21 @@
                                 </button>
                             </div>
                         </div>
-                    </section> -->
-                    <section class="infos hidden">
-                        <p>infos</p>
+                    </section>
+
+                    <section class="infos grid">
+                        <p class="info">total time: 2:30</p>
+                        <p class="info">exercise: 3/5</p>
+                        <p class="info">set: 1/5</p>
                     </section>
                 </main>
             </div>
             <div class="container--footer">
+                <img
+                    src="assets/bg-img.png"
+                    alt="background image"
+                    class="bg-img"
+                />
                 <footer class="footer flex">
                     <p class="line--footer"></p>
                     <p class="footer-follow">follow us</p>
