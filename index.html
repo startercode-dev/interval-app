@@ -7,7 +7,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400;500;600&display=swap"
             rel="stylesheet"
         />
         <link rel="stylesheet" href="style.css" />
@@ -40,58 +40,114 @@
             <div class="container--main">
                 <main class="main grid">
                     <section class="settings">
-                        <form action="" class="input-form grid">
-                            <label for="numExercises" class="input--label"
-                                >how many exercises</label
-                            >
-                            <input
-                                type="number"
-                                id="numExercises"
-                                class="input"
-                                placeholder="1"
-                            />
+                        <div class="tabs flex">
+                            <div class="tabs-head flex">
+                                <div class="tabs--toggle flex" data-tab="saved">
+                                    saved
+                                </div>
+                                <div
+                                    class="tabs--toggle flex is-active"
+                                    data-tab="custom"
+                                >
+                                    custom
+                                </div>
+                            </div>
+                            <div class="tabs-body flex">
+                                <div class="tabs-content content--saved">
+                                    <div class="saved-items grid">
+                                        <div class="item flex">
+                                            <p class="item--title">
+                                                HIIT custom 2
+                                            </p>
+                                            <p class="item--time">15min</p>
+                                        </div>
+                                        <div class="item flex">
+                                            <p class="item--title">abs</p>
+                                            <p class="item--time">10mins</p>
+                                        </div>
+                                        <div class="item flex">
+                                            <p class="item--title">
+                                                cardio intense
+                                            </p>
+                                            <p class="item--time">4min</p>
+                                        </div>
+                                        <div class="item flex">
+                                            <p class="item--title">ez core</p>
+                                            <p class="item--time">8min</p>
+                                        </div>
+                                        <a class="edit-settings"> edit </a>
+                                    </div>
+                                </div>
+                                <div
+                                    class="tabs-content content--custom is-active"
+                                >
+                                    <form action="" class="input-form grid">
+                                        <label
+                                            for="numExercises"
+                                            class="input--label"
+                                            >how many exercises</label
+                                        >
+                                        <input
+                                            type="number"
+                                            id="numExercises"
+                                            class="input"
+                                            placeholder="1"
+                                        />
 
-                            <label for="timeExercise" class="input--label"
-                                >time per exercise</label
-                            >
-                            <input
-                                type="number"
-                                id="timeExercise"
-                                class="input"
-                                placeholder="45s"
-                            />
+                                        <label
+                                            for="timeExercise"
+                                            class="input--label"
+                                            >time per exercise</label
+                                        >
+                                        <input
+                                            type="number"
+                                            id="timeExercise"
+                                            class="input"
+                                            placeholder="45s"
+                                        />
 
-                            <label for="restExercise" class="input--label"
-                                >rest between exercise</label
-                            >
-                            <input
-                                type="number"
-                                id="restExercise"
-                                class="input"
-                                placeholder="15s"
-                            />
+                                        <label
+                                            for="restExercise"
+                                            class="input--label"
+                                            >rest between exercise</label
+                                        >
+                                        <input
+                                            type="number"
+                                            id="restExercise"
+                                            class="input"
+                                            placeholder="15s"
+                                        />
 
-                            <label for="numSets" class="input--label"
-                                >how many sets</label
-                            >
-                            <input
-                                type="number"
-                                id="numSets"
-                                class="input"
-                                placeholder="1"
-                            />
+                                        <label
+                                            for="numSets"
+                                            class="input--label"
+                                            >how many sets</label
+                                        >
+                                        <input
+                                            type="number"
+                                            id="numSets"
+                                            class="input"
+                                            placeholder="1"
+                                        />
 
-                            <label for="restSet" class="input--label"
-                                >rest between sets</label
-                            >
-                            <input
-                                type="number"
-                                id="restSet"
-                                class="input"
-                                placeholder="60s"
-                            />
-                            <button class="btn btn--start">start</button>
-                        </form>
+                                        <label
+                                            for="restSet"
+                                            class="input--label"
+                                            >rest between sets</label
+                                        >
+                                        <input
+                                            type="number"
+                                            id="restSet"
+                                            class="input"
+                                            placeholder="60s"
+                                        />
+                                        <button class="btn btn--start">
+                                            start
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </section>
 
                     <section class="timer">
