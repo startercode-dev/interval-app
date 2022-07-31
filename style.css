@@ -26,6 +26,7 @@ body {
 }
 
 .btn {
+    font-family: inherit;
     cursor: pointer;
     border: none;
     text-align: center;
@@ -168,6 +169,147 @@ body {
 }
 
 /************************/
+/* SETTINGS */
+/************************/
+.settings {
+    justify-self: end;
+    align-self: start;
+    transform: translateY(0.7rem);
+
+    box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.12);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.tabs {
+    flex-direction: column;
+    font-size: 1.8rem;
+    width: 35rem;
+    height: 42rem;
+
+    background-color: #ececec;
+}
+
+.tabs-head {
+    justify-content: space-between;
+}
+
+.tabs-body {
+    flex: 1;
+}
+
+.tabs--toggle {
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+    height: 5rem;
+
+    box-shadow: inset 0px -5px 6px rgba(0, 0, 0, 0.01);
+}
+
+.tabs-content {
+    display: none;
+    height: 100%;
+    width: 100%;
+
+    align-self: center;
+    padding: 3.2rem;
+}
+
+.tabs--toggle.is-active,
+.tabs-content.is-active {
+    box-shadow: none;
+    background-color: #f7f7f7;
+    border-top: 3px solid #44af69;
+}
+
+.tabs-content.is-active {
+    display: block;
+    border: none;
+}
+
+.saved-items {
+    height: 100%;
+    list-style: lower-greek;
+    font-weight: 400;
+    letter-spacing: 0.15rem;
+
+    row-gap: 2rem;
+    align-items: end;
+}
+
+.item {
+    cursor: pointer;
+    height: max-content;
+
+    font-weight: 300;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.item--time {
+    font-size: 1.4rem;
+}
+
+.edit-settings {
+    cursor: pointer;
+    background-color: inherit;
+    color: #132a1e;
+    letter-spacing: 0.1rem;
+    font-size: 1.2rem;
+    width: max-content;
+
+    border: none;
+    text-align: center;
+    justify-self: center;
+
+    margin-top: 5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid #132a1e;
+}
+
+.input-form {
+    grid-template-columns: 4fr 1fr;
+    justify-items: end;
+    align-items: center;
+    column-gap: 2rem;
+    row-gap: 1.6rem;
+}
+
+.input--label {
+    font-size: 1.8rem;
+    letter-spacing: 0.05rem;
+}
+
+.input {
+    border: none;
+    box-shadow: inset 0px 0px 2px rgba(68, 175, 105, 0.7);
+    border-radius: 3px;
+    text-align: center;
+
+    color: #132a1e;
+    font-weight: 400;
+    font-size: 1.6rem;
+    letter-spacing: 0.05rem;
+
+    background-color: #fcfdfe;
+    width: 5rem;
+    height: 3rem;
+}
+
+.btn--start {
+    margin-top: 2.5rem;
+    font-size: 1.8rem;
+    letter-spacing: 0.15rem;
+    height: 5rem;
+
+    background-color: #44af69;
+    width: 100%;
+    grid-column: 1/-1;
+}
+
+/************************/
 /* TIMER */
 /************************/
 .timer {
@@ -270,60 +412,6 @@ body {
 }
 
 /************************/
-/* SETTINGS */
-/************************/
-.settings {
-    justify-self: end;
-    align-self: start;
-    transform: translateY(0.7rem);
-
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.15);
-    border-radius: 1rem;
-}
-
-.input-form {
-    padding: 3.2rem;
-
-    grid-template-columns: 4fr 1fr;
-    justify-items: end;
-    align-items: center;
-    column-gap: 2rem;
-    row-gap: 1.6rem;
-}
-
-.input--label {
-    font-size: 1.8rem;
-    letter-spacing: 0.05rem;
-}
-
-.input {
-    border: none;
-    box-shadow: inset 0px 0px 2px rgba(68, 175, 105, 0.7);
-    border-radius: 3px;
-    text-align: center;
-
-    color: #132a1e;
-    font-weight: 400;
-    font-size: 1.6rem;
-    letter-spacing: 0.05rem;
-
-    background-color: #fcfdfe;
-    width: 5rem;
-    height: 3rem;
-}
-
-.btn--start {
-    margin-top: 1.2rem;
-    font-size: 1.6rem;
-    letter-spacing: 0.15rem;
-    height: 4rem;
-
-    background-color: #44af69;
-    width: 100%;
-    grid-column: 1/-1;
-}
-
-/************************/
 /* INFOS */
 /************************/
 .infos {
@@ -337,7 +425,7 @@ body {
     transform: translateY(0.7rem);
 }
 
-.infos p {
+.info {
     padding-left: 1rem;
     border-left: 1px solid #132a1e;
 }
@@ -394,14 +482,17 @@ body {
 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98 
 
 - COLORS
-#fff
+#f7f7f7
+#ececec
+#132a1e
+
 #EAF8F6
 #DCF4EC
 #89d2a3
 #44af69
-#9d2c24
+
 #475569
-#132a1e
+#9d2c24
 
 - LETTER SPACING
 -0.03rem
