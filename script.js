@@ -1,5 +1,5 @@
 const tabsContainer = document.querySelector(".tabs-head");
-const tabs = document.querySelectorAll(".tabs--toggle");
+const tabs = document.querySelectorAll(".tabs--tab");
 const tabsContent = document.querySelectorAll(".tabs-content");
 
 // SETTINGS TABS

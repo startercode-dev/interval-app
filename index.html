@@ -31,7 +31,15 @@
                     <p class="line"></p>
                     <div class="logo">
                         <p class="logo-img">interval<span>.app</span></p>
-                        <p class="logo-endorsement">powered by starter code</p>
+                        <div class="logo-endorsement flex">
+                            <p class="endorsement--text">powered by</p>
+                            <a href="#" class="endorsement--logo">
+                                <img
+                                    src="assets/startercode-logo.png"
+                                    alt="starter code logo"
+                                />
+                            </a>
+                        </div>
                     </div>
                     <p class="line"></p>
                 </div>
@@ -40,13 +48,16 @@
             <div class="container--main">
                 <main class="main grid">
                     <section class="settings">
-                        <div class="tabs flex">
+                        <div class="tabs-component flex">
                             <div class="tabs-head flex">
-                                <div class="tabs--toggle flex" data-tab="saved">
+                                <div
+                                    class="tabs--tab tab--saved flex"
+                                    data-tab="saved"
+                                >
                                     saved
                                 </div>
                                 <div
-                                    class="tabs--toggle flex is-active"
+                                    class="tabs--tab tab--custom flex is-active"
                                     data-tab="custom"
                                 >
                                     custom
@@ -75,7 +86,7 @@
                                             <p class="item--title">ez core</p>
                                             <p class="item--time">8min</p>
                                         </div>
-                                        <a class="edit-settings"> edit </a>
+                                        <a class="edit-saved"> edit </a>
                                     </div>
                                 </div>
                                 <div

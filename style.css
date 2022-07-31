@@ -141,7 +141,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+
+    gap: 0.2rem;
 }
 
 .logo span {
@@ -151,8 +152,16 @@ body {
 .logo-endorsement {
     align-self: flex-end;
     font-size: 1.6rem;
-    letter-spacing: -0.03rem;
-    padding-right: 0.8rem;
+    letter-spacing: 0;
+
+    align-items: center;
+    /* gap: 0.3rem; */
+    padding-right: 0.5rem;
+}
+
+.endorsement--logo img {
+    width: 9rem;
+    /* filter: grayscale(100%); */
 }
 
 /************************/
@@ -181,7 +190,7 @@ body {
     overflow: hidden;
 }
 
-.tabs {
+.tabs-component {
     flex-direction: column;
     font-size: 1.8rem;
     width: 35rem;
@@ -198,7 +207,7 @@ body {
     flex: 1;
 }
 
-.tabs--toggle {
+.tabs--tab {
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -217,11 +226,12 @@ body {
     padding: 3.2rem;
 }
 
-.tabs--toggle.is-active,
+.tabs--tab.is-active,
 .tabs-content.is-active {
-    box-shadow: none;
+    font-weight: 500;
     background-color: #f7f7f7;
-    border-top: 3px solid #44af69;
+    border-top: 2px solid #44af69;
+    box-shadow: none;
 }
 
 .tabs-content.is-active {
@@ -229,6 +239,16 @@ body {
     border: none;
 }
 
+.tab--saved {
+    border-top-left-radius: 1rem;
+}
+.tab--custom {
+    border-top-right-radius: 1rem;
+}
+
+/************************/
+/* SAVED */
+/************************/
 .saved-items {
     height: 100%;
     list-style: lower-greek;
@@ -243,21 +263,21 @@ body {
     cursor: pointer;
     height: max-content;
 
-    font-weight: 300;
     justify-content: space-between;
     align-items: flex-end;
 }
 
 .item--time {
+    font-weight: 300;
     font-size: 1.4rem;
 }
 
-.edit-settings {
+.edit-saved {
     cursor: pointer;
     background-color: inherit;
     color: #132a1e;
     letter-spacing: 0.1rem;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     width: max-content;
 
     border: none;
@@ -269,6 +289,9 @@ body {
     border-bottom: 1px solid #132a1e;
 }
 
+/************************/
+/* USER INPUTS */
+/************************/
 .input-form {
     grid-template-columns: 4fr 1fr;
     justify-items: end;
@@ -280,6 +303,7 @@ body {
 .input--label {
     font-size: 1.8rem;
     letter-spacing: 0.05rem;
+    font-weight: 400;
 }
 
 .input {
