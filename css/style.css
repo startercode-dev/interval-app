@@ -13,7 +13,7 @@
 .nav-signup {
     font-size: 1.618rem;
     letter-spacing: 0.25rem;
-    font-weight: 500;
+    font-weight: 400;
     min-width: max-content;
 }
 
@@ -21,6 +21,7 @@
     font-size: 2.618rem;
     letter-spacing: 0.35rem;
     padding: 0 6rem;
+    font-weight: 500;
 }
 
 /************************/
@@ -44,7 +45,7 @@
 }
 
 .logo {
-    font-weight: 500;
+    font-weight: 600;
     font-size: 4.236rem;
     letter-spacing: 0.55rem;
     padding: 0 6rem;
@@ -121,10 +122,11 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    font-weight: 300;
     width: 100%;
     height: 5rem;
 
-    box-shadow: inset 0px -5px 6px rgba(0, 0, 0, 0.01);
+    box-shadow: inset 0px -5px 6px rgba(0, 0, 0, 0.03);
 }
 
 .tabs-content {
@@ -138,15 +140,18 @@
 
 .tabs--tab.is-active,
 .tabs-content.is-active {
+    box-shadow: none;
     font-weight: 500;
     background-color: #f7f7f7;
+}
+
+.tabs--tab.is-active {
+    color: #368c54;
     border-top: 2px solid #44af69;
-    box-shadow: none;
 }
 
 .tabs-content.is-active {
     display: block;
-    border: none;
 }
 
 .tab--saved {
@@ -163,7 +168,7 @@
     height: 100%;
     list-style: lower-greek;
     font-weight: 400;
-    letter-spacing: 0.15rem;
+    letter-spacing: 0.1rem;
 
     row-gap: 2.6rem;
     align-items: end;
@@ -402,12 +407,11 @@
 
     flex-direction: column;
     align-items: center;
-    gap: 1.6rem;
+    gap: 0.6rem;
 }
 
 .footer-follow {
     letter-spacing: 0.15rem;
-    margin-top: 0.8rem;
 }
 
 .footer-logos {

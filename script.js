@@ -14,17 +14,17 @@ tabsContainer.addEventListener("click", function (e) {
         .classList.add("is-active");
 });
 
-// GET USR INPUT TOTAL TIME
+// GET CUSTOM TOTAL TIME
 const getTotalTime = (e) => {
     e.preventDefault();
-    const inputTime = $("#inputTime").val() * 1;
-    const inputRest = $("#inputRest").val() * 1;
-    const inputExercise = $("#inputExercise").val() * 1;
-    const inputSet = $("#inputSet").val() * 1;
-    const inputSetRest = $("#inputSetRest").val() * 1;
+    const timeExercise = $("#timeExercise").val() * 1;
+    const restExercise = $("#restExercise").val() * 1;
+    const numExercises = $("#numExercises").val() * 1;
+    const numSets = $("#numSets").val() * 1;
+    const restSet = $("#restSet").val() * 1;
 
     const totalTime =
-        (inputTime + inputRest) * inputExercise + inputSet * inputSetRest;
+        (timeExercise + restExercise) * numExercises + numSets * restSet;
 
     const minutes = Math.floor(totalTime / 60);
     const seconds = (totalTime % 60).toString();
@@ -33,4 +33,4 @@ const getTotalTime = (e) => {
     $(".total-time span").text(time);
 };
 
-$(".btn").click((e) => getTotalTime(e));
+$(".btn--start").click((e) => getTotalTime(e));
