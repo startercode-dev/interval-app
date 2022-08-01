@@ -1,100 +1,8 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    font-size: 62.5%;
-}
-
-body {
-    font-family: "Bai Jamjuree", sans-serif;
-    line-height: 1;
-    font-weight: 400;
-
-    color: #132a1e;
-    background-color: #f7f7f7;
-}
-
-.container {
-    width: 100vw;
-    height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-}
-
-.btn {
-    font-family: inherit;
-    cursor: pointer;
-    border: none;
-    text-align: center;
-    border-radius: 3px;
-    color: #f7f7f7;
-}
-
-.flex {
-    display: flex;
-}
-
-.grid {
-    display: grid;
-}
-
-.border {
-    border-bottom: 1px solid rgba(19, 42, 30, 0.07);
-}
-
-.hidden {
-    display: none;
-}
-
-/************************/
-/* FLEX */
-/************************/
-.container--nav {
-    flex: 0;
-}
-.container--banner {
-    flex: 1;
-}
-.container--main {
-    flex: 2;
-}
-.container--footer {
-    flex: 2;
-    position: relative;
-}
-
-.bg-img {
-    width: 100%;
-    height: 30vh;
-
-    position: absolute;
-    right: 0;
-    bottom: 0;
-
-    z-index: -1;
-}
-
-.input::placeholder {
-    color: #d4d4d4;
-}
-.input::-webkit-outer-spin-button,
-.input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-.input[type="number"] {
-    -moz-appearance: textfield;
-}
-
 /************************/
 /* NAV */
 /************************/
 .nav {
-    margin: 0 10rem;
+    margin: 0 15rem;
     height: 6rem;
 
     justify-content: space-evenly;
@@ -103,14 +11,16 @@ body {
 
 .nav-about,
 .nav-signup {
-    font-size: 1.6rem;
+    font-size: 1.618rem;
     letter-spacing: 0.25rem;
     font-weight: 500;
+    min-width: max-content;
 }
 
 .nav-logo {
-    font-size: 2.4rem;
+    font-size: 2.618rem;
     letter-spacing: 0.35rem;
+    padding: 0 6rem;
 }
 
 /************************/
@@ -118,7 +28,7 @@ body {
 /************************/
 .banner {
     height: 100%;
-    margin: 0 10rem;
+    margin: 0 15rem;
     padding: 3.2rem 0;
 
     justify-content: space-evenly;
@@ -135,8 +45,9 @@ body {
 
 .logo {
     font-weight: 500;
-    font-size: 4.8rem;
+    font-size: 4.236rem;
     letter-spacing: 0.55rem;
+    padding: 0 6rem;
 
     display: flex;
     flex-direction: column;
@@ -146,12 +57,12 @@ body {
 }
 
 .logo span {
-    font-size: 3.6rem;
+    font-size: 2.618rem;
 }
 
 .logo-endorsement {
     align-self: flex-end;
-    font-size: 1.6rem;
+    font-size: 1.618rem;
     letter-spacing: 0;
 
     align-items: center;
@@ -165,10 +76,9 @@ body {
 }
 
 /************************/
-/* MAIN */
+/* MAIN*/
 /************************/
 .main {
-    height: 100%;
     padding-bottom: 3.2rem;
 
     grid-template-columns: 2fr 1fr 2fr;
@@ -178,7 +88,7 @@ body {
 }
 
 /************************/
-/* SETTINGS */
+/* SETTINGS CONTAINER */
 /************************/
 .settings {
     justify-self: end;
@@ -191,10 +101,10 @@ body {
 }
 
 .tabs-component {
+    height: 100%;
+    width: 32rem;
     flex-direction: column;
-    font-size: 1.8rem;
-    width: 35rem;
-    height: 42rem;
+    font-size: 1.618rem;
 
     background-color: #ececec;
 }
@@ -247,7 +157,7 @@ body {
 }
 
 /************************/
-/* SAVED */
+/* SETTINGS TAB SAVED */
 /************************/
 .saved-items {
     height: 100%;
@@ -255,7 +165,7 @@ body {
     font-weight: 400;
     letter-spacing: 0.15rem;
 
-    row-gap: 2rem;
+    row-gap: 2.6rem;
     align-items: end;
 }
 
@@ -269,7 +179,7 @@ body {
 
 .item--time {
     font-weight: 300;
-    font-size: 1.4rem;
+    font-size: 1.618rem;
 }
 
 .edit-saved {
@@ -277,7 +187,7 @@ body {
     background-color: inherit;
     color: #132a1e;
     letter-spacing: 0.1rem;
-    font-size: 1.4rem;
+    font-size: 1.318rem;
     width: max-content;
 
     border: none;
@@ -290,18 +200,19 @@ body {
 }
 
 /************************/
-/* USER INPUTS */
+/* SETTINGS TAB CUSTOM */
 /************************/
 .input-form {
+    height: 100%;
     grid-template-columns: 4fr 1fr;
     justify-items: end;
     align-items: center;
     column-gap: 2rem;
-    row-gap: 1.6rem;
+    row-gap: 1rem;
 }
 
 .input--label {
-    font-size: 1.8rem;
+    font-size: 1.618rem;
     letter-spacing: 0.05rem;
     font-weight: 400;
 }
@@ -314,7 +225,7 @@ body {
 
     color: #132a1e;
     font-weight: 400;
-    font-size: 1.6rem;
+    font-size: 1.618rem;
     letter-spacing: 0.05rem;
 
     background-color: #fcfdfe;
@@ -323,14 +234,31 @@ body {
 }
 
 .btn--start {
-    margin-top: 2.5rem;
-    font-size: 1.8rem;
+    margin-top: 2rem;
+    font-size: 1.618rem;
     letter-spacing: 0.15rem;
-    height: 5rem;
+    height: 4.236rem;
 
     background-color: #44af69;
     width: 100%;
     grid-column: 1/-1;
+}
+
+.btn--save {
+    color: #132a1e;
+    background-color: inherit;
+    font-size: 1.318rem;
+    letter-spacing: 0.1rem;
+    width: max-content;
+
+    grid-column: 1/-1;
+    align-self: center;
+    justify-self: center;
+
+    /* margin-top: 2rem; */
+    padding-bottom: 0.3rem;
+    border-radius: 0;
+    border-bottom: 1px solid #132a1e;
 }
 
 /************************/
@@ -343,8 +271,8 @@ body {
 }
 
 .timer-clock {
-    width: 45rem;
-    height: 45rem;
+    width: 42rem;
+    height: 42rem;
 }
 
 .timer-clock__label,
@@ -356,14 +284,14 @@ body {
 }
 
 .timer-clock__label {
-    font-size: 14rem;
+    font-size: 13rem;
     letter-spacing: 0.45rem;
 }
 
 .timer-clock__remain {
-    font-size: 2rem;
-    letter-spacing: 0.25rem;
-    transform: translate(-50%, -100px);
+    font-size: 1.618rem;
+    letter-spacing: 0.15rem;
+    transform: translate(-50%, -85px);
 }
 
 .timer-clock__svg {
@@ -392,7 +320,6 @@ body {
 
 .timer-icon {
     cursor: pointer;
-
     position: absolute;
     top: 0;
 }
@@ -400,6 +327,7 @@ body {
 .ph-gear-six,
 .ph-dots-three-outline {
     font-size: 3.2rem;
+    display: none;
 }
 
 .ph-gear-six {
@@ -416,7 +344,7 @@ body {
     height: 8rem;
     border-radius: 50%;
 
-    font-size: 1.6rem;
+    font-size: 1.618rem;
     letter-spacing: 0.15rem;
     text-align: center;
 
@@ -439,7 +367,7 @@ body {
 /* INFOS */
 /************************/
 .infos {
-    font-size: 1.8rem;
+    font-size: 1.618rem;
     letter-spacing: 0.15rem;
     /* padding: 0 2rem 2rem; */
 
@@ -449,9 +377,9 @@ body {
     transform: translateY(0.7rem);
 }
 
-.info {
-    padding-left: 1rem;
-    border-left: 1px solid #132a1e;
+.info--name {
+    font-size: 2.618rem;
+    font-weight: 500;
 }
 
 .line--info {
@@ -459,12 +387,17 @@ body {
     margin-bottom: 1.2rem;
 }
 
+.info {
+    padding-left: 1rem;
+    border-left: 1px solid #132a1e;
+}
+
 /************************/
 /* FOOTER */
 /************************/
 .footer {
     margin: 1.6rem 5rem 0;
-    font-size: 1.6rem;
+    font-size: 1.618rem;
     font-weight: 500;
 
     flex-direction: column;
@@ -483,8 +416,8 @@ body {
 }
 
 .footer-logo {
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 2.618rem;
+    height: 2.618rem;
 }
 
 .footer-feedback {
@@ -504,6 +437,18 @@ body {
 
 - FONT SIZE SYSTEM (px)
 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98 
+11.089rem
+6.854rem
+4.236rem
+2.618rem
+1.618rem
+0.618rem
+
+- LETTER SPACING (rem)
+0.05rem
+0.1rem
+0.15rem
+0.2rem
 
 - COLORS
 #f7f7f7
@@ -518,12 +463,5 @@ body {
 #475569
 #9d2c24
 
-- LETTER SPACING
--0.03rem
-0.15rem
-0.25rem
-0.35rem
-0.45rem
-0.55rem
 
 */ ;

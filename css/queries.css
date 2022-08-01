@@ -1,0 +1,239 @@
+/* 1rem = 1em = 16px */
+
+/*************************/
+/* Above 1344px */
+/*************************/
+@media (min-height: 72em) {
+    .logo {
+        padding: 0 6rem;
+        font-size: 6.236rem;
+    }
+}
+
+/*************************/
+/* Below 1344px */
+/*************************/
+@media (max-width: 84rem) {
+    .main {
+        column-gap: 1.6rem;
+    }
+
+    /* TIMER */
+    .timer-clock {
+        width: 36rem;
+        height: 36rem;
+    }
+
+    .timer-clock__label {
+        font-size: 11rem;
+        letter-spacing: 0.35rem;
+    }
+
+    .btn--pause,
+    .btn--reset {
+        width: 7rem;
+        height: 7rem;
+        bottom: -18px;
+
+        font-size: 1.318rem;
+        letter-spacing: 0.15rem;
+    }
+
+    .timer-clock__remain {
+        transform: translate(-50%, -75px);
+    }
+
+    /* TABS */
+    .tabs-component {
+        width: 28rem;
+        height: 34rem;
+    }
+
+    .tabs-content {
+        padding: 2.4rem;
+    }
+
+    /* CUSTOM */
+    .input-form {
+        column-gap: 2.2rem;
+        row-gap: 0.6rem;
+    }
+
+    .input--label {
+        font-size: 1.418rem;
+    }
+
+    .input {
+        width: 4rem;
+        height: 2.5rem;
+    }
+
+    .input::placeholder {
+        font-size: 1.318rem;
+    }
+
+    .btn--start {
+        height: 3.618rem;
+        font-size: 1.618rem;
+        margin-top: 1rem;
+    }
+
+    .btn--save {
+        margin-top: 1rem;
+        font-size: 1.118rem;
+    }
+
+    /* SAVED */
+    .item--time {
+        font-size: 1.318rem;
+    }
+
+    /* INFO */
+    .info--name {
+        font-size: 2.118rem;
+    }
+}
+
+/*************************/
+/* Below 1056px */
+/*************************/
+@media (max-width: 62em) {
+    /* MAIN */
+    .main {
+        column-gap: 0;
+        /* grid-template-columns: 1fr; */
+        padding-bottom: 1.2rem;
+    }
+
+    .ph-gear-six,
+    .ph-dots-three-outline {
+        display: block;
+    }
+
+    .settings,
+    .infos {
+        display: none;
+    }
+
+    .timer-clock {
+        width: 43rem;
+        height: 43rem;
+    }
+
+    .timer-clock__label {
+        font-size: 14rem;
+        letter-spacing: 0.4rem;
+    }
+
+    .btn--pause,
+    .btn--reset {
+        width: 8rem;
+        height: 8rem;
+        bottom: -32px;
+
+        font-size: 1.718rem;
+        letter-spacing: 0.15rem;
+    }
+
+    .timer-clock__remain {
+        font-size: 2.1rem;
+        transform: translate(-50%, -90px);
+    }
+}
+
+/*************************/
+/* Below 704px */
+/*************************/
+@media (max-width: 44em) {
+    /* BANNER */
+    .line--banner {
+        display: none;
+    }
+}
+
+/*************************/
+/* Below 480x */
+/*************************/
+@media (max-width: 30em) {
+    /* NAV */
+    .nav-logo {
+        font-size: 2.118rem;
+        letter-spacing: 0.35rem;
+        padding: 0 3rem;
+    }
+
+    .nav-about,
+    .nav-signup {
+        font-size: 1.118rem;
+    }
+
+    /* BANNER */
+    .logo {
+        padding: 0;
+    }
+
+    /* TIMER */
+    .timer-clock {
+        width: 32rem;
+        height: 32rem;
+    }
+
+    .timer-clock__label {
+        font-size: 10rem;
+        letter-spacing: 0.4rem;
+    }
+
+    .btn--pause,
+    .btn--reset {
+        width: 6rem;
+        height: 6rem;
+        bottom: -20px;
+
+        font-size: 1.318rem;
+        letter-spacing: 0.15rem;
+    }
+
+    .timer-clock__remain {
+        font-size: 1.618rem;
+        transform: translate(-50%, -70px);
+    }
+
+    /* FOOTER */
+    .footer {
+        margin: 1.6rem 0 0;
+    }
+}
+
+/*************************/
+/* Below 800px HEIGHT */
+/*************************/
+@media (max-height: 50em) {
+    /* BANNER */
+    .banner {
+        padding: 1.6rem 0 0;
+    }
+
+    .logo,
+    .logo span {
+        font-size: 2.618rem;
+    }
+
+    .logo-endorsement {
+        font-size: 1.118rem;
+    }
+
+    .endorsement--logo img {
+        width: 6rem;
+    }
+
+    /* FOOTER */
+    .footer {
+        gap: 0.6rem;
+        font-size: 1.118rem;
+    }
+
+    .footer-logos {
+        margin-top: 0.4rem;
+        gap: 0.6rem;
+    }
+}
