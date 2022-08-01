@@ -10,25 +10,27 @@
             href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400;500;600&display=swap"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="style.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://unpkg.com/phosphor-icons"></script>
+        <link rel="stylesheet" href="css/general.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/queries.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script defer src="script.js"></script>
         <title>pacer</title>
     </head>
     <body>
         <div class="container">
-            <div class="container--nav border">
+            <div class="container--nav">
                 <nav class="nav flex">
                     <p class="nav-about">about</p>
-                    <p class="nav-logo">interval</p>
+                    <h1 class="nav-logo">interval</h1>
                     <p class="nav-signup">sign up</p>
                 </nav>
             </div>
 
             <div class="container--banner">
                 <div class="banner flex">
-                    <p class="line"></p>
+                    <p class="line line--banner"></p>
                     <div class="logo">
                         <p class="logo-img">interval<span>.app</span></p>
                         <div class="logo-endorsement flex">
@@ -41,7 +43,7 @@
                             </a>
                         </div>
                     </div>
-                    <p class="line"></p>
+                    <p class="line line--banner"></p>
                 </div>
             </div>
 
@@ -155,6 +157,10 @@
                                         <button class="btn btn--start">
                                             start
                                         </button>
+
+                                        <button class="btn btn--save">
+                                            save timer &plus;
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -208,7 +214,7 @@
                     </section>
 
                     <section class="infos grid">
-                        <h2>HIIT custom 2</h2>
+                        <p class="info--name">HIIT custom 2</p>
                         <div class="line line--info"></div>
                         <p class="info">total time: 2:30</p>
                         <p class="info">exercise: 3/5</p>
