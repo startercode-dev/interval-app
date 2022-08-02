@@ -415,6 +415,7 @@
 }
 
 .footer-logos {
+    margin-top: 0.9rem;
     grid-template-columns: repeat(5, 1fr);
     gap: 1.6rem;
 }
@@ -426,7 +427,7 @@
 
 .footer-feedback {
     letter-spacing: 0.25rem;
-    margin-top: 0.8rem;
+    margin-top: 1.8rem;
     padding-bottom: 3.2rem;
 }
 
