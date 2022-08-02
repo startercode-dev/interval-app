@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/queries.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script defer src="script.js"></script>
+        <script defer type="module" src="js/controller.js"></script>
         <title>pacer</title>
     </head>
     <body>
@@ -214,13 +214,15 @@
                     </section>
 
                     <section class="infos grid">
-                        <p class="info--name">HIIT custom 2</p>
+                        <p class="info--title">HIIT custom 2</p>
                         <div class="line line--info"></div>
                         <p class="info total-time">
                             total time: <span>2:30</span>
                         </p>
-                        <p class="info">exercise: 3/5</p>
-                        <p class="info">set: 1/5</p>
+                        <p class="info total-exercises">
+                            exercise: <span>3/5</span>
+                        </p>
+                        <p class="info total-sets">set: <span>1/5</span></p>
                     </section>
                 </main>
             </div>
