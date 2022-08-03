@@ -1,3 +1,5 @@
+"use strict";
+
 import View from "./View.js";
 
 class InfoView extends View {}

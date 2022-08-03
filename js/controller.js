@@ -1,8 +1,6 @@
 "use strict";
 
 import * as model from "./model.js";
-import TimerView from "./views/timerView.js";
-import InfoView from "./views/infoView.js";
 import settingView from "./views/settingView.js";
 
 const controlTabs = function (e) {
