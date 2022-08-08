@@ -3,6 +3,77 @@
 import * as model from "./model.js";
 import settingView from "./views/settingView.js";
 
+const calcTime = function () {
+    const { numExercises, timeExercise, restExercise, numSets, restSet } =
+        model.state.setting;
+
+    return numSets > 1
+        ? ((timeExercise + restExercise) * numExercises - restExercise) *
+              numSets +
+              (numSets * restSet - restSet)
+        : (timeExercise + restExercise) * numExercises - restExercise;
+};
+
+const formatTime = function (s) {
+    const mins = Math.floor(s / 60);
+    let secs = s % 60;
+    if (secs < 10) secs = `0${secs}`;
+    return `${mins}:${secs}`;
+};
+
+const totalCountdown = function () {
+    let totalTime = calcTime();
+
+    const tick = function () {
+        totalTime--;
+        $(".timer-clock__remain span").text(formatTime(totalTime));
+        if (totalTime === 0) clearInterval(timer);
+    };
+    const timer = setInterval(tick, 1000);
+};
+
+const mainCountdown = function () {
+    const { numExercises, timeExercise, restExercise, numSets, restSet } =
+        model.state.setting;
+
+    let currNumS = 0;
+    let currNumE = 0;
+
+    for (let i = 0; i < numSets; i++) {
+        currNumS++;
+        currNumE = 0;
+
+        for (let j = 0; j < numExercises; j++) {
+            currNumE++;
+            count(timeExercise);
+            console.log(timeExercise);
+            if (currNumE < numExercises) {
+                count(restExercise);
+                console.log(restExercise);
+            }
+        }
+
+        if (currNumS < numSets) {
+            console.log(restSet);
+        }
+    }
+};
+
+const count = function (t) {
+    $(".timer-clock__label").text(formatTime(t));
+    const tick = () => {
+        t--;
+        $(".timer-clock__label").text(formatTime(t));
+        if (t === 1) {
+            clearInterval(timer);
+        }
+    };
+    const timer = setInterval(tick, 1000);
+};
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+// CONTROL FUNCTIONS
 const controlTabs = function (e) {
     const clicked = e.target.dataset.tab;
 
@@ -35,20 +106,14 @@ const controlUpdateViews = function () {
 
 const controlStart = function (e) {
     e.preventDefault();
-    const totalTime = calcTime();
-    const timeExercise = model.state.setting.timeExercise;
-    let timePassed = 0;
-    let timeLeft = totalTime;
-    let timeExerciseLeft = timeExercise;
+    model.timerStartState();
+    if (!model.state.stoppedState) {
+        e.target.disabled = true;
+        $(".input-form input").prop("disabled", true);
+    }
 
-    setInterval(() => {
-        timePassed += 1;
-        timeLeft = totalTime - timePassed;
-        timeExerciseLeft = timeExercise - timePassed;
-
-        $(".timer-clock__remain span").text(formatTime(timeLeft));
-        $(".timer-clock__label").text(formatTime(timeExerciseLeft));
-    }, 1000);
+    totalCountdown();
+    mainCountdown();
 };
 
 const init = function () {
@@ -57,23 +122,3 @@ const init = function () {
     settingView.addHandlerStartBtn(controlStart);
 };
 init();
-
-/////////////////////////////////////////////////////////////////////////////
-// HELPER FUNCTIONS
-const calcTime = function () {
-    const { numExercises, timeExercise, restExercise, numSets, restSet } =
-        model.state.setting;
-
-    return numSets > 1
-        ? ((timeExercise + restExercise) * numExercises - restExercise) *
-              numSets +
-              (numSets * restSet - restSet)
-        : (timeExercise + restExercise) * numExercises - restExercise;
-};
-
-const formatTime = function (s) {
-    const mins = Math.floor(s / 60);
-    let secs = s % 60;
-    if (secs < 10) secs = `0${secs}`;
-    return `${mins}:${secs}`;
-};
