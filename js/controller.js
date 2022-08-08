@@ -24,15 +24,14 @@ const formatTime = function (s) {
 const totalCountdown = function () {
     let totalTime = calcTime();
 
-    const tick = function () {
+    const timer = setInterval(() => {
         totalTime--;
         $(".timer-clock__remain span").text(formatTime(totalTime));
         if (totalTime === 0) clearInterval(timer);
-    };
-    const timer = setInterval(tick, 1000);
+    }, 1000);
 };
 
-const mainCountdown = function () {
+const mainCountdown = async function () {
     const { numExercises, timeExercise, restExercise, numSets, restSet } =
         model.state.setting;
 
@@ -45,15 +44,16 @@ const mainCountdown = function () {
 
         for (let j = 0; j < numExercises; j++) {
             currNumE++;
-            count(timeExercise);
+            await count(timeExercise);
             console.log(timeExercise);
             if (currNumE < numExercises) {
-                count(restExercise);
+                await count(restExercise);
                 console.log(restExercise);
             }
         }
 
         if (currNumS < numSets) {
+            await count(restSet);
             console.log(restSet);
         }
     }
@@ -61,14 +61,16 @@ const mainCountdown = function () {
 
 const count = function (t) {
     $(".timer-clock__label").text(formatTime(t));
-    const tick = () => {
-        t--;
-        $(".timer-clock__label").text(formatTime(t));
-        if (t === 1) {
-            clearInterval(timer);
-        }
-    };
-    const timer = setInterval(tick, 1000);
+    return new Promise((resolve) => {
+        const timer = setInterval(() => {
+            t--;
+            $(".timer-clock__label").text(formatTime(t));
+            if (t === 0) {
+                clearInterval(timer);
+                resolve();
+            }
+        }, 1000);
+    });
 };
 
 /////////////////////////////////////////////////////////////////////////////
