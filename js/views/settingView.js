@@ -20,6 +20,12 @@ class settingView extends View {
             handler(e);
         });
     }
+
+    addHandlerPauseBtn(handler) {
+        $(".btn--pause").click((e) => {
+            handler(e);
+        });
+    }
 }
 
 export default new settingView();

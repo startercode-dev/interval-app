@@ -46,13 +46,13 @@ const mainCountdown = async function () {
             currNumE++;
             await count(timeExercise);
             console.log(timeExercise);
-            if (currNumE < numExercises) {
+            if (currNumE < numExercises && restExercise > 0) {
                 await count(restExercise);
                 console.log(restExercise);
             }
         }
 
-        if (currNumS < numSets) {
+        if (currNumS < numSets && restSet > 0) {
             await count(restSet);
             console.log(restSet);
         }
@@ -65,7 +65,7 @@ const count = function (t) {
         const timer = setInterval(() => {
             t--;
             $(".timer-clock__label").text(formatTime(t));
-            if (t === 0) {
+            if (t < 1) {
                 clearInterval(timer);
                 resolve();
             }
@@ -106,21 +106,31 @@ const controlUpdateViews = function () {
     );
 };
 
+// NOTETAB CSS BTN DISABLED STATE
 const controlStart = function (e) {
     e.preventDefault();
     model.timerStartState();
-    if (!model.state.stoppedState) {
+    if (!model.state.isStopped) {
         e.target.disabled = true;
         $(".input-form input").prop("disabled", true);
     }
-
     totalCountdown();
     mainCountdown();
+};
+
+const controlPause = function (e) {
+    e.preventDefault();
+    model.timerStopState();
+    if (model.state.isStopped) {
+        e.target.disabled = true;
+        $(".input-form input").prop("disabled", false);
+    }
 };
 
 const init = function () {
     settingView.addHandlerInputChanges(controlUpdateViews);
     settingView.addHandlerTabs(controlTabs);
     settingView.addHandlerStartBtn(controlStart);
+    settingView.addHandlerPauseBtn(controlPause);
 };
 init();
