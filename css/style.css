@@ -2,7 +2,7 @@
 /* NAV */
 /************************/
 .nav {
-    margin: 0 15rem;
+    margin: 0 20%;
     height: 6rem;
 
     justify-content: space-evenly;
@@ -29,7 +29,7 @@
 /************************/
 .banner {
     height: 100%;
-    margin: 0 15rem;
+    margin: 0 20%;
     padding: 3.2rem 0;
 
     justify-content: space-evenly;
