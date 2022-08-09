@@ -344,6 +344,7 @@
 }
 
 .btn--pause,
+.btn--resume,
 .btn--reset {
     width: 8rem;
     height: 8rem;
@@ -361,6 +362,12 @@
 .btn--pause {
     background-color: #9d2c24;
     left: 0;
+}
+
+.btn--resume {
+    background-color: #2df500;
+    color: #132a1e;
+    left: 50%;
 }
 
 .btn--reset {

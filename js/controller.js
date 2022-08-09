@@ -2,33 +2,39 @@
 
 import * as model from "./model.js";
 import settingView from "./views/settingView.js";
+import { formatTime, calcTime } from "./helper.js";
 
-const calcTime = function () {
-    const { numExercises, timeExercise, restExercise, numSets, restSet } =
-        model.state.setting;
+const count = function (t) {
+    $(".timer-clock__label").text(formatTime(t));
+    return new Promise((resolve, reject) => {
+        let timer = setInterval(() => {
+            t--;
+            $(".timer-clock__label").text(formatTime(t));
+            if (t < 1) {
+                clearInterval(timer);
+                resolve();
+            }
+        }, 1000);
 
-    return numSets > 1
-        ? ((timeExercise + restExercise) * numExercises - restExercise) *
-              numSets +
-              (numSets * restSet - restSet)
-        : (timeExercise + restExercise) * numExercises - restExercise;
-};
+        $(".btn--pause").click(() => {
+            if (model.state.isPaused) {
+                clearInterval(timer);
+            }
+        });
 
-const formatTime = function (s) {
-    const mins = Math.floor(s / 60);
-    let secs = s % 60;
-    if (secs < 10) secs = `0${secs}`;
-    return `${mins}:${secs}`;
-};
-
-const totalCountdown = function () {
-    let totalTime = calcTime();
-
-    const timer = setInterval(() => {
-        totalTime--;
-        $(".timer-clock__remain span").text(formatTime(totalTime));
-        if (totalTime === 0) clearInterval(timer);
-    }, 1000);
+        $(".btn--resume").click(() => {
+            if (!model.state.isPaused) {
+                timer = setInterval(() => {
+                    t--;
+                    $(".timer-clock__label").text(formatTime(t));
+                    if (t < 1) {
+                        clearInterval(timer);
+                        resolve();
+                    }
+                }, 1000);
+            }
+        });
+    });
 };
 
 const mainCountdown = async function () {
@@ -45,31 +51,44 @@ const mainCountdown = async function () {
         for (let j = 0; j < numExercises; j++) {
             currNumE++;
             await count(timeExercise);
-            console.log(timeExercise);
             if (currNumE < numExercises && restExercise > 0) {
                 await count(restExercise);
-                console.log(restExercise);
             }
         }
 
         if (currNumS < numSets && restSet > 0) {
             await count(restSet);
-            console.log(restSet);
         }
     }
 };
 
-const count = function (t) {
-    $(".timer-clock__label").text(formatTime(t));
-    return new Promise((resolve) => {
-        const timer = setInterval(() => {
-            t--;
-            $(".timer-clock__label").text(formatTime(t));
-            if (t < 1) {
-                clearInterval(timer);
-                resolve();
-            }
-        }, 1000);
+const totalCountdown = async function () {
+    let totalTime = calcTime();
+
+    let timer = setInterval(() => {
+        totalTime--;
+        $(".timer-clock__remain span").text(formatTime(totalTime));
+        if (totalTime < 1) {
+            clearInterval(timer);
+        }
+    }, 1000);
+
+    $(".btn--pause").click(() => {
+        if (model.state.isPaused) {
+            clearInterval(timer);
+        }
+    });
+
+    $(".btn--resume").click(() => {
+        if (!model.state.isPaused) {
+            timer = setInterval(() => {
+                totalTime--;
+                $(".timer-clock__remain span").text(formatTime(totalTime));
+                if (totalTime < 1) {
+                    clearInterval(timer);
+                }
+            }, 1000);
+        }
     });
 };
 
@@ -109,22 +128,26 @@ const controlUpdateViews = function () {
 // NOTETAB CSS BTN DISABLED STATE
 const controlStart = function (e) {
     e.preventDefault();
-    model.timerStartState();
-    if (!model.state.isStopped) {
-        e.target.disabled = true;
-        $(".input-form input").prop("disabled", true);
-    }
+    // e.target.disabled = true;
+    model.state.isStopped = false;
+
+    $(".input-form input").prop("disabled", true);
+
     totalCountdown();
     mainCountdown();
 };
 
 const controlPause = function (e) {
     e.preventDefault();
-    model.timerStopState();
-    if (model.state.isStopped) {
-        e.target.disabled = true;
-        $(".input-form input").prop("disabled", false);
-    }
+    // e.target.disabled = true;
+    model.state.isPaused = true;
+
+    $(".input-form input").prop("disabled", false);
+};
+
+const controlResume = function (e) {
+    e.preventDefault();
+    model.state.isPaused = false;
 };
 
 const init = function () {
@@ -132,5 +155,6 @@ const init = function () {
     settingView.addHandlerTabs(controlTabs);
     settingView.addHandlerStartBtn(controlStart);
     settingView.addHandlerPauseBtn(controlPause);
+    settingView.addHandlerResumeBtn(controlResume);
 };
 init();

@@ -43,6 +43,7 @@
     }
 
     .btn--pause,
+    .btn--resume,
     .btn--reset {
         width: 7rem;
         height: 7rem;
@@ -139,6 +140,7 @@
     }
 
     .btn--pause,
+    .btn--resume,
     .btn--reset {
         width: 8rem;
         height: 8rem;
@@ -197,6 +199,7 @@
     }
 
     .btn--pause,
+    .btn--resume,
     .btn--reset {
         width: 6rem;
         height: 6rem;
