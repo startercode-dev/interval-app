@@ -26,6 +26,12 @@ class settingView extends View {
             handler(e);
         });
     }
+
+    addHandlerResumeBtn(handler) {
+        $(".btn--resume").click((e) => {
+            handler(e);
+        });
+    }
 }
 
 export default new settingView();
