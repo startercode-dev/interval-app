@@ -34,6 +34,14 @@ const count = function (t) {
                 }, 1000);
             }
         });
+
+        $(".btn--reset").click(() => {
+            clearInterval(timer);
+            model.updateTime();
+            $(".timer-clock__label").text(
+                `${formatTime(model.state.setting.timeExercise)}`
+            );
+        });
     });
 };
 
@@ -90,6 +98,13 @@ const totalCountdown = async function () {
             }, 1000);
         }
     });
+
+    $(".btn--reset").click(() => {
+        clearInterval(timer);
+        model.updateTime();
+        const total = calcTime();
+        $(".timer-clock__remain span").text(formatTime(total));
+    });
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -125,13 +140,14 @@ const controlUpdateViews = function () {
     );
 };
 
-// NOTETAB CSS BTN DISABLED STATE
 const controlStart = function (e) {
     e.preventDefault();
-    // e.target.disabled = true;
     model.state.isStopped = false;
 
+    e.target.disabled = true;
     $(".input-form input").prop("disabled", true);
+    $(".btn--reset").prop("disabled", false);
+    $(".btn--pause").prop("disabled", false);
 
     totalCountdown();
     mainCountdown();
@@ -139,15 +155,37 @@ const controlStart = function (e) {
 
 const controlPause = function (e) {
     e.preventDefault();
-    // e.target.disabled = true;
     model.state.isPaused = true;
 
-    $(".input-form input").prop("disabled", false);
+    e.target.disabled = true;
+    e.target.classList.add("hidden");
+    $(".btn--resume").removeClass("hidden");
+    $(".btn--resume").prop("disabled", false);
 };
 
 const controlResume = function (e) {
     e.preventDefault();
+    e.target.disabled = true;
     model.state.isPaused = false;
+
+    e.target.classList.add("hidden");
+    $(".btn--pause").removeClass("hidden");
+    $(".btn--pause").prop("disabled", false);
+};
+
+const controlReset = function (e) {
+    e.preventDefault();
+    e.target.disabled = true;
+    model.state.isPaused = false;
+    model.state.isStopped = true;
+
+    $(".btn--start").prop("disabled", false);
+    $(".btn--pause").prop("disabled", true);
+    $(".btn--resume").prop("disabled", true);
+    $(".btn--pause").removeClass("hidden");
+    $(".btn--resume").addClass("hidden");
+
+    $(".input-form input").prop("disabled", false);
 };
 
 const init = function () {
@@ -156,5 +194,6 @@ const init = function () {
     settingView.addHandlerStartBtn(controlStart);
     settingView.addHandlerPauseBtn(controlPause);
     settingView.addHandlerResumeBtn(controlResume);
+    settingView.addHandlerResetBtn(controlReset);
 };
 init();
