@@ -12,10 +12,14 @@ export default class View {
         const { numExercises, timeExercise, restExercise, numSets, restSet } =
             this._data;
 
-        return numSets > 1
-            ? ((timeExercise + restExercise) * numExercises - restExercise) *
-                  numSets +
+        const total =
+            numSets > 1
+                ? ((timeExercise + restExercise) * numExercises -
+                      restExercise) *
+                      numSets +
                   (numSets * restSet - restSet)
-            : (timeExercise + restExercise) * numExercises - restExercise;
+                : (timeExercise + restExercise) * numExercises - restExercise;
+
+        return total;
     }
 }
