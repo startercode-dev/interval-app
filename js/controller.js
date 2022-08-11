@@ -74,7 +74,7 @@ const count = function (t) {
             $(".timer-clock__label").text(
                 `${formatTime(model.state.setting.timeExercise)}`
             );
-            reject();
+            reject("reset");
         });
     });
 };
@@ -121,8 +121,9 @@ const controlUpdateViews = function () {
 // BUTTONS
 const controlStart = function (e) {
     e.preventDefault();
-    model.state.isStopped = false;
 
+    // BUG prevent blank form from starting
+    model.state.isStopped = false;
     totalCountdown();
     mainCountdown();
 };
@@ -141,13 +142,15 @@ const controlResume = function (e) {
 const controlReset = function (e) {
     e.preventDefault();
     e.target.disabled = true;
+    model.state.isPaused = false;
+    model.state.isStopped = true;
 };
 
 const init = function () {
     settingView.addHandlerInputChanges(controlUpdateViews);
     settingView.addHandlerTabs();
+    settingView.addHandlerStartBtn(controlStart);
 
-    timerView.addHandlerStartBtn(controlStart);
     timerView.addHandlerPauseBtn(controlPause);
     timerView.addHandlerResumeBtn(controlResume);
     timerView.addHandlerResetBtn(controlReset);

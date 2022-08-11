@@ -54,7 +54,7 @@
     }
 
     .timer-clock__remain {
-        transform: translate(-50%, -75px);
+        transform: translate(-50%, 1122%);
     }
 
     /* TABS */
@@ -151,8 +151,8 @@
     }
 
     .timer-clock__remain {
-        font-size: 2.1rem;
-        transform: translate(-50%, -90px);
+        font-size: 2rem;
+        transform: translate(-50%, 1050%);
     }
 }
 
@@ -211,7 +211,7 @@
 
     .timer-clock__remain {
         font-size: 1.618rem;
-        transform: translate(-50%, -70px);
+        transform: translate(-50%, 1000%);
     }
 
     /* FOOTER */

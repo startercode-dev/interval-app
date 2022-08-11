@@ -17,6 +17,17 @@ class settingView extends View {
             ).addClass("is-active");
         });
     }
+
+    addHandlerStartBtn(handler) {
+        $(".btn--start").click((e) => {
+            handler(e);
+
+            e.target.disabled = true;
+            $(".input-form input").prop("disabled", true);
+            $(".btn--reset").prop("disabled", false);
+            $(".btn--pause").prop("disabled", false);
+        });
+    }
 }
 
 export default new settingView();

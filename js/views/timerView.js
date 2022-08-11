@@ -4,17 +4,6 @@ import View from "./View.js";
 import { formatTime } from "../helper.js";
 
 class TimerView extends View {
-    addHandlerStartBtn(handler) {
-        $(".btn--start").click((e) => {
-            handler(e);
-
-            e.target.disabled = true;
-            $(".input-form input").prop("disabled", true);
-            $(".btn--reset").prop("disabled", false);
-            $(".btn--pause").prop("disabled", false);
-        });
-    }
-
     addHandlerPauseBtn(handler) {
         $(".btn--pause").click((e) => {
             handler(e);
@@ -40,9 +29,6 @@ class TimerView extends View {
     addHandlerResetBtn(handler) {
         $(".btn--reset").click((e) => {
             handler(e);
-
-            model.state.isPaused = false;
-            model.state.isStopped = true;
 
             $(".btn--start").prop("disabled", false);
             $(".btn--pause").prop("disabled", true);

@@ -296,7 +296,7 @@
 .timer-clock__remain {
     font-size: 1.618rem;
     letter-spacing: 0.15rem;
-    transform: translate(-50%, -85px);
+    transform: translate(-50%, 1315%);
 }
 
 .timer-clock__svg {
