@@ -9,33 +9,12 @@ class settingView extends View {
         });
     }
 
-    addHandlerTabs(handler) {
+    addHandlerTabs() {
         $(".tabs--tab").click((e) => {
-            handler(e);
-        });
-    }
-
-    addHandlerStartBtn(handler) {
-        $(".btn--start").click((e) => {
-            handler(e);
-        });
-    }
-
-    addHandlerPauseBtn(handler) {
-        $(".btn--pause").click((e) => {
-            handler(e);
-        });
-    }
-
-    addHandlerResumeBtn(handler) {
-        $(".btn--resume").click((e) => {
-            handler(e);
-        });
-    }
-
-    addHandlerResetBtn(handler) {
-        $(".btn--reset").click((e) => {
-            handler(e);
+            $(".tabs--tab, .tabs-content").removeClass("is-active");
+            $(
+                `.tab--${e.target.dataset.tab}, .content--${e.target.dataset.tab}`
+            ).addClass("is-active");
         });
     }
 }
