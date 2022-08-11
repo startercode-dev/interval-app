@@ -120,9 +120,12 @@ const controlUpdateViews = function () {
 
 // BUTTONS
 const controlStart = function (e) {
-    e.preventDefault();
+    settingView.passData(model.state.setting);
 
-    // BUG prevent blank form from starting
+    const { timeExercise } = model.state.setting;
+    if (!timeExercise) return;
+
+    e.preventDefault();
     model.state.isStopped = false;
     totalCountdown();
     mainCountdown();
