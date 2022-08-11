@@ -3,6 +3,10 @@
 import View from "./View.js";
 
 class settingView extends View {
+    passData(data) {
+        this._data = data;
+    }
+
     addHandlerInputChanges(handler) {
         $(".input").change(() => {
             handler();
@@ -21,6 +25,8 @@ class settingView extends View {
     addHandlerStartBtn(handler) {
         $(".btn--start").click((e) => {
             handler(e);
+
+            if (!this._data.timeExercise) return;
 
             e.target.disabled = true;
             $(".input-form input").prop("disabled", true);
