@@ -45,7 +45,7 @@ h5 {
 }
 
 .btn:disabled {
-    background-color: rgb(137, 137, 137);
+    background-color: #717a87;
     cursor: default;
 }
 
