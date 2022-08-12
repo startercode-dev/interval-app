@@ -360,19 +360,21 @@
 }
 
 .btn--pause {
-    background-color: #9d2c24;
+    background-color: #f7d633;
+    color: #132a1e;
     left: 0;
+}
+.btn--pause:disabled {
+    color: #f7f7f7;
 }
 
 .btn--resume {
-    background-color: #368c54;
-    color: #132a1e;
+    background-color: #44af69;
     left: 0;
 }
 
 .btn--reset {
-    background-color: #f5cc00;
-    color: #132a1e;
+    background-color: #a7413a;
 }
 
 /************************/
@@ -472,6 +474,7 @@
 #89d2a3
 #44af69
 
+#717a87
 #475569
 #9d2c24
 
