@@ -307,7 +307,7 @@
     fill: none;
 }
 
-.timer-clock__path-elapsed {
+.timer-clock__path-total {
     stroke-width: 3px;
     stroke: #dcf4ec;
 }
@@ -315,12 +315,15 @@
 .timer-clock__path-remaining {
     stroke-width: 3px;
     stroke-linecap: round;
-    stroke-dasharray: 192;
 
     transform: rotate(90deg);
     transform-origin: center;
 
     stroke: #89d2a3;
+
+    stroke-dasharray: 283;
+
+    transition: stroke-dasharray 0.3s linear;
 }
 
 .timer-icon {
