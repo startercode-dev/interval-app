@@ -57,11 +57,80 @@ class TimerView extends View {
             $(".btn--pause").removeClass("hidden");
             $(".btn--resume").addClass("hidden");
 
+            $(".timer-clock__path-remaining").css("stroke-dasharray", "283");
+
             $(".input-form input").prop("disabled", false);
 
             clearInterval(this.totalTimer);
             clearInterval(this.mainTimer);
         });
+    }
+
+    _count(t) {
+        const totalSec = t;
+        const setCircleDashArray = function () {
+            let timeFrac = t / totalSec;
+            // timeFrac = timeFrac - (1 / totalSec) * (1 - timeFrac);
+            const circleDasharray = `${(timeFrac * 283).toFixed(0)} 283`;
+            $(".timer-clock__path-remaining").css(
+                "stroke-dasharray",
+                circleDasharray
+            );
+        };
+        return new Promise((resolve) => {
+            $(".timer-clock__label").text(formatTime(t));
+            const tick = () => {
+                t--;
+                $(".timer-clock__label").text(formatTime(t));
+                setCircleDashArray();
+
+                if (t === 0) {
+                    clearInterval(this.mainTimer);
+                    $(".timer-clock__path-remaining").css(
+                        "stroke-dasharray",
+                        "283"
+                    );
+                    resolve();
+                }
+            };
+
+            this.mainTimer = setInterval(tick, 1000);
+
+            $(".btn--resume").click(() => {
+                clearInterval(this.mainTimer);
+                this.mainTimer = setInterval(tick, 1000);
+            });
+        });
+    }
+
+    async mainCountdown() {
+        const { numExercises, timeExercise, restExercise, numSets, restSet } =
+            this._data;
+
+        let currNumS = 0;
+        let currNumE = 0;
+
+        for (let i = 0; i < numSets; i++) {
+            currNumS++;
+            $(".total-sets span").text(`${currNumS}/${numSets ? numSets : 1}`);
+            currNumE = 0;
+
+            for (let j = 0; j < numExercises; j++) {
+                currNumE++;
+                $(".total-exercises span").text(
+                    `${currNumE}/${numExercises ? numExercises : 1}`
+                );
+                await this._count(timeExercise);
+                if (currNumE < numExercises && restExercise > 0) {
+                    await this._count(restExercise);
+                }
+            }
+
+            if (currNumS < numSets && restSet > 0) {
+                await this._count(restSet);
+            }
+        }
+        $(".btn--pause").prop("disabled", true);
     }
 
     totalCountdown() {
@@ -74,54 +143,6 @@ class TimerView extends View {
                 clearInterval(this.totalTimer);
             }
         }, 1000);
-    }
-
-    async mainCountdown() {
-        const { numExercises, timeExercise, restExercise, numSets, restSet } =
-            this._data;
-
-        let currNumS = 0;
-        let currNumE = 0;
-
-        for (let i = 0; i < numSets; i++) {
-            currNumS++;
-            currNumE = 0;
-
-            for (let j = 0; j < numExercises; j++) {
-                currNumE++;
-                await this.count(timeExercise);
-                if (currNumE < numExercises && restExercise > 0) {
-                    await this.count(restExercise);
-                }
-            }
-
-            if (currNumS < numSets && restSet > 0) {
-                await this.count(restSet);
-            }
-        }
-        $(".btn--pause").prop("disabled", true);
-    }
-
-    count(t) {
-        return new Promise((resolve) => {
-            $(".timer-clock__label").text(formatTime(t));
-            const tick = () => {
-                t--;
-                $(".timer-clock__label").text(formatTime(t));
-
-                if (t === 0) {
-                    clearInterval(this.mainTimer);
-                    resolve();
-                }
-            };
-
-            this.mainTimer = setInterval(tick, 1000);
-
-            $(".btn--resume").click(() => {
-                clearInterval(this.mainTimer);
-                this.mainTimer = setInterval(tick, 1000);
-            });
-        });
     }
 }
 
