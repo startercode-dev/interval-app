@@ -6,12 +6,14 @@ import { formatTime } from "../helper.js";
 class TimerView extends View {
     totalTimer;
     totalTime;
+    totalMs;
     mainTimer;
 
     _generateView() {
         const total = this.getTotal();
         $(".timer-clock__remain span").text(formatTime(total));
         $(".timer-clock__label").text(`${formatTime(this._data.timeExercise)}`);
+        $(".timer-clock__path-remaining").css("stroke-dasharray", "283 283");
     }
 
     addHandlerPauseBtn(handler) {
@@ -25,6 +27,8 @@ class TimerView extends View {
 
             clearInterval(this.totalTimer);
             clearInterval(this.mainTimer);
+
+            $(".animation").css("animation-play-state", "paused");
         });
     }
 
@@ -38,12 +42,17 @@ class TimerView extends View {
             $(".btn--pause").prop("disabled", false);
 
             this.totalTimer = setInterval(() => {
-                this.totalTime--;
-                $(`.timer-clock__remain span`).text(formatTime(this.totalTime));
-                if (this.totalTime < 1) {
-                    clearInterval(this.totalTimer);
+                this.totalMs--;
+                if (this.totalMs % 100 === 0) {
+                    this.totalTime--;
+                    $(`.timer-clock__remain span`).text(
+                        formatTime(this.totalTime)
+                    );
+                    if (this.totalTime < 1) {
+                        clearInterval(this.totalTimer);
+                    }
                 }
-            }, 1000);
+            }, 10);
         });
     }
 
@@ -57,7 +66,8 @@ class TimerView extends View {
             $(".btn--pause").removeClass("hidden");
             $(".btn--resume").addClass("hidden");
 
-            $(".timer-clock__path-remaining").css("stroke-dasharray", "283");
+            $(".animation").css("animation-play-state", "running");
+            $(".timer-clock__path-remaining").removeClass("animation");
 
             $(".input-form input").prop("disabled", false);
 
@@ -67,38 +77,33 @@ class TimerView extends View {
     }
 
     _count(t) {
-        const totalSec = t;
-        const setCircleDashArray = function () {
-            let timeFrac = t / totalSec;
-            // timeFrac = timeFrac - (1 / totalSec) * (1 - timeFrac);
-            const circleDasharray = `${(timeFrac * 283).toFixed(0)} 283`;
-            $(".timer-clock__path-remaining").css(
-                "stroke-dasharray",
-                circleDasharray
-            );
-        };
+        let sec = t;
+        let msec = t * 100;
         return new Promise((resolve) => {
-            $(".timer-clock__label").text(formatTime(t));
+            $(".timer-clock__label").text(formatTime(sec));
             const tick = () => {
-                t--;
-                $(".timer-clock__label").text(formatTime(t));
-                setCircleDashArray();
-
-                if (t === 0) {
-                    clearInterval(this.mainTimer);
-                    $(".timer-clock__path-remaining").css(
-                        "stroke-dasharray",
-                        "283"
-                    );
-                    resolve();
+                msec--;
+                if (msec % 100 === 0) {
+                    // console.log(msec);
+                    if (sec === 1) {
+                        clearInterval(this.mainTimer);
+                        $(".timer-clock__path-remaining").removeClass(
+                            "animation"
+                        );
+                        resolve();
+                    }
+                    sec--;
+                    $(".timer-clock__label").text(formatTime(sec));
+                    $(".timer-clock__path-remaining").css("--time"); // RESET animation
                 }
             };
 
-            this.mainTimer = setInterval(tick, 1000);
+            this.mainTimer = setInterval(tick, 10);
 
             $(".btn--resume").click(() => {
                 clearInterval(this.mainTimer);
-                this.mainTimer = setInterval(tick, 1000);
+                this.mainTimer = setInterval(tick, 10);
+                $(".animation").css("animation-play-state", "running");
             });
         });
     }
@@ -120,13 +125,31 @@ class TimerView extends View {
                 $(".total-exercises span").text(
                     `${currNumE}/${numExercises ? numExercises : 1}`
                 );
+                $(".timer-clock__path-remaining")
+                    .css({
+                        "--time": `${timeExercise}s`,
+                    })
+                    .addClass("animation");
+
                 await this._count(timeExercise);
+
                 if (currNumE < numExercises && restExercise > 0) {
+                    $(".timer-clock__path-remaining")
+                        .css({
+                            "--time": `${restExercise}s`,
+                        })
+                        .addClass("animation");
+
                     await this._count(restExercise);
                 }
             }
 
             if (currNumS < numSets && restSet > 0) {
+                $(".timer-clock__path-remaining")
+                    .css({
+                        "--time": `${restSet}s`,
+                    })
+                    .addClass("animation");
                 await this._count(restSet);
             }
         }
@@ -135,14 +158,18 @@ class TimerView extends View {
 
     totalCountdown() {
         this.totalTime = this.getTotal();
+        this.totalMs = this.getTotal() * 100;
 
         this.totalTimer = setInterval(() => {
-            this.totalTime--;
-            $(`.timer-clock__remain span`).text(formatTime(this.totalTime));
-            if (this.totalTime < 1) {
-                clearInterval(this.totalTimer);
+            this.totalMs--;
+            if (this.totalMs % 100 === 0) {
+                this.totalTime--;
+                $(`.timer-clock__remain span`).text(formatTime(this.totalTime));
+                if (this.totalTime < 1) {
+                    clearInterval(this.totalTimer);
+                }
             }
-        }, 1000);
+        }, 10);
     }
 }
 
