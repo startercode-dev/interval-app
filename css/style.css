@@ -321,9 +321,20 @@
 
     stroke: #89d2a3;
 
-    stroke-dasharray: 283;
+    stroke-dasharray: 190 283;
+}
 
-    transition: stroke-dasharray 0.3s linear;
+.animation {
+    animation: circle var(--time) linear forwards;
+}
+
+@keyframes circle {
+    from {
+        stroke-dasharray: 283 283;
+    }
+    to {
+        stroke-dasharray: 0 283;
+    }
 }
 
 .timer-icon {
