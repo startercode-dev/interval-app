@@ -77,24 +77,37 @@ class TimerView extends View {
     }
 
     _count(t) {
+        const playTick = () => {
+            const tick = new Audio("../../assets/sounds/tick.mp3");
+            tick.play();
+        };
+        const playBeep = () => {
+            const beep = new Audio("../../assets/sounds/beep.mp3");
+            beep.play();
+        };
         let sec = t;
         let msec = t * 100;
+
         return new Promise((resolve) => {
             $(".timer-clock__label").text(formatTime(sec));
             const tick = () => {
                 msec--;
+                // count in milliseconds
                 if (msec % 100 === 0) {
-                    // console.log(msec);
                     if (sec === 1) {
                         clearInterval(this.mainTimer);
                         $(".timer-clock__path-remaining").removeClass(
                             "animation"
                         );
+                        playBeep();
                         resolve();
                     }
                     sec--;
                     $(".timer-clock__label").text(formatTime(sec));
                     $(".timer-clock__path-remaining").css("--time"); // RESET animation
+                    if (sec < 4 && sec > 0) {
+                        playTick();
+                    }
                 }
             };
 
