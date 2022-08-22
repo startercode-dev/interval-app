@@ -28,7 +28,7 @@
 /*************************/
 @media (max-width: 84rem) {
     .main {
-        column-gap: 1.6rem;
+        column-gap: 2.6rem;
     }
 
     /* TIMER */
@@ -103,8 +103,12 @@
     }
 
     /* INFO */
-    .info--name {
-        font-size: 2.118rem;
+    .infos {
+        font-size: 1.8rem;
+    }
+
+    .info--title {
+        font-size: 2.618rem;
     }
 }
 
@@ -116,7 +120,7 @@
     .main {
         column-gap: 0;
         /* grid-template-columns: 1fr; */
-        padding-bottom: 1.2rem;
+        padding-bottom: 3rem;
     }
 
     .ph-gear-six,
@@ -151,8 +155,7 @@
     }
 
     .timer-clock__remain {
-        font-size: 2rem;
-        transform: translate(-50%, 1050%);
+        transform: translate(-50%, 1311%);
     }
 }
 
@@ -244,11 +247,11 @@
 
     /* FOOTER */
     .footer {
-        font-size: 1.118rem;
+        font-size: 1.3rem;
     }
 
     .footer-logos {
-        margin-top: 0.4rem;
+        margin-top: 1.118rem;
         gap: 0.6rem;
     }
 }
