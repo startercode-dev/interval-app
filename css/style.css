@@ -395,7 +395,7 @@
 /* INFOS */
 /************************/
 .infos {
-    font-size: 1.618rem;
+    font-size: 2.2rem;
     letter-spacing: 0.15rem;
     /* padding: 0 2rem 2rem; */
 
@@ -406,7 +406,7 @@
 }
 
 .info--title {
-    font-size: 2.618rem;
+    font-size: 3.018rem;
     font-weight: 500;
 }
 
@@ -434,6 +434,7 @@
 }
 
 .footer-follow {
+    margin-top: 1.6rem;
     letter-spacing: 0.15rem;
 }
 
