@@ -1,5 +1,3 @@
-"use strict";
-
 import * as model from "./model.js";
 import settingView from "./views/settingView.js";
 import timerView from "./views/timerView.js";
