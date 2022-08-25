@@ -1,5 +1,3 @@
-"use strict";
-
 import View from "./View.js";
 
 class settingView extends View {

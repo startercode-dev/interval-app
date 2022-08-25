@@ -1,5 +1,3 @@
-"use strict";
-
 export const state = {
     setting: {},
     isStopped: true,

@@ -1,5 +1,3 @@
-"use strict";
-
 import * as model from "./model.js";
 
 export const calcTime = function () {
