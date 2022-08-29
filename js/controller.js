@@ -1,7 +1,7 @@
-import * as model from "./model.js";
-import settingView from "./views/settingView.js";
-import timerView from "./views/timerView.js";
-import infoView from "./views/infoView.js";
+import * as model from './model.js';
+import settingView from './views/settingView.js';
+import timerView from './views/timerView.js';
+import infoView from './views/infoView.js';
 
 const controlUpdateViews = function () {
     model.updateTime();
@@ -53,5 +53,7 @@ const init = function () {
     timerView.addHandlerPauseBtn(controlPause);
     timerView.addHandlerResumeBtn(controlResume);
     timerView.addHandlerResetBtn(controlReset);
+    timerView.addHandlerSettings();
+    timerView.addHandlerInfos();
 };
 init();

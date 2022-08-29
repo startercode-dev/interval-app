@@ -1,4 +1,4 @@
-import * as model from "./model.js";
+import * as model from './model.js';
 
 export const calcTime = function () {
     const { numExercises, timeExercise, restExercise, numSets, restSet } =
