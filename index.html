@@ -105,6 +105,7 @@
                                             id="numExercises"
                                             class="input"
                                             placeholder="1"
+                                            value="1"
                                         />
 
                                         <label
@@ -123,7 +124,8 @@
                                         <label
                                             for="restExercise"
                                             class="input--label"
-                                            >rest between exercise</label
+                                            >rest between exercise
+                                            <span>(opt.)</span></label
                                         >
                                         <input
                                             type="number"
@@ -142,18 +144,20 @@
                                             id="numSets"
                                             class="input"
                                             placeholder="1"
+                                            value="1"
                                         />
 
                                         <label
                                             for="restSet"
                                             class="input--label"
-                                            >rest between sets</label
+                                            >rest between sets
+                                            <span>(opt.)</span></label
                                         >
                                         <input
                                             type="number"
                                             id="restSet"
                                             class="input"
-                                            placeholder="60s"
+                                            placeholder="90s"
                                         />
                                         <button
                                             type="submit"
@@ -222,6 +226,13 @@
                                 <button class="btn btn--reset" disabled>
                                     reset
                                 </button>
+
+                                <p class="timer-infos timer-info-exercise hidden">
+                                    <span>3/5</span> exercise
+                                <p class="timer-infos timer-info-set hidden">
+                                    <span>1/5</span> sets
+                                </p>
+                                </p>
                             </div>
                         </div>
                     </section>

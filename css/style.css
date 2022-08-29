@@ -102,8 +102,8 @@
 }
 
 .tabs-component {
-    height: 100%;
-    width: 32rem;
+    height: 42rem;
+    width: 38rem;
     flex-direction: column;
     font-size: 1.618rem;
 
@@ -123,6 +123,7 @@
     align-items: center;
     cursor: pointer;
     font-weight: 300;
+
     width: 100%;
     height: 5rem;
 
@@ -133,13 +134,13 @@
     display: none;
     height: 100%;
     width: 100%;
-
     align-self: center;
     padding: 3.2rem;
 }
 
 .tabs--tab.is-active,
 .tabs-content.is-active {
+    font-size: 1.918rem;
     box-shadow: none;
     font-weight: 500;
     background-color: #f7f7f7;
@@ -209,6 +210,7 @@
 /************************/
 .input-form {
     height: 100%;
+    width: 100%;
     grid-template-columns: 4fr 1fr;
     justify-items: end;
     align-items: center;
@@ -217,9 +219,13 @@
 }
 
 .input--label {
-    font-size: 1.618rem;
+    font-size: 1.818rem;
     letter-spacing: 0.05rem;
-    font-weight: 400;
+    font-weight: 500;
+}
+.input--label span {
+    color: #132a1edd;
+    font-size: 1.118rem;
 }
 
 .input {
@@ -294,9 +300,9 @@
 }
 
 .timer-clock__remain {
-    font-size: 1.618rem;
+    font-size: 1.818rem;
     letter-spacing: 0.15rem;
-    transform: translate(-50%, 1315%);
+    top: 102%;
 }
 
 .timer-clock__svg {
@@ -355,6 +361,20 @@
 
 .ph-dots-three-outline {
     right: 12px;
+}
+
+.timer-infos {
+    font-size: 1.6rem;
+    letter-spacing: 0.15rem;
+
+    position: absolute;
+    bottom: 30%;
+}
+.timer-info-exercise {
+    left: 20%;
+}
+.timer-info-set {
+    right: 20%;
 }
 
 .btn--pause,
@@ -450,7 +470,7 @@
 }
 
 .footer-feedback {
-    letter-spacing: 0.25rem;
+    letter-spacing: 0.2rem;
     margin-top: 1.8rem;
     padding-bottom: 3.2rem;
 }

@@ -54,13 +54,14 @@
     }
 
     .timer-clock__remain {
-        transform: translate(-50%, 1122%);
+        top: 100%;
+        transform: translate(-50%, 0);
     }
 
     /* TABS */
     .tabs-component {
-        width: 28rem;
-        height: 34rem;
+        width: 32rem;
+        height: 38rem;
     }
 
     .tabs-content {
@@ -74,7 +75,7 @@
     }
 
     .input--label {
-        font-size: 1.418rem;
+        font-size: 1.518rem;
     }
 
     .input {
@@ -113,9 +114,9 @@
 }
 
 /*************************/
-/* Below 1056px */
+/* Below 1104px */
 /*************************/
-@media (max-width: 62em) {
+@media (max-width: 69em) {
     /* MAIN */
     .main {
         column-gap: 0;
@@ -131,6 +132,13 @@
     .settings,
     .infos {
         display: none;
+    }
+
+    .settings {
+        transform: translate(37rem, 5rem);
+        z-index: 10;
+        opacity: 0.98;
+        box-shadow: 0px 8px 20px rgb(0 0 0 / 20%);
     }
 
     .timer-clock {
@@ -155,7 +163,11 @@
     }
 
     .timer-clock__remain {
-        transform: translate(-50%, 1311%);
+        transform: translate(-50%, 0);
+    }
+
+    .timer-infos {
+        display: block;
     }
 }
 
@@ -214,7 +226,7 @@
 
     .timer-clock__remain {
         font-size: 1.618rem;
-        transform: translate(-50%, 1000%);
+        transform: translate(-50%, 0);
     }
 
     /* FOOTER */
