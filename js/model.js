@@ -6,11 +6,10 @@ export const state = {
 
 export const updateTime = () => {
     state.setting = {
-        numExercises:
-            $('#numExercises').val() * 1 ? $('#numExercises').val() * 1 : 1,
-        timeExercise: $('#timeExercise').val() * 1,
-        restExercise: $('#restExercise').val() * 1,
-        numSets: $('#numSets').val() * 1 ? $('#numSets').val() * 1 : 1,
-        restSet: $('#restSet').val() * 1,
+        numExercises: +$('#numExercises').val() ? +$('#numExercises').val() : 1,
+        timeExercise: +$('#timeExercise').val(),
+        restExercise: +$('#restExercise').val(),
+        numSets: +$('#numSets').val() ? +$('#numSets').val() : 1,
+        restSet: +$('#restSet').val(),
     };
 };
