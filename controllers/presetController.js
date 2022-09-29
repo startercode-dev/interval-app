@@ -1,53 +1,18 @@
 const Preset = require('../models/presetModel');
-const AppError = require('../utils/appError');
-const catchAsync = require('../utils/catchAsync');
+// const AppError = require('../utils/appError');
+// const catchAsync = require('../utils/catchAsync');
+const crudHandler = require('./crudHandlers');
 
-exports.createPreset = catchAsync(async (req, res, next) => {
+exports.setUserId = (req, res, next) => {
+    // nested routes, for the required User field to create a preset
     if (!req.body.user) req.body.user = req.user.id;
-    const newPreset = await Preset.create(req.body);
 
-    res.status(201).json({
-        data: {
-            preset: newPreset,
-        },
-    });
-});
+    next();
+};
 
-exports.updatePreset = catchAsync(async (req, res, next) => {
-    const preset = await Preset.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true,
-    });
+exports.createPreset = crudHandler.createOne(Preset);
+exports.getPreset = crudHandler.getOne(Preset);
+exports.updatePreset = crudHandler.updateOne(Preset);
+exports.deletePreset = crudHandler.deleteOne(Preset);
 
-    if (!preset) {
-        return next(new AppError('no preset found', 404));
-    }
-
-    res.status(200).json({
-        msg: 'updated',
-        data: preset,
-    });
-});
-
-exports.deletePreset = catchAsync(async (req, res, next) => {
-    const preset = await Preset.findByIdAndDelete(req.params.id);
-
-    if (!preset) {
-        return next(new AppError('no preset found', 404));
-    }
-
-    res.status(204).json({
-        msg: 'deleted',
-    });
-});
-
-exports.getAllPreset = catchAsync(async (req, res, next) => {
-    const presets = await Preset.find();
-
-    res.status(200).json({
-        data: {
-            results: presets.length,
-            preset: presets,
-        },
-    });
-});
+exports.getAllPreset = crudHandler.getAll(Preset);
