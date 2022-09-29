@@ -3,6 +3,7 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.createPreset = catchAsync(async (req, res, next) => {
+    if (!req.body.user) req.body.user = req.user.id;
     const newPreset = await Preset.create(req.body);
 
     res.status(201).json({

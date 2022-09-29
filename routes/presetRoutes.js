@@ -6,8 +6,12 @@ const presetController = require('../controllers/presetController');
 
 router
     .route('/')
-    .get(authController.protect, presetController.getAllPreset)
-    .post(presetController.createPreset);
+    .get(
+        authController.protect,
+        authController.restrictTo('admin'),
+        presetController.getAllPreset
+    )
+    .post(authController.protect, presetController.createPreset);
 
 router
     .route('/:id')

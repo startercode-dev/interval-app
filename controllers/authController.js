@@ -82,4 +82,5 @@ exports.restrictTo =
         if (!roles.includes(req.user.role)) {
             return next(new AppError('no permission nig', 403));
         }
+        next();
     };
