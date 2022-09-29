@@ -35,15 +35,15 @@ const presetSchema = new mongoose.Schema(
     }
 );
 
-presetSchema.pre(/^find/, function (next) {
-    this.populate({
-        path: 'user',
-        select: 'email',
-    });
+// presetSchema.pre(/^find/, function (next) {
+//     this.populate({
+//         path: 'user',
+//         select: 'email',
+//     });
 
-    next();
-});
+//     next();
+// });
 
-const Preset = mongoose.model('preset', presetSchema);
+const Preset = mongoose.model('Preset', presetSchema);
 
 module.exports = Preset;
