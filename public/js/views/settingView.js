@@ -1,4 +1,5 @@
 import View from './View.js';
+import $ from 'jquery';
 
 class settingView extends View {
     passData(data) {

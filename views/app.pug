@@ -1,0 +1,39 @@
+extends base
+
+block body  
+    .container
+        .container--nav
+            nav.nav.flex
+                a.nav-about about
+                h1.nav-logo interval
+                if user 
+                    .nav-dropdown
+                        a.nav-user(href='#')= user.name
+                        .dropdown-content
+                            a.dropdown--settings(href="#") settings 
+                            a.dropdown--logout(href="/#") logout  
+                else 
+                    a.nav-signup sign up
+
+
+        .container--banner
+            .banner.flex
+                p.line.line--banner
+                .logo
+                    p.logo-img
+                        | interval
+                        span .app
+                    .logo-endorsement.flex
+                        p.endorsement--text powered by
+                        a.endorsement--logo(href='#')
+                            img(src='/assets/startercode-logo.png' alt='starter code logo')
+                p.line.line--banner
+
+        .container--main
+            main.main.grid
+                include _setting
+                include _timer
+                include _infos
+
+        .container--footer
+            include _footer

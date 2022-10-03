@@ -53,6 +53,14 @@ h5 {
     display: flex;
 }
 
+.center {
+    justify-content: center;
+}
+
+.grid-extend {
+    grid-column: 1/-1;
+}
+
 .grid {
     display: grid;
 }

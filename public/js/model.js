@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 export const state = {
     setting: {},
     isStopped: true,

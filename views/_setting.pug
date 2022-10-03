@@ -1,0 +1,50 @@
+section.settings
+    .tabs-component.flex
+        .tabs-head.flex
+            .tabs--tab.tab--saved.flex(data-tab='saved')
+                | saved
+            .tabs--tab.tab--custom.flex.is-active(data-tab='custom')
+                | custom
+        .tabs-body.flex
+            .tabs-content.content--saved
+                .saved-items.grid
+                    .item.flex
+                        p.item--title
+                            | HIIT custom 2
+                        p.item--time 15min
+                    .item.flex
+                        p.item--title abs
+                        p.item--time 10mins
+                    .item.flex
+                        p.item--title
+                            | cardio intense
+                        p.item--time 4min
+                    .item.flex
+                        p.item--title ez core
+                        p.item--time 8min
+                    a.edit-saved  edit 
+            .tabs-content.content--custom.is-active
+                form.input-form.grid(action='')
+                    label.input--label(for='numExercises') how many exercises
+                    input#numExercises.input(type='number' placeholder='1' value='1')
+                    label.input--label(for='timeExercise') time per exercise
+                    input#timeExercise.input(type='number' placeholder='45s' required='')
+                    label.input--label(for='restExercise')
+                        | rest between exercise 
+                        span (opt.)
+                    input#restExercise.input(type='number' placeholder='15s')
+                    label.input--label(for='numSets') how many sets
+                    input#numSets.input(type='number' placeholder='1' value='1')
+                    label.input--label(for='restSet')
+                        | rest between sets 
+                        span (opt.)
+                    input#restSet.input(type='number' placeholder='90s')
+                    button.btn.btn--start start
+                    .login-box.flex.grid-extend.center
+                        if user 
+                            button.btn.btn--save(type='submit')
+                                | save timer &plus;
+                        else 
+                            a.btn.btn--login(href='/login')
+                                | LOG IN
+                            span.btn--login_text - to save timer &plus;
