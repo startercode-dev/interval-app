@@ -598,7 +598,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","regenerator-runtime/runtime":"dXNgZ","./model.js":"4XeXP","./views/settingView.js":"8zWDW","./views/timerView.js":"2gfXT","./views/infoView.js":"fgKwM","./views/loginView.js":"6jzZB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","jquery":"hgMhh","./login.js":"7yHem"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","regenerator-runtime/runtime":"dXNgZ","jquery":"hgMhh","./model.js":"4XeXP","./views/settingView.js":"8zWDW","./views/timerView.js":"2gfXT","./views/infoView.js":"fgKwM","./views/loginView.js":"6jzZB","./login.js":"7yHem","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("../modules/web.clear-immediate");
 require("../modules/web.set-immediate");
@@ -2285,29 +2285,7 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}],"4XeXP":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "state", ()=>state);
-parcelHelpers.export(exports, "updateTime", ()=>updateTime);
-var _jquery = require("jquery");
-var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
-const state = {
-    setting: {},
-    isStopped: true,
-    isPaused: false
-};
-const updateTime = ()=>{
-    state.setting = {
-        numExercises: +(0, _jqueryDefault.default)("#numExercises").val() ? +(0, _jqueryDefault.default)("#numExercises").val() : 1,
-        timeExercise: +(0, _jqueryDefault.default)("#timeExercise").val(),
-        restExercise: +(0, _jqueryDefault.default)("#restExercise").val(),
-        numSets: +(0, _jqueryDefault.default)("#numSets").val() ? +(0, _jqueryDefault.default)("#numSets").val() : 1,
-        restSet: +(0, _jqueryDefault.default)("#restSet").val()
-    };
-};
-
-},{"jquery":"hgMhh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hgMhh":[function(require,module,exports) {
+},{}],"hgMhh":[function(require,module,exports) {
 /*!
  * jQuery JavaScript Library v3.6.1
  * https://jquery.com/
@@ -9066,7 +9044,29 @@ const updateTime = ()=>{
     return jQuery;
 });
 
-},{}],"gkKU3":[function(require,module,exports) {
+},{}],"4XeXP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "state", ()=>state);
+parcelHelpers.export(exports, "updateTime", ()=>updateTime);
+var _jquery = require("jquery");
+var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
+const state = {
+    setting: {},
+    isStopped: true,
+    isPaused: false
+};
+const updateTime = ()=>{
+    state.setting = {
+        numExercises: +(0, _jqueryDefault.default)("#numExercises").val() ? +(0, _jqueryDefault.default)("#numExercises").val() : 1,
+        timeExercise: +(0, _jqueryDefault.default)("#timeExercise").val(),
+        restExercise: +(0, _jqueryDefault.default)("#restExercise").val(),
+        numSets: +(0, _jqueryDefault.default)("#numSets").val() ? +(0, _jqueryDefault.default)("#numSets").val() : 1,
+        restSet: +(0, _jqueryDefault.default)("#restSet").val()
+    };
+};
+
+},{"jquery":"hgMhh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
