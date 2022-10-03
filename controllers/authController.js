@@ -12,6 +12,16 @@ const jwtSignToken = (id) =>
 const createSendToken = (user, statusCode, res) => {
     const token = jwtSignToken(user._id);
 
+    const cookieOptions = {
+        expires: new Date(
+            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+        ),
+        // secure: true, // only in production(https)
+        httpOnly: true,
+    };
+    if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+    res.cookie('jwt', token, cookieOptions);
+
     user.password = undefined;
     res.status(statusCode).json({
         status: 'success',
@@ -73,8 +83,39 @@ exports.protect = catchAsync(async (req, res, next) => {
     }
 
     req.user = currUser;
+    res.locals.user = currUser;
     next();
 });
+
+exports.isLoggedIn = async (req, res, next) => {
+    if (req.cookies.jwt) {
+        try {
+            // 1) verify token
+            const decoded = await promisify(jwt.verify)(
+                req.cookies.jwt,
+                process.env.JWT_SECRET
+            );
+
+            // 2) Check if user still exists
+            const currUser = await User.findById(decoded.id);
+            if (!currUser) {
+                return next();
+            }
+
+            // 3) Check if user changed password after the token was issued
+            // if (currUser.changedPasswordAfter(decoded.iat)) {
+            //     return next();
+            // }
+
+            // THERE IS A LOGGED IN USER
+            res.locals.user = currUser;
+            return next();
+        } catch (err) {
+            return next();
+        }
+    }
+    next();
+};
 
 exports.restrictTo =
     (...roles) =>

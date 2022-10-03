@@ -1,7 +1,12 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+import $ from 'jquery';
 import * as model from './model.js';
 import settingView from './views/settingView.js';
 import timerView from './views/timerView.js';
 import infoView from './views/infoView.js';
+import loginView from './views/loginView.js';
+import { login } from './login.js';
 
 const controlUpdateViews = function () {
     model.updateTime();
@@ -45,6 +50,15 @@ const controlReset = function (e) {
     infoView.render(model.state.setting);
 };
 
+const controlLogin = function (e) {
+    e.preventDefault();
+    const email = $('#email').val();
+    const password = $('#password').val();
+
+    login(email, password);
+};
+
+// INIT
 const init = function () {
     settingView.addHandlerInputChanges(controlUpdateViews);
     settingView.addHandlerTabs();
@@ -55,5 +69,7 @@ const init = function () {
     timerView.addHandlerResetBtn(controlReset);
     timerView.addHandlerSettings();
     timerView.addHandlerInfos();
+
+    loginView.addHandlerLogin(controlLogin);
 };
 init();
