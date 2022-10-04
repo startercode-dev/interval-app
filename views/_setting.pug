@@ -9,11 +9,22 @@ section.settings
             .tabs-content.content--saved
                 .saved-items.grid
                     if user 
-                        each preset in user.presets
-                            .item.flex 
-                                p.item--title= preset.title
-                                p.item--time= `${preset.totalTime}min`
-                        a.edit-saved  presets 
+                        if user.presets.length > 0
+                            each preset in user.presets
+                                - const time = Number(preset.totalTime.slice(0, 1))
+                                if (time < 1)
+                                    a.item.flex(href=`/preset/${preset._id}`) 
+                                        p.item--title= preset.title
+                                        p.item--time= `${preset.totalTime} secs`
+                                else 
+                                    a.item.flex(href=`/preset/${preset._id}`) 
+                                        p.item--title= preset.title
+                                        p.item--time= `${preset.totalTime} mins`
+                            a.edit-saved  presets 
+                        else 
+                            .item.flex
+                                p.item--title -- saved presets --
+                            a.edit-saved  presets 
                     else 
                         .item.flex
                             p.item--title -- saved presets --
