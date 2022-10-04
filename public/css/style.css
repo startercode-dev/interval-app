@@ -243,6 +243,13 @@
 /************************/
 /* SETTINGS TAB CUSTOM */
 /************************/
+.save-preset-form {
+    grid-template-columns: 2fr 3fr;
+    align-items: center;
+    justify-items: end;
+    row-gap: 1rem;
+}
+
 .input-form {
     height: 100%;
     width: 100%;
@@ -253,6 +260,10 @@
     row-gap: 1rem;
 }
 
+.input--label__text {
+    grid-column: 1/-1;
+    justify-self: start;
+}
 .input--label {
     font-size: 1.818rem;
     letter-spacing: 0.05rem;
@@ -279,6 +290,12 @@
     height: 3rem;
 }
 
+.input__title {
+    width: auto;
+    height: 3rem;
+}
+
+.btn--save__submit,
 .btn--start {
     margin-top: 2rem;
     font-size: 1.618rem;
@@ -294,6 +311,10 @@
     width: 100%;
 }
 
+.btn--back {
+    grid-column: 1/-1;
+}
+.btn--back,
 .btn--save,
 .btn--login,
 .btn--login_text {
@@ -304,7 +325,7 @@
     width: max-content;
 
     /* grid-column: 1/-1; */
-    align-self: center;
+    /* align-self: center; */
     justify-self: center;
 
     /* margin-top: 2rem; */

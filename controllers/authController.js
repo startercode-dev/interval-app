@@ -67,6 +67,8 @@ exports.protect = catchAsync(async (req, res, next) => {
         req.headers.authorization.startsWith('Bearer')
     ) {
         token = req.headers.authorization.split(' ')[1];
+    } else if (req.cookies.jwt) {
+        token = req.cookies.jwt;
     }
 
     // console.log(token);
@@ -108,6 +110,7 @@ exports.isLoggedIn = async (req, res, next) => {
             // }
 
             // THERE IS A LOGGED IN USER
+            req.user = currUser;
             res.locals.user = currUser;
             return next();
         } catch (err) {

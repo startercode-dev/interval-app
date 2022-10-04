@@ -547,6 +547,8 @@ var _infoViewJsDefault = parcelHelpers.interopDefault(_infoViewJs);
 var _loginViewJs = require("./views/loginView.js");
 var _loginViewJsDefault = parcelHelpers.interopDefault(_loginViewJs);
 var _loginJs = require("./login.js");
+var _helperJs = require("./helper.js");
+var _createPostJs = require("./createPost.js");
 const controlUpdateViews = function() {
     _modelJs.updateTime();
     (0, _timerViewJsDefault.default).render(_modelJs.state.setting);
@@ -584,11 +586,25 @@ const controlLogin = function(e) {
     const password = (0, _jqueryDefault.default)("#password").val();
     (0, _loginJs.login)(email, password);
 };
+const controlSaveTimer = function(e) {
+    e.preventDefault();
+    (0, _settingViewJsDefault.default).passData(_modelJs.state.setting);
+};
+const controlSaveSubmit = function(e) {
+    e.preventDefault();
+    const { numExercise , timeExercise , restExercise , numSet , restSet  } = _modelJs.state.setting;
+    const title = (0, _jqueryDefault.default)(".input__title").val();
+    const totalTime = (0, _helperJs.formatTime)((0, _helperJs.calcTime)());
+    (0, _createPostJs.createPreset)(title, numExercise, timeExercise, restExercise, numSet, restSet, totalTime);
+};
 // INIT
 const init = function() {
     (0, _settingViewJsDefault.default).addHandlerInputChanges(controlUpdateViews);
     (0, _settingViewJsDefault.default).addHandlerTabs();
     (0, _settingViewJsDefault.default).addHandlerStartBtn(controlStart);
+    (0, _settingViewJsDefault.default).addHandlerSaveTimerBtn(controlSaveTimer);
+    (0, _settingViewJsDefault.default).addHandlerBackBtn();
+    (0, _settingViewJsDefault.default).addHandlerSaveSubmitBtn(controlSaveSubmit);
     (0, _timerViewJsDefault.default).addHandlerPauseBtn(controlPause);
     (0, _timerViewJsDefault.default).addHandlerResumeBtn(controlResume);
     (0, _timerViewJsDefault.default).addHandlerResetBtn(controlReset);
@@ -598,7 +614,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","regenerator-runtime/runtime":"dXNgZ","jquery":"hgMhh","./model.js":"4XeXP","./views/settingView.js":"8zWDW","./views/timerView.js":"2gfXT","./views/infoView.js":"fgKwM","./views/loginView.js":"6jzZB","./login.js":"7yHem","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","regenerator-runtime/runtime":"dXNgZ","jquery":"hgMhh","./model.js":"4XeXP","./views/settingView.js":"8zWDW","./views/timerView.js":"2gfXT","./views/infoView.js":"fgKwM","./views/loginView.js":"6jzZB","./login.js":"7yHem","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./helper.js":"a29Fi","./createPost.js":"kEdzV"}],"49tUX":[function(require,module,exports) {
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("../modules/web.clear-immediate");
 require("../modules/web.set-immediate");
@@ -9103,6 +9119,7 @@ var _viewJs = require("./View.js");
 var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
 var _jquery = require("jquery");
 var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
+var _helperJs = require("../helper.js");
 class settingView extends (0, _viewJsDefault.default) {
     passData(data) {
         this._data = data;
@@ -9129,10 +9146,33 @@ class settingView extends (0, _viewJsDefault.default) {
             (0, _jqueryDefault.default)(".settings").removeClass("active");
         });
     }
+    addHandlerSaveTimerBtn(handler) {
+        (0, _jqueryDefault.default)(".btn--save").on("click", (e)=>{
+            handler(e);
+            if (!this._data.timeExercise) return;
+            const total = this.getTotal();
+            (0, _jqueryDefault.default)(".input-form").addClass("hidden");
+            (0, _jqueryDefault.default)(".save-preset-form").removeClass("hidden");
+            if (!total) return;
+            if (total < 60) return (0, _jqueryDefault.default)(".input--label__text").text(`total time: ${(0, _helperJs.formatTime)(total)} secs`);
+            (0, _jqueryDefault.default)(".input--label__text").text(`total time: ${(0, _helperJs.formatTime)(total)} min`);
+        });
+    }
+    addHandlerBackBtn() {
+        (0, _jqueryDefault.default)(".btn--back").on("click", ()=>{
+            (0, _jqueryDefault.default)(".input-form").removeClass("hidden");
+            (0, _jqueryDefault.default)(".save-preset-form").addClass("hidden");
+        });
+    }
+    addHandlerSaveSubmitBtn(handler) {
+        (0, _jqueryDefault.default)(".btn--save__submit").on("click", (e)=>{
+            handler(e);
+        });
+    }
 }
 exports.default = new settingView();
 
-},{"./View.js":"3kyTb","jquery":"hgMhh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3kyTb":[function(require,module,exports) {
+},{"./View.js":"3kyTb","jquery":"hgMhh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../helper.js":"a29Fi"}],"3kyTb":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class View {
@@ -9149,7 +9189,24 @@ class View {
 }
 exports.default = View;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2gfXT":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a29Fi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "calcTime", ()=>calcTime);
+parcelHelpers.export(exports, "formatTime", ()=>formatTime);
+var _modelJs = require("./model.js");
+const calcTime = function() {
+    const { numExercises , timeExercise , restExercise , numSets , restSet  } = _modelJs.state.setting;
+    return numSets > 1 ? ((timeExercise + restExercise) * numExercises - restExercise) * numSets + (numSets * restSet - restSet) : (timeExercise + restExercise) * numExercises - restExercise;
+};
+const formatTime = function(s) {
+    const mins = Math.floor(s / 60);
+    let secs = s % 60;
+    if (secs < 10) secs = `0${secs}`;
+    return `${mins}:${secs}`;
+};
+
+},{"./model.js":"4XeXP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2gfXT":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _viewJs = require("./View.js");
@@ -9311,24 +9368,7 @@ class TimerView extends (0, _viewJsDefault.default) {
 }
 exports.default = new TimerView();
 
-},{"./View.js":"3kyTb","../helper.js":"a29Fi","jquery":"hgMhh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a29Fi":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "calcTime", ()=>calcTime);
-parcelHelpers.export(exports, "formatTime", ()=>formatTime);
-var _modelJs = require("./model.js");
-const calcTime = function() {
-    const { numExercises , timeExercise , restExercise , numSets , restSet  } = _modelJs.state.setting;
-    return numSets > 1 ? ((timeExercise + restExercise) * numExercises - restExercise) * numSets + (numSets * restSet - restSet) : (timeExercise + restExercise) * numExercises - restExercise;
-};
-const formatTime = function(s) {
-    const mins = Math.floor(s / 60);
-    let secs = s % 60;
-    if (secs < 10) secs = `0${secs}`;
-    return `${mins}:${secs}`;
-};
-
-},{"./model.js":"4XeXP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fgKwM":[function(require,module,exports) {
+},{"./View.js":"3kyTb","../helper.js":"a29Fi","jquery":"hgMhh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fgKwM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _viewJs = require("./View.js");
@@ -12567,6 +12607,39 @@ const showAlert = (type, msg, time = 5)=>{
     window.setTimeout(hideAlert, time * 1000);
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["kaqDT","f2QDv"], "f2QDv", "parcelRequire2976")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kEdzV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "createPreset", ()=>createPreset);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _alert = require("./alert");
+const createPreset = async (title, numExercise, timeExercise, restExercise, numSet, restSet, totalTime)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "POST",
+            url: "/api/v1/presets",
+            data: {
+                title,
+                numExercise,
+                timeExercise,
+                restExercise,
+                numSet,
+                restSet,
+                totalTime
+            }
+        });
+        if (res.data.status === "success") {
+            _alert.showAlert("success", "preset saved");
+            window.setTimeout(()=>{
+                location.assign("/");
+            }, 1000);
+        }
+    } catch (err) {
+        _alert.showAlert("error", err.response.data.msg);
+    }
+};
+
+},{"axios":"jo6P5","./alert":"kxdiQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["kaqDT","f2QDv"], "f2QDv", "parcelRequire2976")
 
 //# sourceMappingURL=index.js.map

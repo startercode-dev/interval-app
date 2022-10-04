@@ -83,6 +83,10 @@
         height: 2.5rem;
     }
 
+    .input__title {
+        width: auto;
+    }
+
     .input::placeholder {
         font-size: 1.318rem;
     }
