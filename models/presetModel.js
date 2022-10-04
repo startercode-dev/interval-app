@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 const presetSchema = new mongoose.Schema(
     {
+        title: {
+            type: String,
+            required: [true, 'must have a name'],
+        },
+
         numExercise: {
             type: Number,
             required: true,
@@ -22,6 +27,11 @@ const presetSchema = new mongoose.Schema(
         },
 
         restSet: Number,
+
+        totalTime: {
+            type: String,
+            required: true,
+        },
 
         user: {
             type: mongoose.Schema.ObjectId,

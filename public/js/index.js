@@ -7,6 +7,8 @@ import timerView from './views/timerView.js';
 import infoView from './views/infoView.js';
 import loginView from './views/loginView.js';
 import { login } from './login.js';
+import { calcTime, formatTime } from './helper.js';
+import { createPreset } from './createPost.js';
 
 const controlUpdateViews = function () {
     model.updateTime();
@@ -58,11 +60,38 @@ const controlLogin = function (e) {
     login(email, password);
 };
 
+const controlSaveTimer = function (e) {
+    e.preventDefault();
+    settingView.passData(model.state.setting);
+};
+
+const controlSaveSubmit = function (e) {
+    e.preventDefault();
+
+    const { numExercise, timeExercise, restExercise, numSet, restSet } =
+        model.state.setting;
+    const title = $('.input__title').val();
+    const totalTime = formatTime(calcTime());
+
+    createPreset(
+        title,
+        numExercise,
+        timeExercise,
+        restExercise,
+        numSet,
+        restSet,
+        totalTime
+    );
+};
+
 // INIT
 const init = function () {
     settingView.addHandlerInputChanges(controlUpdateViews);
     settingView.addHandlerTabs();
     settingView.addHandlerStartBtn(controlStart);
+    settingView.addHandlerSaveTimerBtn(controlSaveTimer);
+    settingView.addHandlerBackBtn();
+    settingView.addHandlerSaveSubmitBtn(controlSaveSubmit);
 
     timerView.addHandlerPauseBtn(controlPause);
     timerView.addHandlerResumeBtn(controlResume);

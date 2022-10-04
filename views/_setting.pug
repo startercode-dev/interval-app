@@ -8,23 +8,20 @@ section.settings
         .tabs-body.flex
             .tabs-content.content--saved
                 .saved-items.grid
-                    .item.flex
-                        p.item--title
-                            | HIIT custom 2
-                        p.item--time 15min
-                    .item.flex
-                        p.item--title abs
-                        p.item--time 10mins
-                    .item.flex
-                        p.item--title
-                            | cardio intense
-                        p.item--time 4min
-                    .item.flex
-                        p.item--title ez core
-                        p.item--time 8min
-                    a.edit-saved  edit 
+                    if user 
+                        each preset in user.presets
+                            .item.flex 
+                                p.item--title= preset.title
+                                p.item--time= `${preset.totalTime}min`
+                        a.edit-saved  presets 
+                    else 
+                        .item.flex
+                            p.item--title -- saved presets --
+                        a.btn.btn--login(href='/login')
+                            | LOG IN
+                            
             .tabs-content.content--custom.is-active
-                form.input-form.grid(action='')
+                form.input-form.grid
                     label.input--label(for='numExercises') how many exercises
                     input#numExercises.input(type='number' placeholder='1' value='1')
                     label.input--label(for='timeExercise') time per exercise
@@ -42,9 +39,19 @@ section.settings
                     button.btn.btn--start start
                     .login-box.flex.grid-extend.center
                         if user 
-                            button.btn.btn--save(type='submit')
+                            a.btn.btn--save
                                 | save timer &plus;
                         else 
                             a.btn.btn--login(href='/login')
                                 | LOG IN
                             span.btn--login_text - to save timer &plus;
+                
+                form.save-preset-form.grid.hidden
+                    label.input--label(for='title') workout name
+                    input#title.input.input__title(type='string' placeholder='custom workout')
+                    p.input--label.input--label__text total time: 23 min
+                    button.btn.btn--save__submit save
+                    a.btn.btn--back back
+
+
+                
