@@ -22,12 +22,10 @@ section.settings
                                         p.preset--time= `${preset.totalTime} min`
                             a.edit-saved  presets 
                         else 
-                            .preset.flex
-                                p.preset--title -- saved presets --
-                            a.edit-saved  presets 
+                            p.preset--title__placeholder -- no presets saved --
+                            a.edit-saved  your presets 
                     else 
-                        .preset.flex
-                            p.preset--title -- saved presets --
+                        p.preset--title__placeholder -- login to save presets --
                         a.btn.btn--login(href='/login')
                             | LOG IN
                             

@@ -6,7 +6,7 @@ import settingView from './views/settingView.js';
 import timerView from './views/timerView.js';
 import infoView from './views/infoView.js';
 import loginView from './views/loginView.js';
-import { login } from './login.js';
+import { login, logout } from './login.js';
 import { calcTime, formatTime } from './helper.js';
 import { createPreset } from './createPost.js';
 import { getPreset } from './getPreset.js';
@@ -51,9 +51,14 @@ const controlReset = function (e) {
     model.state.isPaused = false;
     model.state.isStopped = true;
 
-    timerView.render(model.state.setting);
-    infoView.render(model.state.setting);
-    $('.info--title').text(title);
+    if ($('.info--title').text() === 'custom workout') {
+        timerView.render(model.state.setting);
+        infoView.render(model.state.setting);
+    } else {
+        timerView.render(model.state.setting);
+        infoView.render(model.state.setting);
+        $('.info--title').text(title);
+    }
 };
 
 const controlSaveTimer = function (e) {
@@ -99,6 +104,10 @@ const controlLoadPreset = async function (e) {
 
     controlUpdateViews();
     $('.info--title').text(title);
+
+    // reset timerView
+    timerView.resetTimerView();
+    $('.btn--reset').prop('disabled', true);
 };
 
 const controlLogin = function (e) {
@@ -126,5 +135,6 @@ const init = function () {
     timerView.addHandlerInfos();
 
     loginView.addHandlerLogin(controlLogin);
+    $('.dropdown--logout').on('click', logout);
 };
 init();

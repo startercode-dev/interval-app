@@ -8,10 +8,10 @@ block body
                 h1.nav-logo interval
                 if user 
                     .nav-dropdown
-                        a.nav-user(href='#')= user.name
+                        a.nav-user= user.name
                         .dropdown-content
-                            a.dropdown--settings(href="#") settings 
-                            a.dropdown--logout(href="/#") logout  
+                            a.dropdown--settings settings 
+                            a.dropdown--logout logout  
                 else 
                     a.nav-signup sign up
 
