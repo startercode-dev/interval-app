@@ -579,9 +579,14 @@ const controlReset = function(e) {
     e.target.disabled = true;
     _modelJs.state.isPaused = false;
     _modelJs.state.isStopped = true;
-    (0, _timerViewJsDefault.default).render(_modelJs.state.setting);
-    (0, _infoViewJsDefault.default).render(_modelJs.state.setting);
-    (0, _jqueryDefault.default)(".info--title").text(title);
+    if ((0, _jqueryDefault.default)(".info--title").text() === "custom workout") {
+        (0, _timerViewJsDefault.default).render(_modelJs.state.setting);
+        (0, _infoViewJsDefault.default).render(_modelJs.state.setting);
+    } else {
+        (0, _timerViewJsDefault.default).render(_modelJs.state.setting);
+        (0, _infoViewJsDefault.default).render(_modelJs.state.setting);
+        (0, _jqueryDefault.default)(".info--title").text(title);
+    }
 };
 const controlSaveTimer = function(e) {
     (0, _settingViewJsDefault.default).passData(_modelJs.state.setting);
@@ -608,6 +613,9 @@ const controlLoadPreset = async function(e) {
     (0, _jqueryDefault.default)("#restSet").val(res.restSet);
     controlUpdateViews();
     (0, _jqueryDefault.default)(".info--title").text(title);
+    // reset timerView
+    (0, _timerViewJsDefault.default).resetTimerView();
+    (0, _jqueryDefault.default)(".btn--reset").prop("disabled", true);
 };
 const controlLogin = function(e) {
     e.preventDefault();
@@ -630,6 +638,7 @@ const init = function() {
     (0, _timerViewJsDefault.default).addHandlerSettings();
     (0, _timerViewJsDefault.default).addHandlerInfos();
     (0, _loginViewJsDefault.default).addHandlerLogin(controlLogin);
+    (0, _jqueryDefault.default)(".dropdown--logout").on("click", (0, _loginJs.logout));
 };
 init();
 
@@ -9253,6 +9262,18 @@ class TimerView extends (0, _viewJsDefault.default) {
         (0, _jqueryDefault.default)(".timer-info-exercise span").text(`1/${this._data.numExercise ? this._data.numExercise : 1}`);
         (0, _jqueryDefault.default)(".timer-info-set span").text(`1/${this._data.numSet ? this._data.numSet : 1}`);
     }
+    resetTimerView() {
+        (0, _jqueryDefault.default)(".btn--start").prop("disabled", false);
+        (0, _jqueryDefault.default)(".btn--pause").prop("disabled", true);
+        (0, _jqueryDefault.default)(".btn--resume").prop("disabled", true);
+        (0, _jqueryDefault.default)(".btn--pause").removeClass("hidden");
+        (0, _jqueryDefault.default)(".btn--resume").addClass("hidden");
+        (0, _jqueryDefault.default)(".animation").css("animation-play-state", "running");
+        (0, _jqueryDefault.default)(".timer-clock__path-remaining").removeClass("animation");
+        (0, _jqueryDefault.default)(".input-form input").prop("disabled", false);
+        clearInterval(this.totalTimer);
+        clearInterval(this.mainTimer);
+    }
     addHandlerSettings() {
         (0, _jqueryDefault.default)(".ph-gear-six").click(()=>{
             if ((0, _jqueryDefault.default)(".settings").css("display") === "none") (0, _jqueryDefault.default)(".settings").addClass("active");
@@ -9297,16 +9318,7 @@ class TimerView extends (0, _viewJsDefault.default) {
     addHandlerResetBtn(handler) {
         (0, _jqueryDefault.default)(".btn--reset").click((e)=>{
             handler(e);
-            (0, _jqueryDefault.default)(".btn--start").prop("disabled", false);
-            (0, _jqueryDefault.default)(".btn--pause").prop("disabled", true);
-            (0, _jqueryDefault.default)(".btn--resume").prop("disabled", true);
-            (0, _jqueryDefault.default)(".btn--pause").removeClass("hidden");
-            (0, _jqueryDefault.default)(".btn--resume").addClass("hidden");
-            (0, _jqueryDefault.default)(".animation").css("animation-play-state", "running");
-            (0, _jqueryDefault.default)(".timer-clock__path-remaining").removeClass("animation");
-            (0, _jqueryDefault.default)(".input-form input").prop("disabled", false);
-            clearInterval(this.totalTimer);
-            clearInterval(this.mainTimer);
+            this.resetTimerView();
         });
     }
     _count(t) {
@@ -9433,6 +9445,7 @@ exports.default = new loginView();
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "login", ()=>login);
+parcelHelpers.export(exports, "logout", ()=>logout);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _alert = require("./alert");
@@ -9454,6 +9467,19 @@ const login = async (email, password)=>{
         }
     } catch (err) {
         _alert.showAlert("error", err.response.data.msg);
+    }
+};
+const logout = async ()=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "GET",
+            url: "/api/v1/users/logout"
+        });
+        res.data.status = "success";
+        location.reload(true);
+    } catch (err) {
+        console.log(err);
+        _alert.showAlert("error", "cant logout for some reason, try again later");
     }
 };
 

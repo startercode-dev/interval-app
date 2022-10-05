@@ -22,6 +22,22 @@ class TimerView extends View {
         );
     }
 
+    resetTimerView() {
+        $('.btn--start').prop('disabled', false);
+        $('.btn--pause').prop('disabled', true);
+        $('.btn--resume').prop('disabled', true);
+        $('.btn--pause').removeClass('hidden');
+        $('.btn--resume').addClass('hidden');
+
+        $('.animation').css('animation-play-state', 'running');
+        $('.timer-clock__path-remaining').removeClass('animation');
+
+        $('.input-form input').prop('disabled', false);
+
+        clearInterval(this.totalTimer);
+        clearInterval(this.mainTimer);
+    }
+
     addHandlerSettings() {
         $('.ph-gear-six').click(() => {
             if ($('.settings').css('display') === 'none') {
@@ -85,19 +101,7 @@ class TimerView extends View {
         $('.btn--reset').click((e) => {
             handler(e);
 
-            $('.btn--start').prop('disabled', false);
-            $('.btn--pause').prop('disabled', true);
-            $('.btn--resume').prop('disabled', true);
-            $('.btn--pause').removeClass('hidden');
-            $('.btn--resume').addClass('hidden');
-
-            $('.animation').css('animation-play-state', 'running');
-            $('.timer-clock__path-remaining').removeClass('animation');
-
-            $('.input-form input').prop('disabled', false);
-
-            clearInterval(this.totalTimer);
-            clearInterval(this.mainTimer);
+            this.resetTimerView();
         });
     }
 
