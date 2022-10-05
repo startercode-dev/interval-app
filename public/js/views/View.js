@@ -7,16 +7,15 @@ export default class View {
     }
 
     getTotal() {
-        const { numExercises, timeExercise, restExercise, numSets, restSet } =
+        const { numExercise, timeExercise, restExercise, numSet, restSet } =
             this._data;
 
         const total =
-            numSets > 1
-                ? ((timeExercise + restExercise) * numExercises -
-                      restExercise) *
-                      numSets +
-                  (numSets * restSet - restSet)
-                : (timeExercise + restExercise) * numExercises - restExercise;
+            numSet > 1
+                ? ((timeExercise + restExercise) * numExercise - restExercise) *
+                      numSet +
+                  (numSet * restSet - restSet)
+                : (timeExercise + restExercise) * numExercise - restExercise;
 
         return total;
     }

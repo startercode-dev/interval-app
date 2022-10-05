@@ -1,14 +1,14 @@
 import * as model from './model.js';
 
 export const calcTime = function () {
-    const { numExercises, timeExercise, restExercise, numSets, restSet } =
+    const { numExercise, timeExercise, restExercise, numSet, restSet } =
         model.state.setting;
 
-    return numSets > 1
-        ? ((timeExercise + restExercise) * numExercises - restExercise) *
-              numSets +
-              (numSets * restSet - restSet)
-        : (timeExercise + restExercise) * numExercises - restExercise;
+    return numSet > 1
+        ? ((timeExercise + restExercise) * numExercise - restExercise) *
+              numSet +
+              (numSet * restSet - restSet)
+        : (timeExercise + restExercise) * numExercise - restExercise;
 };
 
 export const formatTime = function (s) {
