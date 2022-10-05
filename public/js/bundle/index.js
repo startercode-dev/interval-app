@@ -549,6 +549,8 @@ var _loginViewJsDefault = parcelHelpers.interopDefault(_loginViewJs);
 var _loginJs = require("./login.js");
 var _helperJs = require("./helper.js");
 var _createPostJs = require("./createPost.js");
+var _getPresetJs = require("./getPreset.js");
+let title;
 const controlUpdateViews = function() {
     _modelJs.updateTime();
     (0, _timerViewJsDefault.default).render(_modelJs.state.setting);
@@ -579,16 +581,13 @@ const controlReset = function(e) {
     _modelJs.state.isStopped = true;
     (0, _timerViewJsDefault.default).render(_modelJs.state.setting);
     (0, _infoViewJsDefault.default).render(_modelJs.state.setting);
-};
-const controlLogin = function(e) {
-    e.preventDefault();
-    const email = (0, _jqueryDefault.default)("#email").val();
-    const password = (0, _jqueryDefault.default)("#password").val();
-    (0, _loginJs.login)(email, password);
+    (0, _jqueryDefault.default)(".info--title").text(title);
 };
 const controlSaveTimer = function(e) {
-    e.preventDefault();
     (0, _settingViewJsDefault.default).passData(_modelJs.state.setting);
+    const { timeExercise  } = _modelJs.state.setting;
+    if (!timeExercise) return;
+    e.preventDefault();
 };
 const controlSaveSubmit = function(e) {
     e.preventDefault();
@@ -596,6 +595,25 @@ const controlSaveSubmit = function(e) {
     const title = (0, _jqueryDefault.default)(".input__title").val();
     const totalTime = (0, _helperJs.formatTime)((0, _helperJs.calcTime)());
     (0, _createPostJs.createPreset)(title, numExercise, timeExercise, restExercise, numSet, restSet, totalTime);
+};
+const controlLoadPreset = async function(e) {
+    e.preventDefault();
+    const presetId = e.target.closest(".preset").dataset.preset_id;
+    const res = await (0, _getPresetJs.getPreset)(presetId);
+    title = res.title;
+    (0, _jqueryDefault.default)("#numExercise").val(res.numExercise);
+    (0, _jqueryDefault.default)("#timeExercise").val(res.timeExercise);
+    (0, _jqueryDefault.default)("#restExercise").val(res.restExercise);
+    (0, _jqueryDefault.default)("#numSet").val(res.numSet);
+    (0, _jqueryDefault.default)("#restSet").val(res.restSet);
+    controlUpdateViews();
+    (0, _jqueryDefault.default)(".info--title").text(title);
+};
+const controlLogin = function(e) {
+    e.preventDefault();
+    const email = (0, _jqueryDefault.default)("#email").val();
+    const password = (0, _jqueryDefault.default)("#password").val();
+    (0, _loginJs.login)(email, password);
 };
 // INIT
 const init = function() {
@@ -605,6 +623,7 @@ const init = function() {
     (0, _settingViewJsDefault.default).addHandlerSaveTimerBtn(controlSaveTimer);
     (0, _settingViewJsDefault.default).addHandlerBackBtn();
     (0, _settingViewJsDefault.default).addHandlerSaveSubmitBtn(controlSaveSubmit);
+    (0, _settingViewJsDefault.default).addHandlerLoadPreset(controlLoadPreset);
     (0, _timerViewJsDefault.default).addHandlerPauseBtn(controlPause);
     (0, _timerViewJsDefault.default).addHandlerResumeBtn(controlResume);
     (0, _timerViewJsDefault.default).addHandlerResetBtn(controlReset);
@@ -614,7 +633,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","regenerator-runtime/runtime":"dXNgZ","jquery":"hgMhh","./model.js":"4XeXP","./views/settingView.js":"8zWDW","./views/timerView.js":"2gfXT","./views/infoView.js":"fgKwM","./views/loginView.js":"6jzZB","./login.js":"7yHem","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./helper.js":"a29Fi","./createPost.js":"kEdzV"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","regenerator-runtime/runtime":"dXNgZ","jquery":"hgMhh","./model.js":"4XeXP","./views/settingView.js":"8zWDW","./views/timerView.js":"2gfXT","./views/infoView.js":"fgKwM","./views/loginView.js":"6jzZB","./login.js":"7yHem","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./helper.js":"a29Fi","./createPost.js":"kEdzV","./getPreset.js":"lzuzj"}],"49tUX":[function(require,module,exports) {
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("../modules/web.clear-immediate");
 require("../modules/web.set-immediate");
@@ -9074,10 +9093,10 @@ const state = {
 };
 const updateTime = ()=>{
     state.setting = {
-        numExercises: +(0, _jqueryDefault.default)("#numExercises").val() ? +(0, _jqueryDefault.default)("#numExercises").val() : 1,
+        numExercise: +(0, _jqueryDefault.default)("#numExercise").val() ? +(0, _jqueryDefault.default)("#numExercise").val() : 1,
         timeExercise: +(0, _jqueryDefault.default)("#timeExercise").val(),
         restExercise: +(0, _jqueryDefault.default)("#restExercise").val(),
-        numSets: +(0, _jqueryDefault.default)("#numSets").val() ? +(0, _jqueryDefault.default)("#numSets").val() : 1,
+        numSet: +(0, _jqueryDefault.default)("#numSet").val() ? +(0, _jqueryDefault.default)("#numSet").val() : 1,
         restSet: +(0, _jqueryDefault.default)("#restSet").val()
     };
 };
@@ -9169,6 +9188,13 @@ class settingView extends (0, _viewJsDefault.default) {
             handler(e);
         });
     }
+    addHandlerLoadPreset(handler) {
+        (0, _jqueryDefault.default)(".preset").on("click", (e)=>{
+            handler(e);
+            (0, _jqueryDefault.default)(".tabs--tab, .tabs-content").removeClass("is-active");
+            (0, _jqueryDefault.default)(`.tab--custom, .content--custom`).addClass("is-active");
+        });
+    }
 }
 exports.default = new settingView();
 
@@ -9182,8 +9208,8 @@ class View {
         this._generateView();
     }
     getTotal() {
-        const { numExercises , timeExercise , restExercise , numSets , restSet  } = this._data;
-        const total = numSets > 1 ? ((timeExercise + restExercise) * numExercises - restExercise) * numSets + (numSets * restSet - restSet) : (timeExercise + restExercise) * numExercises - restExercise;
+        const { numExercise , timeExercise , restExercise , numSet , restSet  } = this._data;
+        const total = numSet > 1 ? ((timeExercise + restExercise) * numExercise - restExercise) * numSet + (numSet * restSet - restSet) : (timeExercise + restExercise) * numExercise - restExercise;
         return total;
     }
 }
@@ -9196,8 +9222,8 @@ parcelHelpers.export(exports, "calcTime", ()=>calcTime);
 parcelHelpers.export(exports, "formatTime", ()=>formatTime);
 var _modelJs = require("./model.js");
 const calcTime = function() {
-    const { numExercises , timeExercise , restExercise , numSets , restSet  } = _modelJs.state.setting;
-    return numSets > 1 ? ((timeExercise + restExercise) * numExercises - restExercise) * numSets + (numSets * restSet - restSet) : (timeExercise + restExercise) * numExercises - restExercise;
+    const { numExercise , timeExercise , restExercise , numSet , restSet  } = _modelJs.state.setting;
+    return numSet > 1 ? ((timeExercise + restExercise) * numExercise - restExercise) * numSet + (numSet * restSet - restSet) : (timeExercise + restExercise) * numExercise - restExercise;
 };
 const formatTime = function(s) {
     const mins = Math.floor(s / 60);
@@ -9224,8 +9250,8 @@ class TimerView extends (0, _viewJsDefault.default) {
         (0, _jqueryDefault.default)(".timer-clock__remain span").text((0, _helperJs.formatTime)(total));
         (0, _jqueryDefault.default)(".timer-clock__label").text(`${(0, _helperJs.formatTime)(this._data.timeExercise)}`);
         (0, _jqueryDefault.default)(".timer-clock__path-remaining").css("stroke-dasharray", "283 283");
-        (0, _jqueryDefault.default)(".timer-info-exercise span").text(`1/${this._data.numExercises ? this._data.numExercises : 1}`);
-        (0, _jqueryDefault.default)(".timer-info-set span").text(`1/${this._data.numSets ? this._data.numSets : 1}`);
+        (0, _jqueryDefault.default)(".timer-info-exercise span").text(`1/${this._data.numExercise ? this._data.numExercise : 1}`);
+        (0, _jqueryDefault.default)(".timer-info-set span").text(`1/${this._data.numSet ? this._data.numSet : 1}`);
     }
     addHandlerSettings() {
         (0, _jqueryDefault.default)(".ph-gear-six").click(()=>{
@@ -9321,30 +9347,30 @@ class TimerView extends (0, _viewJsDefault.default) {
         });
     }
     async mainCountdown() {
-        const { numExercises , timeExercise , restExercise , numSets , restSet  } = this._data;
+        const { numExercise , timeExercise , restExercise , numSet , restSet  } = this._data;
         let currNumS = 0;
         let currNumE = 0;
-        for(let i = 0; i < numSets; i++){
+        for(let i = 0; i < numSet; i++){
             currNumS++;
-            (0, _jqueryDefault.default)(".total-sets span").text(`${currNumS}/${numSets ? numSets : 1}`);
-            (0, _jqueryDefault.default)(".timer-info-set span").text(`${currNumS}/${numSets ? numSets : 1}`);
+            (0, _jqueryDefault.default)(".total-sets span").text(`${currNumS}/${numSet ? numSet : 1}`);
+            (0, _jqueryDefault.default)(".timer-info-set span").text(`${currNumS}/${numSet ? numSet : 1}`);
             currNumE = 0;
-            for(let j = 0; j < numExercises; j++){
+            for(let j = 0; j < numExercise; j++){
                 currNumE++;
-                (0, _jqueryDefault.default)(".total-exercises span").text(`${currNumE}/${numExercises ? numExercises : 1}`);
-                (0, _jqueryDefault.default)(".timer-info-exercise span").text(`${currNumE}/${numExercises ? numExercises : 1}`);
+                (0, _jqueryDefault.default)(".total-exercises span").text(`${currNumE}/${numExercise ? numExercise : 1}`);
+                (0, _jqueryDefault.default)(".timer-info-exercise span").text(`${currNumE}/${numExercise ? numExercise : 1}`);
                 (0, _jqueryDefault.default)(".timer-clock__path-remaining").css({
                     "--time": `${timeExercise}s`
                 }).addClass("animation");
                 await this._count(timeExercise);
-                if (currNumE < numExercises && restExercise > 0) {
+                if (currNumE < numExercise && restExercise > 0) {
                     (0, _jqueryDefault.default)(".timer-clock__path-remaining").css({
                         "--time": `${restExercise}s`
                     }).addClass("animation");
                     await this._count(restExercise);
                 }
             }
-            if (currNumS < numSets && restSet > 0) {
+            if (currNumS < numSet && restSet > 0) {
                 (0, _jqueryDefault.default)(".timer-clock__path-remaining").css({
                     "--time": `${restSet}s`
                 }).addClass("animation");
@@ -9381,8 +9407,8 @@ class infoView extends (0, _viewJsDefault.default) {
         const total = this.getTotal();
         (0, _jqueryDefault.default)(".info--title").text("custom workout");
         (0, _jqueryDefault.default)(".total-time span").text(`${(0, _helperJs.formatTime)(total)}`);
-        (0, _jqueryDefault.default)(".total-exercises span").text(`1/${this._data.numExercises ? this._data.numExercises : 1}`);
-        (0, _jqueryDefault.default)(".total-sets span").text(`1/${this._data.numSets ? this._data.numSets : 1}`);
+        (0, _jqueryDefault.default)(".total-exercises span").text(`1/${this._data.numExercise ? this._data.numExercise : 1}`);
+        (0, _jqueryDefault.default)(".total-sets span").text(`1/${this._data.numSet ? this._data.numSet : 1}`);
     }
 }
 exports.default = new infoView();
@@ -12640,6 +12666,24 @@ const createPreset = async (title, numExercise, timeExercise, restExercise, numS
     }
 };
 
-},{"axios":"jo6P5","./alert":"kxdiQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["kaqDT","f2QDv"], "f2QDv", "parcelRequire2976")
+},{"axios":"jo6P5","./alert":"kxdiQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lzuzj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getPreset", ()=>getPreset);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+const getPreset = async (presetId)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "GET",
+            url: `/api/v1/presets/${presetId}`
+        });
+        return res.data.data;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+},{"axios":"jo6P5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["kaqDT","f2QDv"], "f2QDv", "parcelRequire2976")
 
 //# sourceMappingURL=index.js.map

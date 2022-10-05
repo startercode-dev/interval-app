@@ -7,42 +7,42 @@ section.settings
                 | custom
         .tabs-body.flex
             .tabs-content.content--saved
-                .saved-items.grid
+                .saved-preset.grid
                     if user 
                         if user.presets.length > 0
                             each preset in user.presets
                                 - const time = Number(preset.totalTime.slice(0, 1))
                                 if (time < 1)
-                                    a.item.flex(href=`/preset/${preset._id}`) 
-                                        p.item--title= preset.title
-                                        p.item--time= `${preset.totalTime} secs`
+                                    a.preset.flex(data-preset_id= preset._id)
+                                        p.preset--title= preset.title
+                                        p.preset--time= `${preset.totalTime} sec`
                                 else 
-                                    a.item.flex(href=`/preset/${preset._id}`) 
-                                        p.item--title= preset.title
-                                        p.item--time= `${preset.totalTime} mins`
+                                    a.preset.flex(data-preset_id= preset._id)
+                                        p.preset--title= preset.title
+                                        p.preset--time= `${preset.totalTime} min`
                             a.edit-saved  presets 
                         else 
-                            .item.flex
-                                p.item--title -- saved presets --
+                            .preset.flex
+                                p.preset--title -- saved presets --
                             a.edit-saved  presets 
                     else 
-                        .item.flex
-                            p.item--title -- saved presets --
+                        .preset.flex
+                            p.preset--title -- saved presets --
                         a.btn.btn--login(href='/login')
                             | LOG IN
                             
             .tabs-content.content--custom.is-active
                 form.input-form.grid
-                    label.input--label(for='numExercises') how many exercises
-                    input#numExercises.input(type='number' placeholder='1' value='1')
+                    label.input--label(for='numExercise') how many exercises
+                    input#numExercise.input(type='number' placeholder='1' value='1')
                     label.input--label(for='timeExercise') time per exercise
                     input#timeExercise.input(type='number' placeholder='45s' required='')
                     label.input--label(for='restExercise')
                         | rest between exercise 
                         span (opt.)
                     input#restExercise.input(type='number' placeholder='15s')
-                    label.input--label(for='numSets') how many sets
-                    input#numSets.input(type='number' placeholder='1' value='1')
+                    label.input--label(for='numSet') how many sets
+                    input#numSet.input(type='number' placeholder='1' value='1')
                     label.input--label(for='restSet')
                         | rest between sets 
                         span (opt.)
@@ -50,7 +50,7 @@ section.settings
                     button.btn.btn--start start
                     .login-box.flex.grid-extend.center
                         if user 
-                            a.btn.btn--save
+                            button.btn.btn--save
                                 | save timer &plus;
                         else 
                             a.btn.btn--login(href='/login')

@@ -9,6 +9,9 @@ import loginView from './views/loginView.js';
 import { login } from './login.js';
 import { calcTime, formatTime } from './helper.js';
 import { createPreset } from './createPost.js';
+import { getPreset } from './getPreset.js';
+
+let title;
 
 const controlUpdateViews = function () {
     model.updateTime();
@@ -50,19 +53,16 @@ const controlReset = function (e) {
 
     timerView.render(model.state.setting);
     infoView.render(model.state.setting);
-};
-
-const controlLogin = function (e) {
-    e.preventDefault();
-    const email = $('#email').val();
-    const password = $('#password').val();
-
-    login(email, password);
+    $('.info--title').text(title);
 };
 
 const controlSaveTimer = function (e) {
-    e.preventDefault();
     settingView.passData(model.state.setting);
+
+    const { timeExercise } = model.state.setting;
+    if (!timeExercise) return;
+
+    e.preventDefault();
 };
 
 const controlSaveSubmit = function (e) {
@@ -84,6 +84,31 @@ const controlSaveSubmit = function (e) {
     );
 };
 
+const controlLoadPreset = async function (e) {
+    e.preventDefault();
+
+    const presetId = e.target.closest('.preset').dataset.preset_id;
+    const res = await getPreset(presetId);
+
+    title = res.title;
+    $('#numExercise').val(res.numExercise);
+    $('#timeExercise').val(res.timeExercise);
+    $('#restExercise').val(res.restExercise);
+    $('#numSet').val(res.numSet);
+    $('#restSet').val(res.restSet);
+
+    controlUpdateViews();
+    $('.info--title').text(title);
+};
+
+const controlLogin = function (e) {
+    e.preventDefault();
+    const email = $('#email').val();
+    const password = $('#password').val();
+
+    login(email, password);
+};
+
 // INIT
 const init = function () {
     settingView.addHandlerInputChanges(controlUpdateViews);
@@ -92,6 +117,7 @@ const init = function () {
     settingView.addHandlerSaveTimerBtn(controlSaveTimer);
     settingView.addHandlerBackBtn();
     settingView.addHandlerSaveSubmitBtn(controlSaveSubmit);
+    settingView.addHandlerLoadPreset(controlLoadPreset);
 
     timerView.addHandlerPauseBtn(controlPause);
     timerView.addHandlerResumeBtn(controlResume);

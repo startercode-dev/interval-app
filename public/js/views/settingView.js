@@ -73,6 +73,15 @@ class settingView extends View {
             handler(e);
         });
     }
+
+    addHandlerLoadPreset(handler) {
+        $('.preset').on('click', (e) => {
+            handler(e);
+
+            $('.tabs--tab, .tabs-content').removeClass('is-active');
+            $(`.tab--custom, .content--custom`).addClass('is-active');
+        });
+    }
 }
 
 export default new settingView();

@@ -15,10 +15,10 @@ class TimerView extends View {
         $('.timer-clock__path-remaining').css('stroke-dasharray', '283 283');
 
         $('.timer-info-exercise span').text(
-            `1/${this._data.numExercises ? this._data.numExercises : 1}`
+            `1/${this._data.numExercise ? this._data.numExercise : 1}`
         );
         $('.timer-info-set span').text(
-            `1/${this._data.numSets ? this._data.numSets : 1}`
+            `1/${this._data.numSet ? this._data.numSet : 1}`
         );
     }
 
@@ -147,27 +147,27 @@ class TimerView extends View {
     }
 
     async mainCountdown() {
-        const { numExercises, timeExercise, restExercise, numSets, restSet } =
+        const { numExercise, timeExercise, restExercise, numSet, restSet } =
             this._data;
 
         let currNumS = 0;
         let currNumE = 0;
 
-        for (let i = 0; i < numSets; i++) {
+        for (let i = 0; i < numSet; i++) {
             currNumS++;
-            $('.total-sets span').text(`${currNumS}/${numSets ? numSets : 1}`);
+            $('.total-sets span').text(`${currNumS}/${numSet ? numSet : 1}`);
             $('.timer-info-set span').text(
-                `${currNumS}/${numSets ? numSets : 1}`
+                `${currNumS}/${numSet ? numSet : 1}`
             );
             currNumE = 0;
 
-            for (let j = 0; j < numExercises; j++) {
+            for (let j = 0; j < numExercise; j++) {
                 currNumE++;
                 $('.total-exercises span').text(
-                    `${currNumE}/${numExercises ? numExercises : 1}`
+                    `${currNumE}/${numExercise ? numExercise : 1}`
                 );
                 $('.timer-info-exercise span').text(
-                    `${currNumE}/${numExercises ? numExercises : 1}`
+                    `${currNumE}/${numExercise ? numExercise : 1}`
                 );
                 $('.timer-clock__path-remaining')
                     .css({
@@ -177,7 +177,7 @@ class TimerView extends View {
 
                 await this._count(timeExercise);
 
-                if (currNumE < numExercises && restExercise > 0) {
+                if (currNumE < numExercise && restExercise > 0) {
                     $('.timer-clock__path-remaining')
                         .css({
                             '--time': `${restExercise}s`,
@@ -188,7 +188,7 @@ class TimerView extends View {
                 }
             }
 
-            if (currNumS < numSets && restSet > 0) {
+            if (currNumS < numSet && restSet > 0) {
                 $('.timer-clock__path-remaining')
                     .css({
                         '--time': `${restSet}s`,

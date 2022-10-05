@@ -200,7 +200,7 @@
 /************************/
 /* SETTINGS TAB SAVED */
 /************************/
-.saved-items {
+.saved-preset {
     height: 100%;
     list-style: lower-greek;
     font-weight: 400;
@@ -210,7 +210,7 @@
     align-items: end;
 }
 
-.item {
+.preset {
     cursor: pointer;
     height: max-content;
 
@@ -218,7 +218,7 @@
     align-items: flex-end;
 }
 
-.item--time {
+.preset--time {
     font-weight: 300;
     font-size: 1.618rem;
 }
