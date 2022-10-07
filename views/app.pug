@@ -10,11 +10,10 @@ block body
                     .nav-dropdown
                         a.nav-user= user.name
                         .dropdown-content
-                            a.dropdown--settings settings 
+                            a.dropdown--account(href='/me') my account 
                             a.dropdown--logout logout  
                 else 
                     a.nav-signup sign up
-
 
         .container--banner
             .banner.flex

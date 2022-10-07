@@ -39,6 +39,8 @@
     margin-bottom: 2.5rem;
 }
 
+.account-main,
+.error-main,
 .login-main {
     background-color: #f7f7f7;
     padding: 8rem 6rem;
@@ -86,9 +88,9 @@
     color: #bbb;
 }
 
-.btn-auth-login,
-.btn-auth-login:link,
-.btn-auth-login:visited {
+.btn-auth,
+.btn-auth:link,
+.btn-auth:visited {
     font-size: 1.6rem;
     padding: 1.4rem 3rem;
     border-radius: 10rem;
@@ -106,25 +108,27 @@
     cursor: pointer;
 }
 
-.btn-auth-login:hover {
+.btn-auth:hover {
     -webkit-transform: translateY(-3px);
     transform: translateY(-3px);
     -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
 }
 
-.btn-auth-login:active {
+.btn-auth:active {
     -webkit-transform: translateY(-1px);
     transform: translateY(-1px);
     -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-.btn-auth-login:focus {
+.btn-auth:focus {
     outline: none;
     background-color: #2e864b;
 }
-.btn-auth-login--green {
+.btn-auth-login,
+.btn-auth-save__setting,
+.btn-auth-save__password {
     background-color: #55c57a;
     color: #fff;
 }

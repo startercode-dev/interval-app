@@ -6,10 +6,12 @@ import settingView from './views/settingView.js';
 import timerView from './views/timerView.js';
 import infoView from './views/infoView.js';
 import loginView from './views/loginView.js';
+import accountView from './views/accountView.js';
 import { login, logout } from './login.js';
 import { calcTime, formatTime } from './helper.js';
 import { createPreset } from './createPost.js';
 import { getPreset } from './getPreset.js';
+import { updateSettings } from './updateSettings.js';
 
 let title;
 
@@ -118,6 +120,34 @@ const controlLogin = function (e) {
     login(email, password);
 };
 
+const controlSaveSetting = function (e) {
+    e.preventDefault();
+
+    const name = $('#name').val();
+    const email = $('#email').val();
+
+    updateSettings({ name, email }, 'data');
+};
+
+const controlSavePassword = async function (e) {
+    e.preventDefault();
+    $('.btn-auth-save__password').text('updating...');
+
+    const passwordCurrent = $('#password-current').val();
+    const password = $('#password').val();
+    const passwordConfirm = $('#password-confirm').val();
+
+    await updateSettings(
+        { passwordCurrent, password, passwordConfirm },
+        'password'
+    );
+
+    $('#password-current').val('');
+    $('#password').val('');
+    $('#password-confirm').val('');
+    $('.btn-auth-save__password').text('save password');
+};
+
 // INIT
 const init = function () {
     settingView.addHandlerInputChanges(controlUpdateViews);
@@ -133,6 +163,9 @@ const init = function () {
     timerView.addHandlerResetBtn(controlReset);
     timerView.addHandlerSettings();
     timerView.addHandlerInfos();
+
+    accountView.addHandlerSaveSetting(controlSaveSetting);
+    accountView.addHandlerSavePassword(controlSavePassword);
 
     loginView.addHandlerLogin(controlLogin);
     $('.dropdown--logout').on('click', logout);
