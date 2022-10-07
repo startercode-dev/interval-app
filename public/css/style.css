@@ -430,10 +430,10 @@
     top: 0;
 }
 
-.ph-gear-six, /* BUG fix ph-icon css */
+.ph-gear-six,
 .ph-dots-three-outline {
     font-size: 3.2rem;
-    display: none;
+    display: none !important;
 }
 
 .ph-gear-six {
@@ -561,8 +561,9 @@
     background-color: rgba(30, 41, 59, 0.2);
 }
 
-/* ERROR PAGE */
-
+/************************/
+/* ERROR WEB PAGE */
+/************************/
 .error {
     position: absolute;
     top: 35%;
