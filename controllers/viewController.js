@@ -9,14 +9,23 @@ exports.getAppPage = catchAsync(async (req, res, next) => {
 
         return res.status(200).render('app', {
             user,
+            title: 'timer',
         });
     }
 
-    res.status(200).render('app');
+    res.status(200).render('app', {
+        title: 'timer',
+    });
 });
 
 exports.getLoginForm = (req, res) => {
     res.status(200).render('login', {
-        title: 'Log in',
+        title: 'log in',
+    });
+};
+
+exports.getAccount = (req, res) => {
+    res.status(200).render('account', {
+        title: 'my account',
     });
 };
