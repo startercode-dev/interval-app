@@ -130,7 +130,7 @@
 
     .ph-gear-six,
     .ph-dots-three-outline {
-        display: block;
+        display: block !important;
     }
 
     .settings,
