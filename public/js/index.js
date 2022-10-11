@@ -9,11 +9,13 @@ import loginView from './views/loginView.js';
 import accountView from './views/accountView.js';
 import { login, logout } from './login.js';
 import { calcTime, formatTime } from './helper.js';
-import { createPreset } from './createPost.js';
+import { createPreset } from './createPreset.js';
 import { getPreset } from './getPreset.js';
 import { updateSettings } from './updateSettings.js';
+import { deletePreset } from './deletePreset.js';
 
 let title;
+let deletePresetId;
 
 const controlUpdateViews = function () {
     model.updateTime();
@@ -94,22 +96,39 @@ const controlSaveSubmit = function (e) {
 const controlLoadPreset = async function (e) {
     e.preventDefault();
 
-    const presetId = e.target.closest('.preset').dataset.preset_id;
-    const res = await getPreset(presetId);
+    const presetId = e.target.dataset.preset_id;
+    if (presetId) {
+        const res = await getPreset(presetId);
 
-    title = res.title;
-    $('#numExercise').val(res.numExercise);
-    $('#timeExercise').val(res.timeExercise);
-    $('#restExercise').val(res.restExercise);
-    $('#numSet').val(res.numSet);
-    $('#restSet').val(res.restSet);
+        title = res.title;
+        $('.tabs--tab, .tabs-content').removeClass('is-active');
+        $(`.tab--custom, .content--custom`).addClass('is-active');
+        $('#numExercise').val(res.numExercise);
+        $('#timeExercise').val(res.timeExercise);
+        $('#restExercise').val(res.restExercise);
+        $('#numSet').val(res.numSet);
+        $('#restSet').val(res.restSet);
 
-    controlUpdateViews();
-    $('.info--title').text(title);
+        controlUpdateViews();
+        $('.info--title').text(title);
 
-    // reset timerView
-    timerView.resetTimerView();
-    $('.btn--reset').prop('disabled', true);
+        // reset timerView when new preset is loaded
+        timerView.resetTimerView();
+        $('.btn--reset').prop('disabled', true);
+    }
+};
+
+const passDeleteId = function (e) {
+    e.preventDefault();
+    deletePresetId = e.target.dataset.preset_id;
+};
+
+const cancelDeleteId = function () {
+    deletePresetId = '';
+};
+
+const controlDeletePreset = function () {
+    if (deletePresetId) deletePreset(deletePresetId);
 };
 
 const controlLogin = function (e) {
@@ -157,6 +176,10 @@ const init = function () {
     settingView.addHandlerBackBtn();
     settingView.addHandlerSaveSubmitBtn(controlSaveSubmit);
     settingView.addHandlerLoadPreset(controlLoadPreset);
+    settingView.addHandlerEditSaved();
+    settingView.addHandlerDeleteIcon(passDeleteId);
+    settingView.addHandlerDeleteCancel(cancelDeleteId);
+    settingView.addHandlerDeletePreset(controlDeletePreset);
 
     timerView.addHandlerPauseBtn(controlPause);
     timerView.addHandlerResumeBtn(controlResume);
