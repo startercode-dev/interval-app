@@ -13,14 +13,21 @@ section.settings
                             each preset in user.presets
                                 - const time = Number(preset.totalTime.slice(0, 1))
                                 if (time < 1)
-                                    a.preset.flex(data-preset_id= preset._id)
-                                        p.preset--title= preset.title
-                                        p.preset--time= `${preset.totalTime} sec`
+                                    a.preset.flex
+                                        p.preset--title(data-preset_id= preset._id)= preset.title
+                                        p.preset--time(data-preset_id= preset._id)= `${preset.totalTime} sec`
+                                        .setting-icons.grid.hidden
+                                            i.ph-pencil(data-preset_id= preset._id)
+                                            i.ph-trash(data-preset_id= preset._id)
+
                                 else 
-                                    a.preset.flex(data-preset_id= preset._id)
-                                        p.preset--title= preset.title
-                                        p.preset--time= `${preset.totalTime} min`
-                            a.edit-saved  presets 
+                                    a.preset.flex
+                                        p.preset--title(data-preset_id= preset._id)= preset.title
+                                        p.preset--time(data-preset_id= preset._id)= `${preset.totalTime} min`
+                                        .setting-icons.grid.hidden
+                                            i.ph-pencil(data-preset_id= preset._id)
+                                            i.ph-trash(data-preset_id= preset._id)
+                            a.edit-saved edit
                         else 
                             p.preset--title__placeholder -- no presets saved --
                             a.edit-saved  your presets 
@@ -28,6 +35,13 @@ section.settings
                         p.preset--title__placeholder -- login to save presets --
                         a.btn.btn--login(href='/login')
                             | LOG IN
+
+            .alert_box.flex.hidden
+                header Confirm
+                p Are you sure want to delete this?
+                .alert-btns
+                    button.btn.delete-confirm Delete
+                    button.btn.delete-cancel Cancel
                             
             .tabs-content.content--custom.is-active
                 form.input-form.grid

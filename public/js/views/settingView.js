@@ -75,11 +75,42 @@ class settingView extends View {
     }
 
     addHandlerLoadPreset(handler) {
-        $('.preset').on('click', (e) => {
+        $('.preset--title, .preset--time').on('click', (e) => {
             handler(e);
+        });
+    }
 
-            $('.tabs--tab, .tabs-content').removeClass('is-active');
-            $(`.tab--custom, .content--custom`).addClass('is-active');
+    addHandlerEditSaved() {
+        $('.edit-saved').on('click', () => {
+            if ($('.edit-saved').text() === 'edit') {
+                $('.preset--time').addClass('hidden');
+                $('.setting-icons').removeClass('hidden');
+                $('.edit-saved').text('done');
+            } else if ($('.edit-saved').text() === 'done') {
+                $('.preset--time').removeClass('hidden');
+                $('.setting-icons').addClass('hidden');
+                $('.edit-saved').text('edit');
+            }
+        });
+    }
+
+    addHandlerDeleteIcon(handler) {
+        $('.ph-trash').on('click', (e) => {
+            $('.alert_box').removeClass('hidden');
+            handler(e);
+        });
+    }
+
+    addHandlerDeleteCancel(handler) {
+        $('.delete-cancel').on('click', () => {
+            handler();
+            $('.alert_box').addClass('hidden');
+        });
+    }
+
+    addHandlerDeletePreset(handler) {
+        $('.delete-confirm').on('click', () => {
+            handler();
         });
     }
 }

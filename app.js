@@ -78,7 +78,7 @@ app.use('/api/v1/users', userRouter);
 
 // GLOBAL ERR HANDLER **
 app.all('*', (req, res, next) => {
-    next(new AppError('wrong link nig', 404));
+    next(new AppError('wrong link', 404));
 });
 
 app.use(globalErrorController);

@@ -32,7 +32,7 @@ a:visited,
 a:hover {
     text-decoration: none;
     color: #132a1e;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .container {
