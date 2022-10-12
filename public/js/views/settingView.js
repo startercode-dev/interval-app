@@ -94,6 +94,30 @@ class settingView extends View {
         });
     }
 
+    addHandlerEditIcon(handler) {
+        $('.ph-pencil').on('click', (e) => {
+            $('.saved-preset').addClass('hidden');
+            $('.update-preset-form').removeClass('hidden');
+
+            handler(e);
+        });
+    }
+
+    addHandlerEditBack(handler) {
+        $('.btn--update__back').on('click', () => {
+            $('.saved-preset').removeClass('hidden');
+            $('.update-preset-form').addClass('hidden');
+
+            handler();
+        });
+    }
+
+    addHandlerUpdatePreset(handler) {
+        $('.btn--update').on('click', (e) => {
+            handler(e);
+        });
+    }
+
     addHandlerDeleteIcon(handler) {
         $('.ph-trash').on('click', (e) => {
             $('.alert_box').removeClass('hidden');

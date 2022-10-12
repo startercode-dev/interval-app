@@ -13,9 +13,11 @@ import { createPreset } from './createPreset.js';
 import { getPreset } from './getPreset.js';
 import { updateSettings } from './updateSettings.js';
 import { deletePreset } from './deletePreset.js';
+import { updatePreset } from './updatePreset.js';
 
 let title;
 let deletePresetId;
+let updatePresetId;
 
 const controlUpdateViews = function () {
     model.updateTime();
@@ -102,7 +104,7 @@ const controlLoadPreset = async function (e) {
 
         title = res.title;
         $('.tabs--tab, .tabs-content').removeClass('is-active');
-        $(`.tab--custom, .content--custom`).addClass('is-active');
+        $('.tab--custom, .content--custom').addClass('is-active');
         $('#numExercise').val(res.numExercise);
         $('#timeExercise').val(res.timeExercise);
         $('#restExercise').val(res.restExercise);
@@ -116,6 +118,58 @@ const controlLoadPreset = async function (e) {
         timerView.resetTimerView();
         $('.btn--reset').prop('disabled', true);
     }
+};
+
+const controlLoadUpdatePreset = async function (e) {
+    e.preventDefault();
+
+    updatePresetId = e.target.dataset.preset_id;
+    if (updatePresetId) {
+        const res = await getPreset(updatePresetId);
+        console.log(res);
+        $('#title__update').val(res.title);
+        $('#numExercise__update').val(res.numExercise);
+        $('#timeExercise__update').val(res.timeExercise);
+        $('#restExercise__update').val(res.restExercise);
+        $('#numSet__update').val(res.numSet);
+        $('#restSet__update').val(res.restSet);
+    }
+};
+
+const controlUpdatePreset = function (e) {
+    e.preventDefault();
+
+    const title = $('#title__update').val();
+    const numExercise = +$('#numExercise__update').val();
+    const timeExercise = +$('#timeExercise__update').val();
+    const restExercise = +$('#restExercise__update').val();
+    const numSet = +$('#numSet__update').val();
+    const restSet = +$('#restSet__update').val();
+    let totalTime =
+        numSet > 1
+            ? ((timeExercise + restExercise) * numExercise - restExercise) *
+                  numSet +
+              (numSet * restSet - restSet)
+            : (timeExercise + restExercise) * numExercise - restExercise;
+
+    totalTime = formatTime(totalTime);
+
+    updatePreset(
+        {
+            numExercise,
+            timeExercise,
+            restExercise,
+            numSet,
+            restSet,
+            totalTime,
+            title,
+        },
+        updatePresetId
+    );
+};
+
+const cancelUpdateId = function (e) {
+    updatePresetId = '';
 };
 
 const passDeleteId = function (e) {
@@ -177,9 +231,12 @@ const init = function () {
     settingView.addHandlerSaveSubmitBtn(controlSaveSubmit);
     settingView.addHandlerLoadPreset(controlLoadPreset);
     settingView.addHandlerEditSaved();
+    settingView.addHandlerEditIcon(controlLoadUpdatePreset);
+    settingView.addHandlerEditBack(cancelUpdateId);
     settingView.addHandlerDeleteIcon(passDeleteId);
     settingView.addHandlerDeleteCancel(cancelDeleteId);
     settingView.addHandlerDeletePreset(controlDeletePreset);
+    settingView.addHandlerUpdatePreset(controlUpdatePreset);
 
     timerView.addHandlerPauseBtn(controlPause);
     timerView.addHandlerResumeBtn(controlResume);

@@ -311,6 +311,7 @@
     row-gap: 1rem;
 }
 
+.update-preset-form,
 .input-form {
     height: 100%;
     width: 100%;
@@ -356,9 +357,15 @@
     height: 3rem;
 }
 
+.input__title-update {
+    width: 100%;
+    grid-column: 1/-1;
+}
+
+.btn--update,
 .btn--save__submit,
 .btn--start {
-    margin-top: 2rem;
+    margin-top: 1rem;
     font-size: 1.618rem;
     letter-spacing: 0.15rem;
     height: 4.236rem;
@@ -368,13 +375,23 @@
     grid-column: 1/-1;
 }
 
+.btn--update {
+    background-color: #f7f7f7;
+    color: #368c54;
+    font-weight: 500;
+    border: solid 1px #44af69;
+}
+
 .login-box {
     width: 100%;
 }
 
+.btn--update__back,
 .btn--back {
     grid-column: 1/-1;
 }
+
+.btn--update__back,
 .btn--back,
 .btn--save,
 .btn--login,
@@ -695,6 +712,7 @@
 #DCF4EC
 #89d2a3
 #44af69
+#368c54
 
 #717a87
 #475569
