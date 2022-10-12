@@ -558,8 +558,10 @@ var _createPresetJs = require("./createPreset.js");
 var _getPresetJs = require("./getPreset.js");
 var _updateSettingsJs = require("./updateSettings.js");
 var _deletePresetJs = require("./deletePreset.js");
+var _updatePresetJs = require("./updatePreset.js");
 let title;
 let deletePresetId;
+let updatePresetId;
 const controlUpdateViews = function() {
     _modelJs.updateTime();
     (0, _timerViewJsDefault.default).render(_modelJs.state.setting);
@@ -617,7 +619,7 @@ const controlLoadPreset = async function(e) {
         const res = await (0, _getPresetJs.getPreset)(presetId);
         title = res.title;
         (0, _jqueryDefault.default)(".tabs--tab, .tabs-content").removeClass("is-active");
-        (0, _jqueryDefault.default)(`.tab--custom, .content--custom`).addClass("is-active");
+        (0, _jqueryDefault.default)(".tab--custom, .content--custom").addClass("is-active");
         (0, _jqueryDefault.default)("#numExercise").val(res.numExercise);
         (0, _jqueryDefault.default)("#timeExercise").val(res.timeExercise);
         (0, _jqueryDefault.default)("#restExercise").val(res.restExercise);
@@ -629,6 +631,43 @@ const controlLoadPreset = async function(e) {
         (0, _timerViewJsDefault.default).resetTimerView();
         (0, _jqueryDefault.default)(".btn--reset").prop("disabled", true);
     }
+};
+const controlLoadUpdatePreset = async function(e) {
+    e.preventDefault();
+    updatePresetId = e.target.dataset.preset_id;
+    if (updatePresetId) {
+        const res = await (0, _getPresetJs.getPreset)(updatePresetId);
+        console.log(res);
+        (0, _jqueryDefault.default)("#title__update").val(res.title);
+        (0, _jqueryDefault.default)("#numExercise__update").val(res.numExercise);
+        (0, _jqueryDefault.default)("#timeExercise__update").val(res.timeExercise);
+        (0, _jqueryDefault.default)("#restExercise__update").val(res.restExercise);
+        (0, _jqueryDefault.default)("#numSet__update").val(res.numSet);
+        (0, _jqueryDefault.default)("#restSet__update").val(res.restSet);
+    }
+};
+const controlUpdatePreset = function(e) {
+    e.preventDefault();
+    const title = (0, _jqueryDefault.default)("#title__update").val();
+    const numExercise = +(0, _jqueryDefault.default)("#numExercise__update").val();
+    const timeExercise = +(0, _jqueryDefault.default)("#timeExercise__update").val();
+    const restExercise = +(0, _jqueryDefault.default)("#restExercise__update").val();
+    const numSet = +(0, _jqueryDefault.default)("#numSet__update").val();
+    const restSet = +(0, _jqueryDefault.default)("#restSet__update").val();
+    let totalTime = numSet > 1 ? ((timeExercise + restExercise) * numExercise - restExercise) * numSet + (numSet * restSet - restSet) : (timeExercise + restExercise) * numExercise - restExercise;
+    totalTime = (0, _helperJs.formatTime)(totalTime);
+    (0, _updatePresetJs.updatePreset)({
+        numExercise,
+        timeExercise,
+        restExercise,
+        numSet,
+        restSet,
+        totalTime,
+        title
+    }, updatePresetId);
+};
+const cancelUpdateId = function(e) {
+    updatePresetId = "";
 };
 const passDeleteId = function(e) {
     e.preventDefault();
@@ -681,9 +720,12 @@ const init = function() {
     (0, _settingViewJsDefault.default).addHandlerSaveSubmitBtn(controlSaveSubmit);
     (0, _settingViewJsDefault.default).addHandlerLoadPreset(controlLoadPreset);
     (0, _settingViewJsDefault.default).addHandlerEditSaved();
+    (0, _settingViewJsDefault.default).addHandlerEditIcon(controlLoadUpdatePreset);
+    (0, _settingViewJsDefault.default).addHandlerEditBack(cancelUpdateId);
     (0, _settingViewJsDefault.default).addHandlerDeleteIcon(passDeleteId);
     (0, _settingViewJsDefault.default).addHandlerDeleteCancel(cancelDeleteId);
     (0, _settingViewJsDefault.default).addHandlerDeletePreset(controlDeletePreset);
+    (0, _settingViewJsDefault.default).addHandlerUpdatePreset(controlUpdatePreset);
     (0, _timerViewJsDefault.default).addHandlerPauseBtn(controlPause);
     (0, _timerViewJsDefault.default).addHandlerResumeBtn(controlResume);
     (0, _timerViewJsDefault.default).addHandlerResetBtn(controlReset);
@@ -696,7 +738,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/modules/es.array.reduce.js":"zacF9","core-js/modules/es.array.reduce-right.js":"5uSY4","core-js/modules/es.math.hypot.js":"aklQx","core-js/modules/es.typed-array.set.js":"5Pbxp","core-js/modules/web.immediate.js":"l8ByZ","regenerator-runtime/runtime":"jh5lj","jquery":"ewNXx","./model.js":"8aWZP","./views/settingView.js":"cPtRm","./views/timerView.js":"f55se","./views/infoView.js":"uzz5d","./views/loginView.js":"jcQCH","./login.js":"hq7g2","./helper.js":"hBMeL","./getPreset.js":"9HbQ0","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1","./views/accountView.js":"1DtvV","./updateSettings.js":"1RFs4","./createPreset.js":"afxvj","./deletePreset.js":"8bp6e"}],"zacF9":[function(require,module,exports) {
+},{"core-js/modules/es.array.reduce.js":"zacF9","core-js/modules/es.array.reduce-right.js":"5uSY4","core-js/modules/es.math.hypot.js":"aklQx","core-js/modules/es.typed-array.set.js":"5Pbxp","core-js/modules/web.immediate.js":"l8ByZ","regenerator-runtime/runtime":"jh5lj","jquery":"ewNXx","./model.js":"8aWZP","./views/settingView.js":"cPtRm","./views/timerView.js":"f55se","./views/infoView.js":"uzz5d","./views/loginView.js":"jcQCH","./login.js":"hq7g2","./helper.js":"hBMeL","./getPreset.js":"9HbQ0","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1","./views/accountView.js":"1DtvV","./updateSettings.js":"1RFs4","./createPreset.js":"afxvj","./deletePreset.js":"8bp6e","./updatePreset.js":"gmYgI"}],"zacF9":[function(require,module,exports) {
 "use strict";
 var $ = require("../internals/export");
 var $reduce = require("../internals/array-reduce").left;
@@ -9730,6 +9772,25 @@ class settingView extends (0, _viewJsDefault.default) {
             }
         });
     }
+    addHandlerEditIcon(handler) {
+        (0, _jqueryDefault.default)(".ph-pencil").on("click", (e)=>{
+            (0, _jqueryDefault.default)(".saved-preset").addClass("hidden");
+            (0, _jqueryDefault.default)(".update-preset-form").removeClass("hidden");
+            handler(e);
+        });
+    }
+    addHandlerEditBack(handler) {
+        (0, _jqueryDefault.default)(".btn--update__back").on("click", ()=>{
+            (0, _jqueryDefault.default)(".saved-preset").removeClass("hidden");
+            (0, _jqueryDefault.default)(".update-preset-form").addClass("hidden");
+            handler();
+        });
+    }
+    addHandlerUpdatePreset(handler) {
+        (0, _jqueryDefault.default)(".btn--update").on("click", (e)=>{
+            handler(e);
+        });
+    }
     addHandlerDeleteIcon(handler) {
         (0, _jqueryDefault.default)(".ph-trash").on("click", (e)=>{
             (0, _jqueryDefault.default)(".alert_box").removeClass("hidden");
@@ -13348,6 +13409,31 @@ const deletePreset = async (presetId)=>{
     }
 };
 
-},{"axios":"4fdnW","./alert":"28zV1","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}]},["mkSCR","erMiq"], "erMiq", "parcelRequire2976")
+},{"axios":"4fdnW","./alert":"28zV1","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"gmYgI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "updatePreset", ()=>updatePreset);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _alert = require("./alert");
+const updatePreset = async (data, presetId)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "PATCH",
+            url: `api/v1/presets/${presetId}`,
+            data
+        });
+        if (res.data.status === "success") {
+            _alert.showAlert("success", "preset updated");
+            window.setTimeout(()=>{
+                location.assign("/");
+            }, 1000);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+},{"axios":"4fdnW","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1","./alert":"28zV1"}]},["mkSCR","erMiq"], "erMiq", "parcelRequire2976")
 
 //# sourceMappingURL=index.js.map
