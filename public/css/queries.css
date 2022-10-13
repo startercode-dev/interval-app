@@ -1,7 +1,7 @@
 /* 1rem = 1em = 16px */
 
 /*************************/
-/* Above 1344px */
+/* Above 1344px HEIGHT */
 /*************************/
 @media (min-height: 72em) {
     .logo {
@@ -68,6 +68,15 @@
         padding: 2.4rem;
     }
 
+    .edit-saved {
+        margin-top: 2rem;
+        font-size: 1.518rem;
+    }
+
+    .btn--login {
+        font-size: 1.418rem;
+    }
+
     /* CUSTOM */
     .input-form {
         column-gap: 2.2rem;
@@ -87,24 +96,39 @@
         width: auto;
     }
 
+    .input__title-update {
+        width: 100%;
+    }
+
     .input::placeholder {
         font-size: 1.318rem;
     }
 
+    .btn--save__submit,
+    .btn--update,
     .btn--start {
-        height: 3.618rem;
+        height: 3.918rem;
         font-size: 1.618rem;
         margin-top: 1rem;
     }
 
     .btn--save {
-        margin-top: 1rem;
-        font-size: 1.118rem;
+        margin-top: 0.1rem;
+        font-size: 1.518rem;
     }
 
     /* SAVED */
-    .item--time {
-        font-size: 1.318rem;
+    .preset--time {
+        font-size: 1.418rem;
+    }
+
+    .ph-trash,
+    .ph-pencil {
+        font-size: 1.518rem;
+    }
+
+    .preset--title {
+        font-size: 1.518rem;
     }
 
     /* INFO */

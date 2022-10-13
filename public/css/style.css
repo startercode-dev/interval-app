@@ -72,6 +72,7 @@
     letter-spacing: 0.25rem;
     font-weight: 400;
     min-width: max-content;
+    cursor: pointer;
 }
 
 .nav-dropdown {
@@ -79,12 +80,16 @@
     display: inline-block;
 }
 
+.dropdown--logout {
+    cursor: pointer;
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f7f7f7;
     min-width: 160px;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     top: 1.8rem;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
@@ -289,7 +294,8 @@
     background-color: inherit;
     color: #132a1e;
     letter-spacing: 0.1rem;
-    font-size: 1.318rem;
+    font-size: 1.618rem;
+    font-weight: 500;
     width: max-content;
 
     border: none;
@@ -319,7 +325,7 @@
     justify-items: end;
     align-items: center;
     column-gap: 2rem;
-    row-gap: 1rem;
+    row-gap: 0.7rem;
 }
 
 .input--label__text {
@@ -374,6 +380,9 @@
     width: 100%;
     grid-column: 1/-1;
 }
+.btn--start {
+    font-size: 1.8rem;
+}
 
 .btn--update {
     background-color: #f7f7f7;
@@ -384,6 +393,10 @@
 
 .login-box {
     width: 100%;
+}
+
+.btn--update__back {
+    margin-top: 0.4rem;
 }
 
 .btn--update__back,
@@ -398,9 +411,10 @@
 .btn--login_text {
     color: #132a1e;
     background-color: inherit;
-    font-size: 1.318rem;
+    font-size: 1.518rem;
     letter-spacing: 0.1rem;
     width: max-content;
+    font-weight: 500;
 
     /* grid-column: 1/-1; */
     /* align-self: center; */
@@ -504,6 +518,10 @@
     cursor: pointer;
     position: absolute;
     top: 0;
+}
+
+.ph-trash {
+    color: #9d2c24;
 }
 
 .ph-gear-six,

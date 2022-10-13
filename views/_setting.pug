@@ -27,7 +27,7 @@ section.settings
                                         .setting-icons.grid.hidden
                                             i.ph-pencil(data-preset_id= preset._id)
                                             i.ph-trash(data-preset_id= preset._id)
-                            a.edit-saved edit
+                            a.edit-saved EDIT
                         else 
                             p.preset--title__placeholder -- no presets saved --
                             a.edit-saved  your presets 
@@ -59,8 +59,8 @@ section.settings
                 header Confirm
                 p Are you sure want to delete this?
                 .alert-btns
-                    button.btn.delete-confirm Delete
-                    button.btn.delete-cancel Cancel
+                    button.btn.delete-confirm DELETE
+                    button.btn.delete-cancel cancel
 
             .tabs-content.content--custom.is-active
                 form.input-form.grid
@@ -82,7 +82,7 @@ section.settings
                     .login-box.flex.grid-extend.center
                         if user 
                             button.btn.btn--save
-                                | save timer &plus;
+                                | SAVE timer &plus;
                         else 
                             a.btn.btn--login(href='/login')
                                 | LOG IN
