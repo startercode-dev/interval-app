@@ -6,6 +6,7 @@ import settingView from './views/settingView.js';
 import timerView from './views/timerView.js';
 import infoView from './views/infoView.js';
 import loginView from './views/loginView.js';
+import signupView from './views/signupView.js';
 import accountView from './views/accountView.js';
 import { login, logout } from './login.js';
 import { calcTime, formatTime } from './helper.js';
@@ -14,6 +15,7 @@ import { getPreset } from './getPreset.js';
 import { updateSettings } from './updateSettings.js';
 import { deletePreset } from './deletePreset.js';
 import { updatePreset } from './updatePreset.js';
+import { signup } from './signup.js';
 
 let title;
 let deletePresetId;
@@ -193,6 +195,16 @@ const controlLogin = function (e) {
     login(email, password);
 };
 
+const controlSignup = function (e) {
+    e.preventDefault();
+    const name = $('#name').val();
+    const email = $('#email').val();
+    const password = $('#password').val();
+    const passwordConfirm = $('#password-confirm').val();
+
+    signup({ name, email, password, passwordConfirm });
+};
+
 const controlSaveSetting = function (e) {
     e.preventDefault();
 
@@ -248,6 +260,7 @@ const init = function () {
     accountView.addHandlerSavePassword(controlSavePassword);
 
     loginView.addHandlerLogin(controlLogin);
+    signupView.addHandlerSignup(controlSignup);
     $('.dropdown--logout').on('click', logout);
 };
 init();

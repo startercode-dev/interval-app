@@ -60,6 +60,10 @@ a:hover {
     display: flex;
 }
 
+.space-between {
+    justify-content: space-between;
+}
+
 .center {
     justify-content: center;
 }
@@ -157,7 +161,8 @@ a:hover {
 
 .account-main,
 .error-main,
-.login-main {
+.login-main,
+.signup-main {
     background-color: #f7f7f7;
     padding: 8rem 6rem;
     -webkit-box-flex: 1;

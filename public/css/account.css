@@ -165,6 +165,7 @@
 .btn-small,
 .btn-small:link,
 .btn-small:visited {
+    height: 39px;
     background-color: #55c57a;
     color: #fff;
     font-size: 1.4rem;

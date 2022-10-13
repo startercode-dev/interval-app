@@ -550,6 +550,8 @@ var _infoViewJs = require("./views/infoView.js");
 var _infoViewJsDefault = parcelHelpers.interopDefault(_infoViewJs);
 var _loginViewJs = require("./views/loginView.js");
 var _loginViewJsDefault = parcelHelpers.interopDefault(_loginViewJs);
+var _signupViewJs = require("./views/signupView.js");
+var _signupViewJsDefault = parcelHelpers.interopDefault(_signupViewJs);
 var _accountViewJs = require("./views/accountView.js");
 var _accountViewJsDefault = parcelHelpers.interopDefault(_accountViewJs);
 var _loginJs = require("./login.js");
@@ -559,6 +561,7 @@ var _getPresetJs = require("./getPreset.js");
 var _updateSettingsJs = require("./updateSettings.js");
 var _deletePresetJs = require("./deletePreset.js");
 var _updatePresetJs = require("./updatePreset.js");
+var _signupJs = require("./signup.js");
 let title;
 let deletePresetId;
 let updatePresetId;
@@ -685,6 +688,19 @@ const controlLogin = function(e) {
     const password = (0, _jqueryDefault.default)("#password").val();
     (0, _loginJs.login)(email, password);
 };
+const controlSignup = function(e) {
+    e.preventDefault();
+    const name = (0, _jqueryDefault.default)("#name").val();
+    const email = (0, _jqueryDefault.default)("#email").val();
+    const password = (0, _jqueryDefault.default)("#password").val();
+    const passwordConfirm = (0, _jqueryDefault.default)("#password-confirm").val();
+    (0, _signupJs.signup)({
+        name,
+        email,
+        password,
+        passwordConfirm
+    });
+};
 const controlSaveSetting = function(e) {
     e.preventDefault();
     const name = (0, _jqueryDefault.default)("#name").val();
@@ -734,11 +750,12 @@ const init = function() {
     (0, _accountViewJsDefault.default).addHandlerSaveSetting(controlSaveSetting);
     (0, _accountViewJsDefault.default).addHandlerSavePassword(controlSavePassword);
     (0, _loginViewJsDefault.default).addHandlerLogin(controlLogin);
+    (0, _signupViewJsDefault.default).addHandlerSignup(controlSignup);
     (0, _jqueryDefault.default)(".dropdown--logout").on("click", (0, _loginJs.logout));
 };
 init();
 
-},{"core-js/modules/es.array.reduce.js":"zacF9","core-js/modules/es.array.reduce-right.js":"5uSY4","core-js/modules/es.math.hypot.js":"aklQx","core-js/modules/es.typed-array.set.js":"5Pbxp","core-js/modules/web.immediate.js":"l8ByZ","regenerator-runtime/runtime":"jh5lj","jquery":"ewNXx","./model.js":"8aWZP","./views/settingView.js":"cPtRm","./views/timerView.js":"f55se","./views/infoView.js":"uzz5d","./views/loginView.js":"jcQCH","./login.js":"hq7g2","./helper.js":"hBMeL","./getPreset.js":"9HbQ0","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1","./views/accountView.js":"1DtvV","./updateSettings.js":"1RFs4","./createPreset.js":"afxvj","./deletePreset.js":"8bp6e","./updatePreset.js":"gmYgI"}],"zacF9":[function(require,module,exports) {
+},{"core-js/modules/es.array.reduce.js":"zacF9","core-js/modules/es.array.reduce-right.js":"5uSY4","core-js/modules/es.math.hypot.js":"aklQx","core-js/modules/es.typed-array.set.js":"5Pbxp","core-js/modules/web.immediate.js":"l8ByZ","regenerator-runtime/runtime":"jh5lj","jquery":"ewNXx","./model.js":"8aWZP","./views/settingView.js":"cPtRm","./views/timerView.js":"f55se","./views/infoView.js":"uzz5d","./views/loginView.js":"jcQCH","./login.js":"hq7g2","./helper.js":"hBMeL","./getPreset.js":"9HbQ0","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1","./views/accountView.js":"1DtvV","./updateSettings.js":"1RFs4","./createPreset.js":"afxvj","./deletePreset.js":"8bp6e","./updatePreset.js":"gmYgI","./views/signupView.js":"5gDE8","./signup.js":"6o8y9"}],"zacF9":[function(require,module,exports) {
 "use strict";
 var $ = require("../internals/export");
 var $reduce = require("../internals/array-reduce").left;
@@ -13434,6 +13451,47 @@ const updatePreset = async (data, presetId)=>{
     }
 };
 
-},{"axios":"4fdnW","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1","./alert":"28zV1"}]},["mkSCR","erMiq"], "erMiq", "parcelRequire2976")
+},{"axios":"4fdnW","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1","./alert":"28zV1"}],"5gDE8":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _viewJs = require("./View.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+var _jquery = require("jquery");
+var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
+class signup extends (0, _viewJsDefault.default) {
+    addHandlerSignup(handler) {
+        (0, _jqueryDefault.default)(".btn-auth-signup").on("click", (e)=>{
+            handler(e);
+        });
+    }
+}
+exports.default = new signup();
+
+},{"./View.js":"icyge","jquery":"ewNXx","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"6o8y9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "signup", ()=>signup);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _alert = require("./alert");
+const signup = async (data)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "POST",
+            url: "/api/v1/users/signup",
+            data
+        });
+        if (res.data.status === "success") {
+            _alert.showAlert("success", "signup successful!");
+            window.setTimeout(()=>{
+                location.assign("/");
+            }, 1000);
+        }
+    } catch (err) {
+        _alert.showAlert("error", err.response.data.msg);
+    }
+};
+
+},{"axios":"4fdnW","./alert":"28zV1","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}]},["mkSCR","erMiq"], "erMiq", "parcelRequire2976")
 
 //# sourceMappingURL=index.js.map
