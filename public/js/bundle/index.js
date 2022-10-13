@@ -9761,14 +9761,14 @@ class settingView extends (0, _viewJsDefault.default) {
     }
     addHandlerEditSaved() {
         (0, _jqueryDefault.default)(".edit-saved").on("click", ()=>{
-            if ((0, _jqueryDefault.default)(".edit-saved").text() === "edit") {
+            if ((0, _jqueryDefault.default)(".edit-saved").text() === "EDIT") {
                 (0, _jqueryDefault.default)(".preset--time").addClass("hidden");
                 (0, _jqueryDefault.default)(".setting-icons").removeClass("hidden");
-                (0, _jqueryDefault.default)(".edit-saved").text("done");
-            } else if ((0, _jqueryDefault.default)(".edit-saved").text() === "done") {
+                (0, _jqueryDefault.default)(".edit-saved").text("DONE");
+            } else if ((0, _jqueryDefault.default)(".edit-saved").text() === "DONE") {
                 (0, _jqueryDefault.default)(".preset--time").removeClass("hidden");
                 (0, _jqueryDefault.default)(".setting-icons").addClass("hidden");
-                (0, _jqueryDefault.default)(".edit-saved").text("edit");
+                (0, _jqueryDefault.default)(".edit-saved").text("EDIT");
             }
         });
     }

@@ -9,7 +9,11 @@ router.use(authController.protect);
 router
     .route('/')
     .get(authController.restrictTo('admin'), presetController.getAllPreset)
-    .post(presetController.setUserId, presetController.createPreset);
+    .post(
+        presetController.setUserId,
+        presetController.checkMaxPreset,
+        presetController.createPreset
+    );
 
 router
     .route('/:id')

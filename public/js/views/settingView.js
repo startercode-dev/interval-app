@@ -82,14 +82,14 @@ class settingView extends View {
 
     addHandlerEditSaved() {
         $('.edit-saved').on('click', () => {
-            if ($('.edit-saved').text() === 'edit') {
+            if ($('.edit-saved').text() === 'EDIT') {
                 $('.preset--time').addClass('hidden');
                 $('.setting-icons').removeClass('hidden');
-                $('.edit-saved').text('done');
-            } else if ($('.edit-saved').text() === 'done') {
+                $('.edit-saved').text('DONE');
+            } else if ($('.edit-saved').text() === 'DONE') {
                 $('.preset--time').removeClass('hidden');
                 $('.setting-icons').addClass('hidden');
-                $('.edit-saved').text('edit');
+                $('.edit-saved').text('EDIT');
             }
         });
     }
