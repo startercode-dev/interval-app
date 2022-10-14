@@ -571,12 +571,16 @@ const controlUpdateViews = function() {
     (0, _infoViewJsDefault.default).render(_modelJs.state.setting);
 };
 // BUTTONS
-const controlStart = function(e) {
+const controlStart = async function(e) {
+    e.preventDefault();
     (0, _settingViewJsDefault.default).passData(_modelJs.state.setting);
     const { timeExercise  } = _modelJs.state.setting;
     if (!timeExercise) return;
-    e.preventDefault();
     _modelJs.state.isStopped = false;
+    (0, _jqueryDefault.default)(".timer-clock__status").text("get ready");
+    await (0, _timerViewJsDefault.default).readyCountdown();
+    (0, _jqueryDefault.default)(".timer-clock__status").text("");
+    (0, _jqueryDefault.default)(".btn--pause").prop("disabled", false);
     (0, _timerViewJsDefault.default).totalCountdown();
     (0, _timerViewJsDefault.default).mainCountdown();
 };
@@ -9722,6 +9726,8 @@ var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
 var _jquery = require("jquery");
 var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
 var _helperJs = require("../helper.js");
+var _timerViewJs = require("./timerView.js");
+var _timerViewJsDefault = parcelHelpers.interopDefault(_timerViewJs);
 class settingView extends (0, _viewJsDefault.default) {
     passData(data) {
         this._data = data;
@@ -9743,9 +9749,8 @@ class settingView extends (0, _viewJsDefault.default) {
             if (!this._data.timeExercise) return;
             e.target.disabled = true;
             (0, _jqueryDefault.default)(".input-form input").prop("disabled", true);
-            (0, _jqueryDefault.default)(".btn--reset").prop("disabled", false);
-            (0, _jqueryDefault.default)(".btn--pause").prop("disabled", false);
             (0, _jqueryDefault.default)(".settings").removeClass("active");
+            (0, _jqueryDefault.default)(".btn--reset").prop("disabled", false);
         });
     }
     addHandlerSaveTimerBtn(handler) {
@@ -9828,7 +9833,7 @@ class settingView extends (0, _viewJsDefault.default) {
 }
 exports.default = new settingView();
 
-},{"./View.js":"icyge","jquery":"ewNXx","../helper.js":"hBMeL","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"icyge":[function(require,module,exports) {
+},{"./View.js":"icyge","jquery":"ewNXx","../helper.js":"hBMeL","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1","./timerView.js":"f55se"}],"icyge":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>View);
@@ -9979,7 +9984,7 @@ class TimerView extends (0, _viewJsDefault.default) {
                     if (sec === 1) {
                         clearInterval(this.mainTimer);
                         (0, _jqueryDefault.default)(".timer-clock__path-remaining").removeClass("animation");
-                        playBeep();
+                        // playBeep();
                         resolve();
                     }
                     sec--;
@@ -9996,7 +10001,30 @@ class TimerView extends (0, _viewJsDefault.default) {
             });
         });
     }
+    async readyCountdown() {
+        const playStart = ()=>{
+            const start = new Audio("../../assets/sounds/start.mp3");
+            start.play();
+        };
+        (0, _jqueryDefault.default)(".timer-clock__path-remaining").css({
+            "--time": "8s"
+        }).addClass("animation");
+        await this._count(8);
+        playStart();
+    }
     async mainCountdown() {
+        const playGo = ()=>{
+            const go = new Audio("../../assets/sounds/go.mp3");
+            go.play();
+        };
+        const playRest = ()=>{
+            const rest = new Audio("../../assets/sounds/rest.mp3");
+            rest.play();
+        };
+        const playFinished = ()=>{
+            const finished = new Audio("../../assets/sounds/finished.mp3");
+            finished.play();
+        };
         const { numExercise , timeExercise , restExercise , numSet , restSet  } = this._data;
         let currNumS = 0;
         let currNumE = 0;
@@ -10013,11 +10041,14 @@ class TimerView extends (0, _viewJsDefault.default) {
                     "--time": `${timeExercise}s`
                 }).addClass("animation");
                 await this._count(timeExercise);
+                if (currNumE === numExercise && currNumS === numSet) playFinished();
+                else playRest();
                 if (currNumE < numExercise && restExercise > 0) {
                     (0, _jqueryDefault.default)(".timer-clock__path-remaining").css({
                         "--time": `${restExercise}s`
                     }).addClass("animation");
                     await this._count(restExercise);
+                    playGo();
                 }
             }
             if (currNumS < numSet && restSet > 0) {
@@ -10025,6 +10056,7 @@ class TimerView extends (0, _viewJsDefault.default) {
                     "--time": `${restSet}s`
                 }).addClass("animation");
                 await this._count(restSet);
+                playGo();
             }
         }
         (0, _jqueryDefault.default)(".btn--pause").prop("disabled", true);

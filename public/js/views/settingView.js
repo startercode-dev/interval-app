@@ -1,6 +1,7 @@
 import View from './View.js';
 import $ from 'jquery';
 import { formatTime } from '../helper.js';
+import timerView from './timerView.js';
 
 class settingView extends View {
     passData(data) {
@@ -27,13 +28,11 @@ class settingView extends View {
             handler(e);
 
             if (!this._data.timeExercise) return;
-
             e.target.disabled = true;
-            $('.input-form input').prop('disabled', true);
-            $('.btn--reset').prop('disabled', false);
-            $('.btn--pause').prop('disabled', false);
 
+            $('.input-form input').prop('disabled', true);
             $('.settings').removeClass('active');
+            $('.btn--reset').prop('disabled', false);
         });
     }
 
