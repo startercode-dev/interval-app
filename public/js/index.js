@@ -29,15 +29,19 @@ const controlUpdateViews = function () {
 };
 
 // BUTTONS
-const controlStart = function (e) {
-    settingView.passData(model.state.setting);
+const controlStart = async function (e) {
+    e.preventDefault();
 
+    settingView.passData(model.state.setting);
     const { timeExercise } = model.state.setting;
     if (!timeExercise) return;
 
-    e.preventDefault();
     model.state.isStopped = false;
 
+    $('.timer-clock__status').text('get ready');
+    await timerView.readyCountdown();
+    $('.timer-clock__status').text('');
+    $('.btn--pause').prop('disabled', false);
     timerView.totalCountdown();
     timerView.mainCountdown();
 };

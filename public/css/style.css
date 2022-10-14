@@ -457,12 +457,18 @@
     height: 42rem;
 }
 
+.timer-clock__status,
 .timer-clock__label,
 .timer-clock__remain {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+.timer-clock__status {
+    font-size: 1.9rem;
+    top: 28%;
 }
 
 .timer-clock__label {
