@@ -21,6 +21,9 @@ let title;
 let deletePresetId;
 let updatePresetId;
 
+// *********************
+// TIMER CONTROL
+// *********************
 const controlUpdateViews = function () {
     model.updateTime();
 
@@ -28,7 +31,6 @@ const controlUpdateViews = function () {
     infoView.render(model.state.setting);
 };
 
-// BUTTONS
 const controlStart = async function (e) {
     e.preventDefault();
 
@@ -73,6 +75,58 @@ const controlReset = function (e) {
     }
 };
 
+// *********************
+// AUTH CONTROL
+// *********************
+const controlLogin = function (e) {
+    e.preventDefault();
+    const email = $('#email').val();
+    const password = $('#password').val();
+
+    login(email, password);
+};
+
+const controlSignup = function (e) {
+    e.preventDefault();
+    const name = $('#name').val();
+    const email = $('#email').val();
+    const password = $('#password').val();
+    const passwordConfirm = $('#password-confirm').val();
+
+    signup({ name, email, password, passwordConfirm });
+};
+
+const controlSaveSetting = function (e) {
+    e.preventDefault();
+
+    const name = $('#name').val();
+    const email = $('#email').val();
+
+    updateSettings({ name, email }, 'data');
+};
+
+const controlSavePassword = async function (e) {
+    e.preventDefault();
+    $('.btn-auth-save__password').text('updating...');
+
+    const passwordCurrent = $('#password-current').val();
+    const password = $('#password').val();
+    const passwordConfirm = $('#password-confirm').val();
+
+    await updateSettings(
+        { passwordCurrent, password, passwordConfirm },
+        'password'
+    );
+
+    $('#password-current').val('');
+    $('#password').val('');
+    $('#password-confirm').val('');
+    $('.btn-auth-save__password').text('save password');
+};
+
+// *********************
+// PRESET CONTROL
+// *********************
 const controlSaveTimer = function (e) {
     settingView.passData(model.state.setting);
 
@@ -189,52 +243,6 @@ const cancelDeleteId = function () {
 
 const controlDeletePreset = function () {
     if (deletePresetId) deletePreset(deletePresetId);
-};
-
-const controlLogin = function (e) {
-    e.preventDefault();
-    const email = $('#email').val();
-    const password = $('#password').val();
-
-    login(email, password);
-};
-
-const controlSignup = function (e) {
-    e.preventDefault();
-    const name = $('#name').val();
-    const email = $('#email').val();
-    const password = $('#password').val();
-    const passwordConfirm = $('#password-confirm').val();
-
-    signup({ name, email, password, passwordConfirm });
-};
-
-const controlSaveSetting = function (e) {
-    e.preventDefault();
-
-    const name = $('#name').val();
-    const email = $('#email').val();
-
-    updateSettings({ name, email }, 'data');
-};
-
-const controlSavePassword = async function (e) {
-    e.preventDefault();
-    $('.btn-auth-save__password').text('updating...');
-
-    const passwordCurrent = $('#password-current').val();
-    const password = $('#password').val();
-    const passwordConfirm = $('#password-confirm').val();
-
-    await updateSettings(
-        { passwordCurrent, password, passwordConfirm },
-        'password'
-    );
-
-    $('#password-current').val('');
-    $('#password').val('');
-    $('#password-confirm').val('');
-    $('.btn-auth-save__password').text('save password');
 };
 
 // INIT
