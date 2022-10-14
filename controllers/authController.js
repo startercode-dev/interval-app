@@ -98,7 +98,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
     // console.log(token);
     if (!token) {
-        return next(new AppError('not logged in nig', 401));
+        return next(new AppError('not logged in', 401));
     }
 
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
@@ -149,7 +149,7 @@ exports.restrictTo =
     (...roles) =>
     (req, res, next) => {
         if (!roles.includes(req.user.role)) {
-            return next(new AppError('no permission nig', 403));
+            return next(new AppError('no permission', 403));
         }
         next();
     };
