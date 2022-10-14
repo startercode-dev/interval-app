@@ -1,0 +1,98 @@
+section.settings
+    .tabs-component.flex
+        .tabs-head.flex
+            .tabs--tab.tab--saved.flex(data-tab='saved')
+                | saved
+            .tabs--tab.tab--custom.flex.is-active(data-tab='custom')
+                | custom
+        .tabs-body.flex
+            .tabs-content.content--saved
+                .saved-preset.grid
+                    if user 
+                        if user.presets.length > 0
+                            each preset in user.presets
+                                - const time = Number(preset.totalTime.slice(0, 1))
+                                if (time < 1)
+                                    a.preset.flex
+                                        p.preset--title(data-preset_id= preset._id)= preset.title
+                                        p.preset--time(data-preset_id= preset._id)= `${preset.totalTime} sec`
+                                        .setting-icons.grid.hidden
+                                            i.ph-pencil(data-preset_id= preset._id)
+                                            i.ph-trash(data-preset_id= preset._id)
+
+                                else 
+                                    a.preset.flex
+                                        p.preset--title(data-preset_id= preset._id)= preset.title
+                                        p.preset--time(data-preset_id= preset._id)= `${preset.totalTime} min`
+                                        .setting-icons.grid.hidden
+                                            i.ph-pencil(data-preset_id= preset._id)
+                                            i.ph-trash(data-preset_id= preset._id)
+                            a.edit-saved EDIT
+                        else 
+                            p.preset--title__placeholder -- no presets saved --
+                            a.edit-saved  your presets 
+                    else 
+                        p.preset--title__placeholder -- login to save presets --
+                        a.btn.btn--login(href='/login')
+                            | LOG IN
+
+                form.update-preset-form.grid.hidden
+                    input#title__update.input.input__title-update(type='string' placeholder='custom workout')
+                    label.input--label(for='numExercise') how many exercises
+                    input#numExercise__update.input(type='number' placeholder='1' value='1')
+                    label.input--label(for='timeExercise') time per exercise
+                    input#timeExercise__update.input(type='number' placeholder='45s' required='')
+                    label.input--label(for='restExercise')
+                        | rest between exercise 
+                        span (opt.)
+                    input#restExercise__update.input(type='number' placeholder='15s')
+                    label.input--label(for='numSet') how many sets
+                    input#numSet__update.input(type='number' placeholder='1' value='1')
+                    label.input--label(for='restSet')
+                        | rest between sets 
+                        span (opt.)
+                    input#restSet__update.input(type='number' placeholder='90s')
+                    button.btn.btn--update update
+                    a.btn.btn--update__back back
+
+            .alert_box.flex.hidden
+                header Confirm
+                p Are you sure want to delete this?
+                .alert-btns
+                    button.btn.delete-confirm DELETE
+                    button.btn.delete-cancel cancel
+
+            .tabs-content.content--custom.is-active
+                form.input-form.grid
+                    label.input--label(for='numExercise') how many exercises
+                    input#numExercise.input(type='number' placeholder='1' value='1')
+                    label.input--label(for='timeExercise') time per exercise
+                    input#timeExercise.input(type='number' placeholder='45s' required='')
+                    label.input--label(for='restExercise')
+                        | rest between exercise 
+                        span (opt.)
+                    input#restExercise.input(type='number' placeholder='15s')
+                    label.input--label(for='numSet') how many sets
+                    input#numSet.input(type='number' placeholder='1' value='1')
+                    label.input--label(for='restSet')
+                        | rest between sets 
+                        span (opt.)
+                    input#restSet.input(type='number' placeholder='90s')
+                    button.btn.btn--start start
+                    .login-box.flex.grid-extend.center
+                        if user 
+                            button.btn.btn--save
+                                | SAVE timer &plus;
+                        else 
+                            a.btn.btn--login(href='/login')
+                                | LOG IN
+                            span.btn--login_text - to save timer &plus;
+                
+                form.save-preset-form.grid.hidden
+                    label.input--label(for='title') workout name
+                    input#title.input.input__title(type='string' placeholder='custom workout')
+                    p.input--label.input--label__text total time: 23 min
+                    button.btn.btn--save__submit save
+                    a.btn.btn--back back
+
+                
