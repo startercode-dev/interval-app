@@ -5,17 +5,21 @@ import * as model from './model.js';
 import settingView from './views/settingView.js';
 import timerView from './views/timerView.js';
 import infoView from './views/infoView.js';
-import loginView from './views/loginView.js';
-import signupView from './views/signupView.js';
+import authView from './views/authView.js';
 import accountView from './views/accountView.js';
-import { login, logout } from './login.js';
+import {
+    forgotPassword,
+    login,
+    logout,
+    resetPassword,
+    signup,
+} from './userAuth.js';
 import { calcTime, formatTime } from './helper.js';
 import { createPreset } from './createPreset.js';
 import { getPreset } from './getPreset.js';
 import { updateSettings } from './updateSettings.js';
 import { deletePreset } from './deletePreset.js';
 import { updatePreset } from './updatePreset.js';
-import { signup } from './signup.js';
 
 let title;
 let deletePresetId;
@@ -124,6 +128,23 @@ const controlSavePassword = async function (e) {
     $('.btn-auth-save__password').text('save password');
 };
 
+const controlForgotPassword = function (e) {
+    e.preventDefault();
+
+    const email = $('#email').val();
+    forgotPassword({ email });
+};
+
+const controlResetPassword = function (e) {
+    e.preventDefault();
+
+    const token = window.location.pathname.split('/')[2];
+    const password = $('#password').val();
+    const passwordConfirm = $('#password-confirm').val();
+
+    resetPassword({ password, passwordConfirm }, token);
+};
+
 // *********************
 // PRESET CONTROL
 // *********************
@@ -144,15 +165,15 @@ const controlSaveSubmit = function (e) {
     const title = $('.input__title').val();
     const totalTime = formatTime(calcTime());
 
-    createPreset(
+    createPreset({
         title,
         numExercise,
         timeExercise,
         restExercise,
         numSet,
         restSet,
-        totalTime
-    );
+        totalTime,
+    });
 };
 
 const controlLoadPreset = async function (e) {
@@ -271,8 +292,10 @@ const init = function () {
     accountView.addHandlerSaveSetting(controlSaveSetting);
     accountView.addHandlerSavePassword(controlSavePassword);
 
-    loginView.addHandlerLogin(controlLogin);
-    signupView.addHandlerSignup(controlSignup);
+    authView.addHandlerLogin(controlLogin);
+    authView.addHandlerSignup(controlSignup);
+    authView.addHandlerForgotPassword(controlForgotPassword);
+    authView.addhandlerResetPassword(controlResetPassword);
     $('.dropdown--logout').on('click', logout);
 };
 init();

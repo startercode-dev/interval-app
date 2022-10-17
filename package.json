@@ -19,6 +19,7 @@
     },
     "homepage": "https://github.com/startercode-dev/interval-app#readme",
     "dependencies": {
+        "@sendgrid/mail": "^7.7.0",
         "axios": "^0.27.2",
         "bcryptjs": "^2.4.3",
         "cookie-parser": "^1.4.6",
@@ -51,6 +52,7 @@
         "events": "^3.3.0",
         "nodemon": "^2.0.19",
         "parcel": "^2.7.0",
+        "path-browserify": "^1.0.1",
         "prettier": "^2.7.1",
         "process": "^0.11.10",
         "stream-browserify": "^3.0.0",
