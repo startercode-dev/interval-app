@@ -1,28 +1,12 @@
 import axios from 'axios';
 import * as alert from './alert';
 
-export const createPreset = async (
-    title,
-    numExercise,
-    timeExercise,
-    restExercise,
-    numSet,
-    restSet,
-    totalTime
-) => {
+export const createPreset = async (data) => {
     try {
         const res = await axios({
             method: 'POST',
             url: '/api/v1/presets',
-            data: {
-                title,
-                numExercise,
-                timeExercise,
-                restExercise,
-                numSet,
-                restSet,
-                totalTime,
-            },
+            data,
         });
 
         if (res.data.status === 'success') {

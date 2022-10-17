@@ -548,29 +548,28 @@ var _timerViewJs = require("./views/timerView.js");
 var _timerViewJsDefault = parcelHelpers.interopDefault(_timerViewJs);
 var _infoViewJs = require("./views/infoView.js");
 var _infoViewJsDefault = parcelHelpers.interopDefault(_infoViewJs);
-var _loginViewJs = require("./views/loginView.js");
-var _loginViewJsDefault = parcelHelpers.interopDefault(_loginViewJs);
-var _signupViewJs = require("./views/signupView.js");
-var _signupViewJsDefault = parcelHelpers.interopDefault(_signupViewJs);
+var _authViewJs = require("./views/authView.js");
+var _authViewJsDefault = parcelHelpers.interopDefault(_authViewJs);
 var _accountViewJs = require("./views/accountView.js");
 var _accountViewJsDefault = parcelHelpers.interopDefault(_accountViewJs);
-var _loginJs = require("./login.js");
+var _userAuthJs = require("./userAuth.js");
 var _helperJs = require("./helper.js");
 var _createPresetJs = require("./createPreset.js");
 var _getPresetJs = require("./getPreset.js");
 var _updateSettingsJs = require("./updateSettings.js");
 var _deletePresetJs = require("./deletePreset.js");
 var _updatePresetJs = require("./updatePreset.js");
-var _signupJs = require("./signup.js");
 let title;
 let deletePresetId;
 let updatePresetId;
+// *********************
+// TIMER CONTROL
+// *********************
 const controlUpdateViews = function() {
     _modelJs.updateTime();
     (0, _timerViewJsDefault.default).render(_modelJs.state.setting);
     (0, _infoViewJsDefault.default).render(_modelJs.state.setting);
 };
-// BUTTONS
 const controlStart = async function(e) {
     e.preventDefault();
     (0, _settingViewJsDefault.default).passData(_modelJs.state.setting);
@@ -606,6 +605,73 @@ const controlReset = function(e) {
         (0, _jqueryDefault.default)(".info--title").text(title);
     }
 };
+// *********************
+// AUTH CONTROL
+// *********************
+const controlLogin = function(e) {
+    e.preventDefault();
+    const email = (0, _jqueryDefault.default)("#email").val();
+    const password = (0, _jqueryDefault.default)("#password").val();
+    (0, _userAuthJs.login)(email, password);
+};
+const controlSignup = function(e) {
+    e.preventDefault();
+    const name = (0, _jqueryDefault.default)("#name").val();
+    const email = (0, _jqueryDefault.default)("#email").val();
+    const password = (0, _jqueryDefault.default)("#password").val();
+    const passwordConfirm = (0, _jqueryDefault.default)("#password-confirm").val();
+    (0, _userAuthJs.signup)({
+        name,
+        email,
+        password,
+        passwordConfirm
+    });
+};
+const controlSaveSetting = function(e) {
+    e.preventDefault();
+    const name = (0, _jqueryDefault.default)("#name").val();
+    const email = (0, _jqueryDefault.default)("#email").val();
+    (0, _updateSettingsJs.updateSettings)({
+        name,
+        email
+    }, "data");
+};
+const controlSavePassword = async function(e) {
+    e.preventDefault();
+    (0, _jqueryDefault.default)(".btn-auth-save__password").text("updating...");
+    const passwordCurrent = (0, _jqueryDefault.default)("#password-current").val();
+    const password = (0, _jqueryDefault.default)("#password").val();
+    const passwordConfirm = (0, _jqueryDefault.default)("#password-confirm").val();
+    await (0, _updateSettingsJs.updateSettings)({
+        passwordCurrent,
+        password,
+        passwordConfirm
+    }, "password");
+    (0, _jqueryDefault.default)("#password-current").val("");
+    (0, _jqueryDefault.default)("#password").val("");
+    (0, _jqueryDefault.default)("#password-confirm").val("");
+    (0, _jqueryDefault.default)(".btn-auth-save__password").text("save password");
+};
+const controlForgotPassword = function(e) {
+    e.preventDefault();
+    const email = (0, _jqueryDefault.default)("#email").val();
+    (0, _userAuthJs.forgotPassword)({
+        email
+    });
+};
+const controlResetPassword = function(e) {
+    e.preventDefault();
+    const token = window.location.pathname.split("/")[2];
+    const password = (0, _jqueryDefault.default)("#password").val();
+    const passwordConfirm = (0, _jqueryDefault.default)("#password-confirm").val();
+    (0, _userAuthJs.resetPassword)({
+        password,
+        passwordConfirm
+    }, token);
+};
+// *********************
+// PRESET CONTROL
+// *********************
 const controlSaveTimer = function(e) {
     (0, _settingViewJsDefault.default).passData(_modelJs.state.setting);
     const { timeExercise  } = _modelJs.state.setting;
@@ -617,7 +683,15 @@ const controlSaveSubmit = function(e) {
     const { numExercise , timeExercise , restExercise , numSet , restSet  } = _modelJs.state.setting;
     const title = (0, _jqueryDefault.default)(".input__title").val();
     const totalTime = (0, _helperJs.formatTime)((0, _helperJs.calcTime)());
-    (0, _createPresetJs.createPreset)(title, numExercise, timeExercise, restExercise, numSet, restSet, totalTime);
+    (0, _createPresetJs.createPreset)({
+        title,
+        numExercise,
+        timeExercise,
+        restExercise,
+        numSet,
+        restSet,
+        totalTime
+    });
 };
 const controlLoadPreset = async function(e) {
     e.preventDefault();
@@ -686,50 +760,6 @@ const cancelDeleteId = function() {
 const controlDeletePreset = function() {
     if (deletePresetId) (0, _deletePresetJs.deletePreset)(deletePresetId);
 };
-const controlLogin = function(e) {
-    e.preventDefault();
-    const email = (0, _jqueryDefault.default)("#email").val();
-    const password = (0, _jqueryDefault.default)("#password").val();
-    (0, _loginJs.login)(email, password);
-};
-const controlSignup = function(e) {
-    e.preventDefault();
-    const name = (0, _jqueryDefault.default)("#name").val();
-    const email = (0, _jqueryDefault.default)("#email").val();
-    const password = (0, _jqueryDefault.default)("#password").val();
-    const passwordConfirm = (0, _jqueryDefault.default)("#password-confirm").val();
-    (0, _signupJs.signup)({
-        name,
-        email,
-        password,
-        passwordConfirm
-    });
-};
-const controlSaveSetting = function(e) {
-    e.preventDefault();
-    const name = (0, _jqueryDefault.default)("#name").val();
-    const email = (0, _jqueryDefault.default)("#email").val();
-    (0, _updateSettingsJs.updateSettings)({
-        name,
-        email
-    }, "data");
-};
-const controlSavePassword = async function(e) {
-    e.preventDefault();
-    (0, _jqueryDefault.default)(".btn-auth-save__password").text("updating...");
-    const passwordCurrent = (0, _jqueryDefault.default)("#password-current").val();
-    const password = (0, _jqueryDefault.default)("#password").val();
-    const passwordConfirm = (0, _jqueryDefault.default)("#password-confirm").val();
-    await (0, _updateSettingsJs.updateSettings)({
-        passwordCurrent,
-        password,
-        passwordConfirm
-    }, "password");
-    (0, _jqueryDefault.default)("#password-current").val("");
-    (0, _jqueryDefault.default)("#password").val("");
-    (0, _jqueryDefault.default)("#password-confirm").val("");
-    (0, _jqueryDefault.default)(".btn-auth-save__password").text("save password");
-};
 // INIT
 const init = function() {
     (0, _settingViewJsDefault.default).addHandlerInputChanges(controlUpdateViews);
@@ -753,13 +783,15 @@ const init = function() {
     (0, _timerViewJsDefault.default).addHandlerInfos();
     (0, _accountViewJsDefault.default).addHandlerSaveSetting(controlSaveSetting);
     (0, _accountViewJsDefault.default).addHandlerSavePassword(controlSavePassword);
-    (0, _loginViewJsDefault.default).addHandlerLogin(controlLogin);
-    (0, _signupViewJsDefault.default).addHandlerSignup(controlSignup);
-    (0, _jqueryDefault.default)(".dropdown--logout").on("click", (0, _loginJs.logout));
+    (0, _authViewJsDefault.default).addHandlerLogin(controlLogin);
+    (0, _authViewJsDefault.default).addHandlerSignup(controlSignup);
+    (0, _authViewJsDefault.default).addHandlerForgotPassword(controlForgotPassword);
+    (0, _authViewJsDefault.default).addhandlerResetPassword(controlResetPassword);
+    (0, _jqueryDefault.default)(".dropdown--logout").on("click", (0, _userAuthJs.logout));
 };
 init();
 
-},{"core-js/modules/es.array.reduce.js":"zacF9","core-js/modules/es.array.reduce-right.js":"5uSY4","core-js/modules/es.math.hypot.js":"aklQx","core-js/modules/es.typed-array.set.js":"5Pbxp","core-js/modules/web.immediate.js":"l8ByZ","regenerator-runtime/runtime":"jh5lj","jquery":"ewNXx","./model.js":"8aWZP","./views/settingView.js":"cPtRm","./views/timerView.js":"f55se","./views/infoView.js":"uzz5d","./views/loginView.js":"jcQCH","./login.js":"hq7g2","./helper.js":"hBMeL","./getPreset.js":"9HbQ0","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1","./views/accountView.js":"1DtvV","./updateSettings.js":"1RFs4","./createPreset.js":"afxvj","./deletePreset.js":"8bp6e","./updatePreset.js":"gmYgI","./views/signupView.js":"5gDE8","./signup.js":"6o8y9"}],"zacF9":[function(require,module,exports) {
+},{"core-js/modules/es.array.reduce.js":"zacF9","core-js/modules/es.array.reduce-right.js":"5uSY4","core-js/modules/es.math.hypot.js":"aklQx","core-js/modules/es.typed-array.set.js":"5Pbxp","core-js/modules/web.immediate.js":"l8ByZ","regenerator-runtime/runtime":"jh5lj","jquery":"ewNXx","./model.js":"8aWZP","./views/settingView.js":"cPtRm","./views/timerView.js":"f55se","./views/infoView.js":"uzz5d","./views/authView.js":"fxCbO","./views/accountView.js":"1DtvV","./userAuth.js":"3xWIM","./helper.js":"hBMeL","./createPreset.js":"afxvj","./getPreset.js":"9HbQ0","./updateSettings.js":"1RFs4","./deletePreset.js":"8bp6e","./updatePreset.js":"gmYgI","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"zacF9":[function(require,module,exports) {
 "use strict";
 var $ = require("../internals/export");
 var $reduce = require("../internals/array-reduce").left;
@@ -9833,7 +9865,7 @@ class settingView extends (0, _viewJsDefault.default) {
 }
 exports.default = new settingView();
 
-},{"./View.js":"icyge","jquery":"ewNXx","../helper.js":"hBMeL","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1","./timerView.js":"f55se"}],"icyge":[function(require,module,exports) {
+},{"./View.js":"icyge","jquery":"ewNXx","../helper.js":"hBMeL","./timerView.js":"f55se","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"icyge":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>View);
@@ -10102,27 +10134,66 @@ class infoView extends (0, _viewJsDefault.default) {
 }
 exports.default = new infoView();
 
-},{"./View.js":"icyge","../helper.js":"hBMeL","jquery":"ewNXx","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"jcQCH":[function(require,module,exports) {
+},{"./View.js":"icyge","../helper.js":"hBMeL","jquery":"ewNXx","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"fxCbO":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _viewJs = require("./View.js");
 var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
 var _jquery = require("jquery");
 var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
-class loginView extends (0, _viewJsDefault.default) {
+class authView extends (0, _viewJsDefault.default) {
     addHandlerLogin(handler) {
         (0, _jqueryDefault.default)(".btn-auth-login").on("click", (e)=>{
             handler(e);
         });
     }
+    addHandlerSignup(handler) {
+        (0, _jqueryDefault.default)(".btn-auth-signup").on("click", (e)=>{
+            handler(e);
+        });
+    }
+    addHandlerForgotPassword(handler) {
+        (0, _jqueryDefault.default)(".btn-auth-forgot_password").on("click", (e)=>{
+            handler(e);
+        });
+    }
+    addhandlerResetPassword(handler) {
+        (0, _jqueryDefault.default)(".btn-auth-reset_password").on("click", (e)=>{
+            handler(e);
+        });
+    }
 }
-exports.default = new loginView();
+exports.default = new authView();
 
-},{"./View.js":"icyge","jquery":"ewNXx","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"hq7g2":[function(require,module,exports) {
+},{"./View.js":"icyge","jquery":"ewNXx","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"1DtvV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _viewJs = require("./View.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+var _jquery = require("jquery");
+var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
+class accountView extends (0, _viewJsDefault.default) {
+    addHandlerSaveSetting(handler) {
+        (0, _jqueryDefault.default)(".btn-auth-save__setting").on("click", (e)=>{
+            handler(e);
+        });
+    }
+    addHandlerSavePassword(handler) {
+        (0, _jqueryDefault.default)(".btn-auth-save__password").on("click", (e)=>{
+            handler(e);
+        });
+    }
+}
+exports.default = new accountView();
+
+},{"./View.js":"icyge","jquery":"ewNXx","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"3xWIM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "login", ()=>login);
 parcelHelpers.export(exports, "logout", ()=>logout);
+parcelHelpers.export(exports, "signup", ()=>signup);
+parcelHelpers.export(exports, "forgotPassword", ()=>forgotPassword);
+parcelHelpers.export(exports, "resetPassword", ()=>resetPassword);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _alert = require("./alert");
@@ -10137,7 +10208,7 @@ const login = async (email, password)=>{
             }
         });
         if (res.data.status === "success") {
-            _alert.showAlert("success", "logged in cuh");
+            _alert.showAlert("success", "logged in successful");
             window.setTimeout(()=>{
                 location.assign("/");
             }, 1000);
@@ -10157,6 +10228,57 @@ const logout = async ()=>{
     } catch (err) {
         console.log(err);
         _alert.showAlert("error", "cant logout for some reason, try again later");
+    }
+};
+const signup = async (data)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "POST",
+            url: "/api/v1/users/signup",
+            data
+        });
+        if (res.data.status === "success") {
+            _alert.showAlert("success", "signup successful!");
+            window.setTimeout(()=>{
+                location.assign("/");
+            }, 1000);
+        }
+    } catch (err) {
+        _alert.showAlert("error", err.response.data.msg);
+    }
+};
+const forgotPassword = async (data)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "POST",
+            url: "/api/v1/users/forgotPassword",
+            data
+        });
+        if (res.data.status === "success") {
+            _alert.showAlert("success", "email has been sent");
+            window.setTimeout(()=>{
+                location.assign("/");
+            }, 1000);
+        }
+    } catch (err) {
+        _alert.showAlert("error", err.response.data.msg);
+    }
+};
+const resetPassword = async (data, token)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "PATCH",
+            url: `/api/v1/users/resetPassword/${token}`,
+            data
+        });
+        if (res.data.status === "success") {
+            _alert.showAlert("success", "password reset successful, please login");
+            window.setTimeout(()=>{
+                location.assign("/");
+            }, 1500);
+        }
+    } catch (err) {
+        _alert.showAlert("error", err.response.data.msg);
     }
 };
 
@@ -13336,7 +13458,32 @@ const showAlert = (type, msg, time = 5)=>{
     window.setTimeout(hideAlert, time * 1000);
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"9HbQ0":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"afxvj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "createPreset", ()=>createPreset);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _alert = require("./alert");
+const createPreset = async (data)=>{
+    try {
+        const res = await (0, _axiosDefault.default)({
+            method: "POST",
+            url: "/api/v1/presets",
+            data
+        });
+        if (res.data.status === "success") {
+            _alert.showAlert("success", "preset saved");
+            window.setTimeout(()=>{
+                location.assign("/");
+            }, 1000);
+        }
+    } catch (err) {
+        _alert.showAlert("error", err.response.data.msg);
+    }
+};
+
+},{"axios":"4fdnW","./alert":"28zV1","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"9HbQ0":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getPreset", ()=>getPreset);
@@ -13354,28 +13501,7 @@ const getPreset = async (presetId)=>{
     }
 };
 
-},{"axios":"4fdnW","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"1DtvV":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _viewJs = require("./View.js");
-var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
-var _jquery = require("jquery");
-var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
-class accountView extends (0, _viewJsDefault.default) {
-    addHandlerSaveSetting(handler) {
-        (0, _jqueryDefault.default)(".btn-auth-save__setting").on("click", (e)=>{
-            handler(e);
-        });
-    }
-    addHandlerSavePassword(handler) {
-        (0, _jqueryDefault.default)(".btn-auth-save__password").on("click", (e)=>{
-            handler(e);
-        });
-    }
-}
-exports.default = new accountView();
-
-},{"./View.js":"icyge","jquery":"ewNXx","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"1RFs4":[function(require,module,exports) {
+},{"axios":"4fdnW","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"1RFs4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "updateSettings", ()=>updateSettings);
@@ -13398,39 +13524,6 @@ const updateSettings = async (data, type)=>{
         }
     } catch (err) {
         (0, _alert.showAlert)("error", err.response.data.msg);
-    }
-};
-
-},{"axios":"4fdnW","./alert":"28zV1","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"afxvj":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "createPreset", ()=>createPreset);
-var _axios = require("axios");
-var _axiosDefault = parcelHelpers.interopDefault(_axios);
-var _alert = require("./alert");
-const createPreset = async (title, numExercise, timeExercise, restExercise, numSet, restSet, totalTime)=>{
-    try {
-        const res = await (0, _axiosDefault.default)({
-            method: "POST",
-            url: "/api/v1/presets",
-            data: {
-                title,
-                numExercise,
-                timeExercise,
-                restExercise,
-                numSet,
-                restSet,
-                totalTime
-            }
-        });
-        if (res.data.status === "success") {
-            _alert.showAlert("success", "preset saved");
-            window.setTimeout(()=>{
-                location.assign("/");
-            }, 1000);
-        }
-    } catch (err) {
-        _alert.showAlert("error", err.response.data.msg);
     }
 };
 
@@ -13480,47 +13573,6 @@ const updatePreset = async (data, presetId)=>{
         }
     } catch (err) {
         console.log(err);
-    }
-};
-
-},{"axios":"4fdnW","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1","./alert":"28zV1"}],"5gDE8":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _viewJs = require("./View.js");
-var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
-var _jquery = require("jquery");
-var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
-class signup extends (0, _viewJsDefault.default) {
-    addHandlerSignup(handler) {
-        (0, _jqueryDefault.default)(".btn-auth-signup").on("click", (e)=>{
-            handler(e);
-        });
-    }
-}
-exports.default = new signup();
-
-},{"./View.js":"icyge","jquery":"ewNXx","@parcel/transformer-js/src/esmodule-helpers.js":"hGVz1"}],"6o8y9":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "signup", ()=>signup);
-var _axios = require("axios");
-var _axiosDefault = parcelHelpers.interopDefault(_axios);
-var _alert = require("./alert");
-const signup = async (data)=>{
-    try {
-        const res = await (0, _axiosDefault.default)({
-            method: "POST",
-            url: "/api/v1/users/signup",
-            data
-        });
-        if (res.data.status === "success") {
-            _alert.showAlert("success", "signup successful!");
-            window.setTimeout(()=>{
-                location.assign("/");
-            }, 1000);
-        }
-    } catch (err) {
-        _alert.showAlert("error", err.response.data.msg);
     }
 };
 
