@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const xss = require('xss-clean');
 const hpp = require('hpp');
-
+const compression = require('compression');
 const presetRouter = require('./routes/presetRoutes');
 const userRouter = require('./routes/userRoutes');
 const viewRouter = require('./routes/viewRoutes');
@@ -70,12 +70,13 @@ app.use(
     })
 );
 
-// test middleware
-app.use((req, res, next) => {
-    req.requestTime = new Date().toISOString();
-    // console.log(req.cookies);
-    next();
-});
+app.use(compression());
+
+// TEST MIDDLEWARE
+// app.use((req, res, next) => {
+//     req.requestTime = new Date().toISOString();
+//     next();
+// });
 
 // CLIENT-SIDE ROUTES **
 app.use('/', viewRouter);

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as alert from './alert';
 
 export const getPreset = async (presetId) => {
     try {
@@ -9,6 +10,6 @@ export const getPreset = async (presetId) => {
 
         return res.data.data;
     } catch (err) {
-        console.log(err);
+        alert.showAlert('error', 'no preset found');
     }
 };

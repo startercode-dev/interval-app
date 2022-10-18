@@ -5,7 +5,7 @@ export const updatePreset = async (data, presetId) => {
     try {
         const res = await axios({
             method: 'PATCH',
-            url: `api/v1/presets/${presetId}`,
+            url: `/api/v1/presets/${presetId}`,
             data,
         });
 
@@ -16,6 +16,6 @@ export const updatePreset = async (data, presetId) => {
             }, 1000);
         }
     } catch (err) {
-        console.log(err);
+        alert.showAlert('error', 'no preset found');
     }
 };
