@@ -160,14 +160,12 @@ exports.protect = catchAsync(async (req, res, next) => {
         token = req.cookies.jwt;
     }
 
-    // console.log(token);
     if (!token) {
         return next(new AppError('not logged in', 401));
     }
 
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
-    // console.log(decoded);
     const currUser = await User.findById(decoded.id);
     if (!currUser) {
         return next(new AppError('user not found', 401));

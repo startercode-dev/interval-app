@@ -34,6 +34,7 @@ const sendErrorDev = (err, req, res) => {
         });
     } else {
         // render error web page
+        console.error('ERROR*', err);
         res.status(err.statusCode).render('error', {
             title: 'something went wrong',
             msg: err.message,
@@ -49,6 +50,7 @@ const sendErrorProd = (err, req, res) => {
                 msg: err.message,
             });
         }
+        console.error('ERROR*', err);
         res.status(500).json({
             status: 'error',
             msg: 'Error not from our end, unknown error',
@@ -62,6 +64,7 @@ const sendErrorProd = (err, req, res) => {
             msg: err.message,
         });
     }
+    console.error('ERROR*', err);
     res.status(err.statusCode).render('error', {
         title: 'something went wrong',
         msg: 'unknown error, please try again',

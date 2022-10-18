@@ -207,7 +207,7 @@ const controlLoadUpdatePreset = async function (e) {
     updatePresetId = e.target.dataset.preset_id;
     if (updatePresetId) {
         const res = await getPreset(updatePresetId);
-        console.log(res);
+
         $('#title__update').val(res.title);
         $('#numExercise__update').val(res.numExercise);
         $('#timeExercise__update').val(res.timeExercise);
