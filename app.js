@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser');
-// const helmet = require('helmet');
+const helmet = require('helmet');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 
@@ -35,7 +35,15 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // Set security HTTP headers
-// app.use(helmet());
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            'script-src': ["'self'", 'https://unpkg.com/phosphor-icons'],
+            'default-src': ["'self'", 'http:', 'ws:'],
+            'frame-ancestors': ["'self'", 'https://unpkg.com/phosphor-icons'],
+        },
+    })
+);
 
 // Body & Cookies parser, reading data from body into req.body
 app.use(express.json());
