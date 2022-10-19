@@ -16,7 +16,7 @@ exports.signup = catchAsync(async (req, res, next) => {
         role: req.body.role,
     });
 
-    createSendToken(newUser, 201, res);
+    createSendToken(newUser, 201, req, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -31,7 +31,7 @@ exports.login = catchAsync(async (req, res, next) => {
         return next(new AppError('email or password is wrong cuh', 401));
     }
 
-    createSendToken(user, 200, res);
+    createSendToken(user, 200, req, res);
 });
 
 exports.logout = catchAsync(async (req, res, next) => {
@@ -56,7 +56,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
     user.passwordConfirm = req.body.passwordConfirm;
     await user.save();
 
-    createSendToken(user, 200, res);
+    createSendToken(user, 200, req, res);
 });
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
@@ -70,7 +70,9 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     // send email
-    const resetUrl = `<a href="http://127.0.0.1:8000/resetPassword/${resetToken}">reset password</a>`;
+    const resetUrl = `<a href="${req.protocol}://${req.get(
+        'host'
+    )}/resetPassword/${resetToken}">reset password</a>`;
     const html = `Click the link to reset password: ${resetUrl}`;
 
     try {
@@ -126,19 +128,18 @@ const jwtSignToken = (id) =>
         expiresIn: process.env.JWT_EXPIRES_IN,
     });
 
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = (user, statusCode, req, res) => {
     const token = jwtSignToken(user._id);
 
-    const cookieOptions = {
+    res.cookie('jwt', token, {
         expires: new Date(
             Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
         ),
-        // secure: true, // only in production(https)
         httpOnly: true,
-    };
-    if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
-    res.cookie('jwt', token, cookieOptions);
+        secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+    });
 
+    // remove password from output
     user.password = undefined;
     res.status(statusCode).json({
         status: 'success',
@@ -150,6 +151,7 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 exports.protect = catchAsync(async (req, res, next) => {
+    // Check if token exist
     let token;
     if (
         req.headers.authorization &&
@@ -164,11 +166,23 @@ exports.protect = catchAsync(async (req, res, next) => {
         return next(new AppError('not logged in', 401));
     }
 
+    // Verify Token
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
+    // Check if user exist
     const currUser = await User.findById(decoded.id);
     if (!currUser) {
         return next(new AppError('user not found', 401));
+    }
+
+    // Check if user changed password after token was issued
+    if (currUser.changedPasswordAfter(decoded.iat)) {
+        return next(
+            new AppError(
+                'User recently changed password! Please log in again.',
+                401
+            )
+        );
     }
 
     req.user = currUser;
@@ -192,9 +206,9 @@ exports.isLoggedIn = async (req, res, next) => {
             }
 
             // 3) Check if user changed password after the token was issued
-            // if (currUser.changedPasswordAfter(decoded.iat)) {
-            //     return next();
-            // }
+            if (currUser.changedPasswordAfter(decoded.iat)) {
+                return next();
+            }
 
             // THERE IS A LOGGED IN USER
             req.user = currUser;

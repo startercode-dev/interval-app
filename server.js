@@ -5,26 +5,37 @@ process.on('uncaughtException', (err) => {
     console.log(err.name, '|', err.message);
     process.exit(1);
 });
+
 dotenv.config({ path: './config.env' });
 const app = require('./app');
 
-const DB = process.env.DATABASE_LOCAL;
+const DB = process.env.DATABASE.replace(
+    '<password>',
+    process.env.DATABASE_PASSWORD
+);
 mongoose
     .connect(DB, {
         useNewUrlParser: true,
     })
     .then(() => {
-        console.log('connected to DB');
+        console.log('Connected to DB');
     });
 
 const port = process.env.PORT;
 const server = app.listen(port, () => {
-    console.log(`running at port ${port} ...`);
+    console.log(`Running at port ${port} ...`);
 });
 
 process.on('unhandledRejection', (err) => {
     console.log(err.name, '|', err.message);
     server.close(() => {
         process.exit(1);
+    });
+});
+
+process.on('SIGTERM', () => {
+    console.log('SIGTERM RECEIVED. Shutting down.');
+    server.close(() => {
+        console.log('Process terminated.');
     });
 });
