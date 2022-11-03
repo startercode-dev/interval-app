@@ -106,14 +106,7 @@ class TimerView extends View {
     }
 
     _count(t) {
-        const playTick = () => {
-            const tick = new Audio('../../assets/sounds/tick.mp3');
-            tick.play();
-        };
-        const playBeep = () => {
-            const beep = new Audio('../../assets/sounds/beep.mp3');
-            beep.play();
-        };
+        const beep = new Audio('../../assets/sounds/beep.mp3');
 
         let sec = t;
         let msec = t * 100;
@@ -129,14 +122,14 @@ class TimerView extends View {
                         $('.timer-clock__path-remaining').removeClass(
                             'animation'
                         );
-                        // playBeep();
+                        // beep.play();
                         resolve();
                     }
                     sec--;
                     $('.timer-clock__label').text(formatTime(sec));
                     $('.timer-clock__path-remaining').css('--time'); // RESET animation
                     if (sec < 4 && sec > 0) {
-                        playTick();
+                        beep.play();
                     }
                 }
             };
@@ -152,10 +145,7 @@ class TimerView extends View {
     }
 
     async readyCountdown() {
-        const playStart = () => {
-            const start = new Audio('../../assets/sounds/start.mp3');
-            start.play();
-        };
+        const start = new Audio('../../assets/sounds/start.mp3');
 
         $('.timer-clock__path-remaining')
             .css({
@@ -163,22 +153,14 @@ class TimerView extends View {
             })
             .addClass('animation');
         await this._count(8);
-        playStart();
+        start.play();
     }
 
     async mainCountdown() {
-        const playGo = () => {
-            const go = new Audio('../../assets/sounds/go.mp3');
-            go.play();
-        };
-        const playRest = () => {
-            const rest = new Audio('../../assets/sounds/rest.mp3');
-            rest.play();
-        };
-        const playFinished = () => {
-            const finished = new Audio('../../assets/sounds/finished.mp3');
-            finished.play();
-        };
+        const go = new Audio('../../assets/sounds/go.mp3');
+        const rest = new Audio('../../assets/sounds/rest.mp3');
+        const finished = new Audio('../../assets/sounds/finished.mp3');
+
         const { numExercise, timeExercise, restExercise, numSet, restSet } =
             this._data;
 
@@ -209,9 +191,9 @@ class TimerView extends View {
 
                 await this._count(timeExercise);
                 if (currNumE === numExercise && currNumS === numSet) {
-                    playFinished();
+                    finished.play();
                 } else {
-                    playRest();
+                    rest.play();
                 }
 
                 if (currNumE < numExercise && restExercise > 0) {
@@ -222,7 +204,7 @@ class TimerView extends View {
                         .addClass('animation');
 
                     await this._count(restExercise);
-                    playGo();
+                    go.play();
                 }
             }
 
@@ -233,7 +215,7 @@ class TimerView extends View {
                     })
                     .addClass('animation');
                 await this._count(restSet);
-                playGo();
+                go.play();
             }
         }
         $('.btn--pause').prop('disabled', true);
