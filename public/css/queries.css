@@ -197,6 +197,28 @@
     .timer-infos {
         display: block;
     }
+
+    .user-view__menu {
+        -webkit-box-flex: 25rem !important;
+        -ms-flex: 25rem 0 0px !important;
+        flex: 25rem 0 0 !important;
+        padding: 2rem 0 !important;
+    }
+
+    .user-view__content {
+        padding: 4rem 0 !important;
+    }
+    .user-view__form-container {
+        padding: 0 4rem !important;
+    }
+    .line__account {
+        margin: 4rem 0 !important;
+    }
+
+    /* .side-nav a:link,
+    .side-nav a:visited {
+        padding: 1rem 2rem !important;
+    } */
 }
 
 /*************************/
@@ -208,6 +230,7 @@
         display: none;
     }
 
+    .account-main,
     .signup-main,
     .login-main {
         padding: 8rem 4rem;
@@ -232,9 +255,37 @@
         font-size: 1.3rem !important;
         padding: 0.2rem 1.7rem !important;
     }
-    .btn-auth-back.btn--small {
+    .btn-auth-back2.btn--small {
         font-size: 1.2rem !important;
-        padding: 1.4rem 3rem !important;
+        padding: 1.1rem 3rem !important;
+        height: 3.5rem !important;
+    }
+
+    .btn-auth-signup,
+    .btn-auth-login {
+        padding: 1.2rem 5rem !important;
+    }
+    .btn-auth-back.btn--small,
+    .btn-auth-signup,
+    .btn-auth-login {
+        height: 4rem !important;
+    }
+
+    .btn-auth-back.btn--small {
+        padding: 1.2rem 3rem !important;
+    }
+
+    .user-view__menu {
+        display: none;
+    }
+
+    .dropdown-content {
+        width: 95px !important;
+    }
+    .dropdown--account,
+    .dropdown--logout {
+        font-size: 15px !important;
+        padding: 10px 7px !important;
     }
 }
 
@@ -254,6 +305,12 @@
         font-size: 1.118rem;
     }
 
+    .dropdown--account,
+    .dropdown--logout {
+        font-size: 13.5px !important;
+        padding: 13px 9px !important;
+    }
+
     /* BANNER */
     .logo {
         padding: 0;
@@ -266,7 +323,7 @@
     }
 
     .timer-clock__label {
-        font-size: 10rem;
+        font-size: 9.5rem;
         letter-spacing: 0.4rem;
     }
 
@@ -282,8 +339,15 @@
     }
 
     .timer-clock__remain {
-        font-size: 1.618rem;
+        font-size: 1.418rem;
         transform: translate(-50%, 0);
+    }
+
+    .settings {
+        transform: translate(32rem, 5rem);
+        z-index: 10;
+        opacity: 0.98;
+        box-shadow: 0px 8px 20px rgb(0 0 0 / 20%);
     }
 
     /* FOOTER */
@@ -292,6 +356,7 @@
     }
 
     /* AUTH */
+    .account-main,
     .signup-main,
     .login-main {
         padding: 8rem 2rem;
@@ -317,9 +382,27 @@
         font-size: 1rem !important;
         padding: 0.2rem 1.7rem !important;
     }
+    .btn-auth-back2.btn--small {
+        font-size: 1.1rem !important;
+        padding: 1rem 3rem !important;
+        height: 3.2rem !important;
+    }
+
+    .btn-auth-signup {
+        padding: 1.2rem 4rem !important;
+    }
+    .btn-auth-login {
+        padding: 1.2rem 4.7rem !important;
+    }
+
     .btn-auth-back.btn--small {
-        font-size: 1rem !important;
-        padding: 1.4rem 3rem !important;
+        padding: 1.2rem 2.5rem !important;
+    }
+
+    .btn-auth-save__setting,
+    .btn-auth-save__password {
+        height: 4rem !important;
+        padding: 1.2rem 3rem !important;
     }
 }
 

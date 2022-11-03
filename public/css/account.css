@@ -157,10 +157,12 @@
 }
 
 .btn--small {
-    padding: 1.25rem 3rem !important;
-    font-size: 1.4rem !important;
+    padding: 1.45rem 3.7rem !important;
+    font-size: 1.6rem !important;
+    height: 4.7rem !important;
 }
 
+.btn-auth-back2,
 .btn-auth-back,
 .btn-small,
 .btn-small:link,
@@ -171,7 +173,6 @@
     font-size: 1.4rem;
     padding: 1.25rem 3rem;
     border-radius: 10rem;
-    text-transform: uppercase;
     position: relative;
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
@@ -185,10 +186,12 @@
     background-color: #7dd56f;
 }
 
+.btn-auth-back2,
 .btn-auth-back {
     background-color: #f1f1f1;
 }
 
+.btn-auth-back2:focus,
 .btn-auth-back:focus {
     background-color: #ccc;
 }
