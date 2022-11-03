@@ -207,6 +207,35 @@
     .line--banner {
         display: none;
     }
+
+    .signup-main,
+    .login-main {
+        padding: 8rem 4rem;
+    }
+
+    .signup-form,
+    .login-form {
+        width: 36.5rem;
+        padding: 5rem 5rem !important;
+    }
+
+    .heading-secondary {
+        font-size: 2rem;
+    }
+
+    .login-form__label,
+    .login-form__input {
+        font-size: 1.5rem;
+    }
+
+    .btn-auth-forgot_password {
+        font-size: 1.3rem !important;
+        padding: 0.2rem 1.7rem !important;
+    }
+    .btn-auth-back.btn--small {
+        font-size: 1.2rem !important;
+        padding: 1.4rem 3rem !important;
+    }
 }
 
 /*************************/
@@ -260,6 +289,37 @@
     /* FOOTER */
     .footer {
         margin: 1.6rem 0 0;
+    }
+
+    /* AUTH */
+    .signup-main,
+    .login-main {
+        padding: 8rem 2rem;
+    }
+
+    .signup-form,
+    .login-form {
+        width: 30rem;
+        margin: 0 auto;
+        padding: 2rem 3rem !important;
+    }
+
+    .heading-secondary {
+        font-size: 2rem;
+    }
+
+    .login-form__label,
+    .login-form__input {
+        font-size: 1.5rem;
+    }
+
+    .btn-auth-forgot_password {
+        font-size: 1rem !important;
+        padding: 0.2rem 1.7rem !important;
+    }
+    .btn-auth-back.btn--small {
+        font-size: 1rem !important;
+        padding: 1.4rem 3rem !important;
     }
 }
 
