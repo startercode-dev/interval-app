@@ -122,7 +122,7 @@
     font-size: 1.6rem;
     padding: 1.4rem 3rem;
     border-radius: 10rem;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     display: inline-block;
     text-decoration: none;
     position: relative;
@@ -152,7 +152,6 @@
 
 .btn-auth:focus {
     outline: none;
-    background-color: #2e864b;
 }
 
 .btn-auth-reset_password,
@@ -163,6 +162,13 @@
 .btn-auth-save__password {
     background-color: #55c57a;
     color: #fff;
+}
+
+.btn-auth-signup {
+    padding: 1.4rem 10.5rem;
+}
+.btn-auth-login {
+    padding: 1.4rem 11rem;
 }
 
 .alert {

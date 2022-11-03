@@ -88,7 +88,7 @@
     display: none;
     position: absolute;
     background-color: #f7f7f7;
-    min-width: 160px;
+    width: 160px;
     font-size: 1.5rem;
     top: 1.8rem;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
