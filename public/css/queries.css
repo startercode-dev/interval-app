@@ -263,7 +263,7 @@
 
     .btn-auth-signup,
     .btn-auth-login {
-        padding: 1.2rem 5rem !important;
+        padding: 1rem 5rem !important;
     }
     .btn-auth-back.btn--small,
     .btn-auth-signup,
@@ -344,10 +344,11 @@
     }
 
     .settings {
-        transform: translate(32rem, 5rem);
-        z-index: 10;
-        opacity: 0.98;
-        box-shadow: 0px 8px 20px rgb(0 0 0 / 20%);
+        transform: translate(32rem, 4rem);
+    }
+
+    .timer-infos {
+        font-size: 1.3rem;
     }
 
     /* FOOTER */
@@ -389,10 +390,10 @@
     }
 
     .btn-auth-signup {
-        padding: 1.2rem 4rem !important;
+        padding: 1rem 4rem !important;
     }
     .btn-auth-login {
-        padding: 1.2rem 4.7rem !important;
+        padding: 1rem 4.7rem !important;
     }
 
     .btn-auth-back.btn--small {
@@ -402,7 +403,7 @@
     .btn-auth-save__setting,
     .btn-auth-save__password {
         height: 4rem !important;
-        padding: 1.2rem 3rem !important;
+        padding: 1rem 3rem !important;
     }
 }
 
