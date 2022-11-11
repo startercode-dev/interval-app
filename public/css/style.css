@@ -429,10 +429,12 @@
 .btn--login:link,
 .btn--login:visited {
     text-decoration: none;
+    color: #44af69;
+    font-weight: 700;
 }
 
 .btn--login:hover {
-    border-bottom: 1px solid #132a1e;
+    border-bottom: 1px solid #44af69;
 }
 
 .btn--save {
@@ -641,7 +643,7 @@
 
 .footer-logos {
     margin-top: 0.9rem;
-    grid-template-columns: repeat(5, 1fr);
+    /* grid-template-columns: repeat(5, 1fr); */
     gap: 1.6rem;
 }
 
