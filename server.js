@@ -13,17 +13,24 @@ const DB = process.env.DATABASE.replace(
     '<password>',
     process.env.DATABASE_PASSWORD
 );
-mongoose
-    .connect(DB, {
-        useNewUrlParser: true,
-    })
-    .then(() => {
+
+const connectDB = async () => {
+    try {
+        mongoose.connect(DB, {
+            useNewUrlParser: true,
+        });
         console.log('Connected to DB');
-    });
+    } catch (err) {
+        console.log(err);
+        process.exit(1);
+    }
+};
 
 const port = process.env.PORT;
-const server = app.listen(port, () => {
-    console.log(`Running at port ${port} ...`);
+const server = connectDB().then(() => {
+    app.listen(port, () => {
+        console.log(`Running at port ${port} ...`);
+    });
 });
 
 process.on('unhandledRejection', (err) => {
