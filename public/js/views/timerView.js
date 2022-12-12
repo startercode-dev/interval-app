@@ -129,7 +129,11 @@ class TimerView extends View {
                     $('.timer-clock__label').text(formatTime(sec));
                     $('.timer-clock__path-remaining').css('--time'); // RESET animation
                     if (sec < 4 && sec > 0) {
-                        beep.play();
+                        beep.play()
+                            .then()
+                            .catch((err) => {
+                                console.log(err);
+                            });
                     }
                 }
             };
@@ -153,7 +157,12 @@ class TimerView extends View {
             })
             .addClass('animation');
         await this._count(8);
-        start.play();
+        start
+            .play()
+            .then()
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     async mainCountdown() {
@@ -191,9 +200,18 @@ class TimerView extends View {
 
                 await this._count(timeExercise);
                 if (currNumE === numExercise && currNumS === numSet) {
-                    finished.play();
+                    finished
+                        .play()
+                        .then()
+                        .catch((err) => {
+                            console.log(err);
+                        });
                 } else {
-                    rest.play();
+                    rest.play()
+                        .then()
+                        .catch((err) => {
+                            console.log(err);
+                        });
                 }
 
                 if (currNumE < numExercise && restExercise > 0) {
@@ -204,7 +222,11 @@ class TimerView extends View {
                         .addClass('animation');
 
                     await this._count(restExercise);
-                    go.play();
+                    go.play()
+                        .then()
+                        .catch((err) => {
+                            console.log(err);
+                        });
                 }
             }
 
@@ -215,7 +237,11 @@ class TimerView extends View {
                     })
                     .addClass('animation');
                 await this._count(restSet);
-                go.play();
+                go.play()
+                    .then()
+                    .catch((err) => {
+                        console.log(err);
+                    });
             }
         }
         $('.btn--pause').prop('disabled', true);
