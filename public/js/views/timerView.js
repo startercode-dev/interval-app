@@ -130,7 +130,6 @@ class TimerView extends View {
                     $('.timer-clock__label').text(formatTime(sec));
                     $('.timer-clock__path-remaining').css('--time'); // RESET animation
                     if (sec < 4 && sec > 0) {
-                        debug;
                         beep.play();
                     }
                 }
