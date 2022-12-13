@@ -1,7 +1,6 @@
 import View from './View.js';
 import { formatTime } from '../helper.js';
 import $ from 'jquery';
-import { debug } from 'util';
 
 class TimerView extends View {
     totalTimer;
