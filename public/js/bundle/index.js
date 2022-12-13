@@ -9997,7 +9997,7 @@ class TimerView extends (0, _viewJsDefault.default) {
         });
     }
     _count(t) {
-        const beep = new Audio("../../assets/sounds/5sec.mp3");
+        const beep = new Audio("../../assets/sounds/beep.mp3");
         let sec = t;
         let msec = t * 100;
         return new Promise((resolve)=>{

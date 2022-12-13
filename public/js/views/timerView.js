@@ -107,7 +107,7 @@ class TimerView extends View {
     }
 
     _count(t) {
-        const beep = new Audio('../../assets/sounds/5sec.mp3');
+        const beep = new Audio('../../assets/sounds/beep.mp3');
 
         let sec = t;
         let msec = t * 100;
