@@ -6,10 +6,11 @@ interval.app is an all purpose interval timer, designed for interval type workou
 
 ### Features
 
-**_1.3-beta_**
+**1.3.x**
 
 -   login and save your workout preset for easy future access.
 -   audio cue for differentiating start and rest intervals, as well as countdown ticks for final seconds.
 -   full responsive from mobile to desktop.
 
-**check it out!** [interval.app](https://interval.up.railway.app/)
+_Update for 1.4_
+-   Implementing web worker so timer can run in the background.
